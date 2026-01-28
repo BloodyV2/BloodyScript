@@ -271,7 +271,7 @@ table.insert(v,ColorSequenceKeypoint.new(B,A.Color))
 table.insert(x,NumberSequenceKeypoint.new(B,A.Transparency or 0))
 end
 end
-
+--Locked
 table.sort(v,function(B,C)return B.Time<C.Time end)
 table.sort(x,function(B,C)return B.Time<C.Time end)
 
@@ -4920,7 +4920,7 @@ ap.ImageLabel.ImageColor3=Color3.new(1,1,1)
 ap.ImageLabel.ImageTransparency=.4
 
 local aq=ab("TextLabel",{
-Text="Locked - Premium",
+Text="Locked",
 TextSize=18,
 FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
 AutomaticSize="XY",
@@ -5247,7 +5247,7 @@ function ag.Lock(aE,aF)
 aj=false
 as.Active=true
 as.Visible=true
-aq.Text=aF or"Locked"
+aq.Text=aF or"Locked - Premium"
 end
 
 function ag.Unlock(aE)

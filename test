@@ -1,3 +1,5 @@
+--optionuilist
+
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -44,7 +46,6 @@ local assets = {
 	sliderbar = "rbxassetid://18772615246",
 	sliderhead = "rbxassetid://18772834246",
 }
---local optionname = Instance.new("ImageLabel")
 
 --// Functions
 local function GetGui()
@@ -2772,21 +2773,6 @@ function MacLib:Window(Settings)
 						optionUIPadding.PaddingLeft = UDim.new(0, 15)
 						optionUIPadding.Parent = option
 
-local optionIcon = Instance.new("ImageLabel")
-optionIcon.Name = "Icon"
-optionIcon.Size = UDim2.fromOffset(18, 18)
-optionIcon.BackgroundTransparency = 1
-optionIcon.ImageTransparency = 0.2
-optionIcon.LayoutOrder = 0
-optionIcon.Parent = option
-
-if typeof(v) == "table" and v.Image then
-    optionIcon.Image = v.Image
-    optionIcon.Visible = true
-else
-    optionIcon.Visible = false
-end
-
 						local optionName = Instance.new("TextLabel")
 						optionName.Name = "OptionName"
 						optionName.FontFace = Font.new(assets.interFont)
@@ -2814,6 +2800,20 @@ end
 						optionUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 						optionUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 						optionUIListLayout.Parent = option
+
+local optionIcon = Instance.new("ImageLabel")
+optionIcon.Name = "Icon"
+optionIcon.Size = UDim2.fromOffset(18, 18)
+optionIcon.BackgroundTransparency = 1
+optionIcon.ImageTransparency = 0.2
+optionIcon.LayoutOrder = 0
+if typeof(v) == "table" and v.Image then
+    optionIcon.Image = v.Image
+    optionIcon.Visible = true
+else
+    optionIcon.Visible = false
+end
+optionIcon.Parent = option
 
 						local checkmark = Instance.new("TextLabel")
 						checkmark.Name = "Checkmark"

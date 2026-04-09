@@ -44,6 +44,7 @@ local assets = {
 	sliderbar = "rbxassetid://18772615246",
 	sliderhead = "rbxassetid://18772834246",
 }
+--local optionname = Instance.new("ImageLabel")
 
 --// Functions
 local function GetGui()
@@ -1207,7 +1208,7 @@ function MacLib:Window(Settings)
 		globalSetting.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		globalSetting.BorderSizePixel = 0
 		globalSetting.Size = UDim2.fromOffset(200, 30)
---addoption
+
 		local globalSettingToggleUIPadding = Instance.new("UIPadding")
 		globalSettingToggleUIPadding.Name = "GlobalSettingToggleUIPadding"
 		globalSettingToggleUIPadding.PaddingLeft = UDim.new(0, 15)
@@ -2754,77 +2755,87 @@ function MacLib:Window(Settings)
 					interact.MouseButton1Click:Connect(ToggleDropdown)
 
 					local function addOption(i, v)
-    local option = Instance.new("TextButton")
-    option.Name = tostring(v)  -- Clé unique
-    option.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
-    option.Text = ""
-    option.TextColor3 = Color3.fromRGB(0, 0, 0)
-    option.TextSize = 14
-    option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    option.BackgroundTransparency = 1
-    option.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    option.BorderSizePixel = 0
-    option.Size = UDim2.new(1, 0, 0, 30)
-    option.LayoutOrder = i
+						local option = Instance.new("TextButton")
+						option.Name = "Option"
+						option.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
+						option.Text = ""
+						option.TextColor3 = Color3.fromRGB(0, 0, 0)
+						option.TextSize = 14
+						option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						option.BackgroundTransparency = 1
+						option.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						option.BorderSizePixel = 0
+						option.Size = UDim2.new(1, 0, 0, 30)
 
-    local optionUIPadding = Instance.new("UIPadding")
-    optionUIPadding.Name = "OptionUIPadding"
-    optionUIPadding.PaddingLeft = UDim.new(0, 15)
-    optionUIPadding.Parent = option
+						local optionUIPadding = Instance.new("UIPadding")
+						optionUIPadding.Name = "OptionUIPadding"
+						optionUIPadding.PaddingLeft = UDim.new(0, 15)
+						optionUIPadding.Parent = option
 
-    -- *** NOUVEAU : ImageLabel icône à gauche ***
-    local optionIcon = Instance.new("ImageLabel")
-    optionIcon.Name = "Icon"
-    optionIcon.Size = UDim2.new(0, 24, 0, 24)
-    optionIcon.Position = UDim2.new(0, 8, 0.5, -12)
-    optionIcon.AnchorPoint = Vector2.new(0, 0.5)
-    optionIcon.BackgroundTransparency = 1
-    optionIcon.ImageTransparency = 0.3
-    optionIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    optionIcon.Parent = option
+local optionIcon = Instance.new("ImageLabel")
+optionIcon.Name = "Icon"
+optionIcon.Size = UDim2.fromOffset(18, 18)
+optionIcon.BackgroundTransparency = 1
+optionIcon.ImageTransparency = 0.2
+optionIcon.LayoutOrder = 0
+optionIcon.Parent = option
 
-    -- *** MODIF : Texte décalé à droite ***
-    local optionName = Instance.new("TextLabel")
-    optionName.Name = "OptionName"
-    optionName.FontFace = Font.new(assets.interFont)
-    optionName.Text = typeof(v) == "table" and v.Name or tostring(v)
-    optionName.RichText = true
-    optionName.TextColor3 = Color3.fromRGB(255, 255, 255)
-    optionName.TextSize = 13
-    optionName.TextTransparency = 0.5
-    optionName.TextTruncate = Enum.TextTruncate.AtEnd
-    optionName.TextXAlignment = Enum.TextXAlignment.Left
-    optionName.TextYAlignment = Enum.TextYAlignment.Center
-    optionName.AnchorPoint = Vector2.new(0, 0.5)
-    optionName.AutomaticSize = Enum.AutomaticSize.XY
-    optionName.BackgroundTransparency = 1
-    optionName.Position = UDim2.new(0, 38, 0.5, 0)  -- Décalé pour icône
-    optionName.Parent = option
+if typeof(v) == "table" and v.Image then
+    optionIcon.Image = v.Image
+    optionIcon.Visible = true
+else
+    optionIcon.Visible = false
+end
 
-    -- Layout horizontal icône + texte
-    local optionUIListLayout = Instance.new("UIListLayout")
-    optionUIListLayout.Name = "OptionUIListLayout"
-    optionUIListLayout.Padding = UDim.new(0, 10)
-    optionUIListLayout.FillDirection = Enum.FillDirection.Horizontal
-    optionUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    optionUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-    optionUIListLayout.Parent = option
+						local optionName = Instance.new("TextLabel")
+						optionName.Name = "OptionName"
+						optionName.FontFace = Font.new(assets.interFont)
+						optionName.Text = v
+						optionName.RichText = true
+						optionName.TextColor3 = Color3.fromRGB(255, 255, 255)
+						optionName.TextSize = 13
+						optionName.TextTransparency = 0.5
+						optionName.TextTruncate = Enum.TextTruncate.AtEnd
+						optionName.TextXAlignment = Enum.TextXAlignment.Left
+						optionName.TextYAlignment = Enum.TextYAlignment.Top
+						optionName.AnchorPoint = Vector2.new(0, 0.5)
+						optionName.AutomaticSize = Enum.AutomaticSize.XY
+						optionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						optionName.BackgroundTransparency = 1
+						optionName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						optionName.BorderSizePixel = 0
+						optionName.Position = UDim2.fromScale(1.3e-07, 0.5)
+						optionName.Parent = option
 
-    local checkmark = Instance.new("TextLabel")
-    checkmark.Name = "Checkmark"
-    checkmark.FontFace = Font.new(assets.interFont)
-    checkmark.Text = "✓"
-    checkmark.TextColor3 = Color3.fromRGB(255, 255, 255)
-    checkmark.TextSize = 13
-    checkmark.TextTransparency = 1
-    checkmark.TextXAlignment = Enum.TextXAlignment.Left
-    checkmark.TextYAlignment = Enum.TextYAlignment.Top
-    checkmark.AnchorPoint = Vector2.new(0, 0.5)
-    checkmark.AutomaticSize = Enum.AutomaticSize.Y
-    checkmark.BackgroundTransparency = 1
-    checkmark.LayoutOrder = -1
-    checkmark.Position = UDim2.new(1, -15, 0.5, 0)
-    checkmark.Parent = option
+						local optionUIListLayout = Instance.new("UIListLayout")
+						optionUIListLayout.Name = "OptionUIListLayout"
+						optionUIListLayout.Padding = UDim.new(0, 10)
+						optionUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+						optionUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+						optionUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+						optionUIListLayout.Parent = option
+
+						local checkmark = Instance.new("TextLabel")
+						checkmark.Name = "Checkmark"
+						checkmark.FontFace = Font.new(assets.interFont)
+						checkmark.Text = "✓"
+						checkmark.TextColor3 = Color3.fromRGB(255, 255, 255)
+						checkmark.TextSize = 13
+						checkmark.TextTransparency = 1
+						checkmark.TextXAlignment = Enum.TextXAlignment.Left
+						checkmark.TextYAlignment = Enum.TextYAlignment.Top
+						checkmark.AnchorPoint = Vector2.new(0, 0.5)
+						checkmark.AutomaticSize = Enum.AutomaticSize.Y
+						checkmark.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						checkmark.BackgroundTransparency = 1
+						checkmark.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						checkmark.BorderSizePixel = 0
+						checkmark.LayoutOrder = -1
+						checkmark.Position = UDim2.fromScale(1.3e-07, 0.5)
+						checkmark.Size = UDim2.fromOffset(-10, 0)
+						checkmark.Parent = option
+
+						option.Parent = dropdownFrame
 
 						dropdownFrame.Parent = dropdown
 						OptionObjs[v] = {
@@ -2857,17 +2868,16 @@ function MacLib:Window(Settings)
 								TextTransparency = tweensettings.transparencyOut
 							})
 						}
-local optionKey = typeof(v) == "table" and v.Name or tostring(v)  -- Clé unique pour table
 
-local isSelected = false
-if DropdownFunctions.Settings.Default then
-    if DropdownFunctions.Settings.Multi then
-        isSelected = table.find(DropdownFunctions.Settings.Default, optionKey) ~= nil
-    else
-        isSelected = (DropdownFunctions.Settings.Default == i)
-    end
-end
-Toggle(optionKey, isSelected)  -- Utilise optionKey partout
+						local isSelected = false
+						if DropdownFunctions.Settings.Default then
+							if DropdownFunctions.Settings.Multi then
+								isSelected = table.find(DropdownFunctions.Settings.Default, v) and true or false
+							else
+								isSelected = (DropdownFunctions.Settings.Default == i) and true or false
+							end
+						end
+						Toggle(v, isSelected)
 
 						local option = OptionObjs[v].Button
 
@@ -5762,7 +5772,7 @@ function MacLib:Demo()
 				Title = "Demo Window",
 				Description = "Successfully Binded Keybind to - "..tostring(bind.Name),
 				Lifetime = 3
-			})--Dropdown
+			})
 		end,
 	}, "Keybind")
 

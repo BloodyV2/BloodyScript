@@ -1729,19 +1729,19 @@ toggleName.Position = UDim2.fromScale(0, 0.5)
 toggleName.Size = UDim2.new(1, -50, 0, 0)
 toggleName.Parent = toggle
 
-local toggle1 = Instance.new("ImageButton")
-toggle1.Name = "Toggle"
-toggle1.Image = assets.toggleBackground
-toggle1.ImageColor3 = Color3.fromRGB(87, 86, 86)
-toggle1.AutoButtonColor = false
-toggle1.AnchorPoint = Vector2.new(1, 0.5)
-toggle1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-toggle1.BackgroundTransparency = 1
-toggle1.BorderColor3 = Color3.fromRGB(0, 0, 0)
-toggle1.BorderSizePixel = 0
-toggle1.Position = UDim2.fromScale(1, 0.5)
-toggle1.Size = UDim2.fromOffset(41, 21)
-toggle1.ImageTransparency = 0.5
+					local toggle1 = Instance.new("ImageButton")
+					toggle1.Name = "Toggle"
+					toggle1.Image = assets.toggleBackground
+					toggle1.ImageColor3 = Color3.fromRGB(87, 86, 86)
+					toggle1.AutoButtonColor = false
+					toggle1.AnchorPoint = Vector2.new(1, 0.5)
+					toggle1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					toggle1.BackgroundTransparency = 1
+					toggle1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					toggle1.BorderSizePixel = 0
+					toggle1.Position = UDim2.fromScale(1, 0.5)
+					toggle1.Size = UDim2.fromOffset(41, 21)
+					toggle1.ImageTransparency = 0.5
 
 local toggleUIPadding = Instance.new("UIPadding")
 toggleUIPadding.Name = "ToggleUIPadding"
@@ -1768,7 +1768,7 @@ togglerHead.ImageTransparency = 0.8
 
 toggle1.Parent = toggle
 
-local toggle1Transparency = {Enabled = 0, Disabled = 0}
+local toggle1Transparency = {Enabled = 0, Disabled = 0.5}
 local togglerHeadTransparency = {Enabled = 0, Disabled = 0}
 
 local TweenSettings = {

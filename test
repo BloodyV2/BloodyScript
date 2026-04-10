@@ -5,7 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
-
+--sections
 --// Services
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
@@ -202,7 +202,7 @@ function MacLib:Window(Settings)
 	local stroke = Instance.new("UIStroke")
 	stroke.Name = "BaseUIStroke"
 	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	stroke.Color = Color3.fromRGB(255, 255, 255)
+	stroke.Color = Color3.fromRGB(255,0,0)
 	stroke.Transparency = windowControlSettings.strokeTransparency
 
 	local exit = Instance.new("TextButton")
@@ -716,8 +716,8 @@ function MacLib:Window(Settings)
 	local divider4 = Instance.new("Frame")
 	divider4.Name = "Divider"
 	divider4.AnchorPoint = Vector2.new(0, 1)
-	divider4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider4.BackgroundTransparency = 0.9
+	divider4.BackgroundColor3 = Color3.fromRGB(255,0,0)
+	divider4.BackgroundTransparency = 0.2
 	divider4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider4.BorderSizePixel = 0
 	divider4.Position = UDim2.fromScale(0, 1)
@@ -1354,8 +1354,8 @@ function MacLib:Window(Settings)
 		local divider3 = Instance.new("Frame")
 		divider3.Name = "Divider"
 		divider3.AnchorPoint = Vector2.new(0.5, 1)
-		divider3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		divider3.BackgroundTransparency = 0.9
+		divider3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+		divider3.BackgroundTransparency = 0.2
 		divider3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		divider3.BorderSizePixel = 0
 		divider3.Position = UDim2.fromScale(0.5, 1)

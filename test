@@ -5,7 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
---uistroke
+
 --// Services
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
@@ -125,7 +125,7 @@ function MacLib:Window(Settings)
 	local baseUIStroke = Instance.new("UIStroke")
 	baseUIStroke.Name = "BaseUIStroke"
 	baseUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	baseUIStroke.Color = Color3.fromRGB(255, 0, 0)
+	baseUIStroke.Color = Color3.fromRGB(255, 255, 255)
 	baseUIStroke.Transparency = 0.9
 	baseUIStroke.Parent = base
 
@@ -141,8 +141,8 @@ function MacLib:Window(Settings)
 	local divider = Instance.new("Frame")
 	divider.Name = "Divider"
 	divider.AnchorPoint = Vector2.new(1, 0)
-	divider.BackgroundColor3 = Color3.fromRGB(255,0,0)
-	divider.BackgroundTransparency = 0.2
+	divider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider.BackgroundTransparency = 0.9
 	divider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider.BorderSizePixel = 0
 	divider.Position = UDim2.fromScale(1, 0)
@@ -202,7 +202,7 @@ function MacLib:Window(Settings)
 	local stroke = Instance.new("UIStroke")
 	stroke.Name = "BaseUIStroke"
 	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	stroke.Color = Color3.fromRGB(255,0,0)
+	stroke.Color = Color3.fromRGB(255, 255, 255)
 	stroke.Transparency = windowControlSettings.strokeTransparency
 
 	local exit = Instance.new("TextButton")
@@ -299,8 +299,8 @@ function MacLib:Window(Settings)
 	local divider1 = Instance.new("Frame")
 	divider1.Name = "Divider"
 	divider1.AnchorPoint = Vector2.new(0, 1)
-	divider1.BackgroundColor3 = Color3.fromRGB(255,0,0)
-	divider1.BackgroundTransparency = 0.2
+	divider1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider1.BackgroundTransparency = 0.9
 	divider1.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider1.BorderSizePixel = 0
 	divider1.Position = UDim2.fromScale(0, 1)
@@ -321,8 +321,8 @@ function MacLib:Window(Settings)
 	local divider2 = Instance.new("Frame")
 	divider2.Name = "Divider"
 	divider2.AnchorPoint = Vector2.new(0, 1)
-	divider2.BackgroundColor3 = Color3.fromRGB(255,0,0)
-	divider2.BackgroundTransparency = 0.2
+	divider2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider2.BackgroundTransparency = 0.9
 	divider2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider2.BorderSizePixel = 0
 	divider2.Position = UDim2.fromScale(0, 1)
@@ -508,8 +508,8 @@ function MacLib:Window(Settings)
 	local baseUIStroke2 = Instance.new("UIStroke")
 	baseUIStroke2.Name = "BaseUIStroke"
 	baseUIStroke2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	baseUIStroke2.Color = Color3.fromRGB(255,0,0)
-	baseUIStroke2.Transparency = 0.2
+	baseUIStroke2.Color = Color3.fromRGB(255, 255, 255)
+	baseUIStroke2.Transparency = 0.9
 	baseUIStroke2.Parent = headshot
 
 	headshot.Parent = informationGroup
@@ -716,8 +716,8 @@ function MacLib:Window(Settings)
 	local divider4 = Instance.new("Frame")
 	divider4.Name = "Divider"
 	divider4.AnchorPoint = Vector2.new(0, 1)
-	divider4.BackgroundColor3 = Color3.fromRGB(255,0,0)
-	divider4.BackgroundTransparency = 0.2
+	divider4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider4.BackgroundTransparency = 0.9
 	divider4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider4.BorderSizePixel = 0
 	divider4.Position = UDim2.fromScale(0, 1)
@@ -1354,8 +1354,8 @@ function MacLib:Window(Settings)
 		local divider3 = Instance.new("Frame")
 		divider3.Name = "Divider"
 		divider3.AnchorPoint = Vector2.new(0.5, 1)
-		divider3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-		divider3.BackgroundTransparency = 0.2
+		divider3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		divider3.BackgroundTransparency = 0.9
 		divider3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		divider3.BorderSizePixel = 0
 		divider3.Position = UDim2.fromScale(0.5, 1)
@@ -1896,8 +1896,8 @@ function MacLib:Window(Settings)
 					local sliderValueUIStroke = Instance.new("UIStroke")
 					sliderValueUIStroke.Name = "SliderValueUIStroke"
 					sliderValueUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-					sliderValueUIStroke.Color = Color3.fromRGB(255, 0, 0)
-					sliderValueUIStroke.Transparency = 0.2
+					sliderValueUIStroke.Color = Color3.fromRGB(255, 255, 255)
+					sliderValueUIStroke.Transparency = 0.9
 					sliderValueUIStroke.Parent = sliderValue
 
 					local sliderValueUIPadding = Instance.new("UIPadding")
@@ -2150,8 +2150,8 @@ function MacLib:Window(Settings)
 					local inputBoxUIStroke = Instance.new("UIStroke")
 					inputBoxUIStroke.Name = "InputBoxUIStroke"
 					inputBoxUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-					inputBoxUIStroke.Color = Color3.fromRGB(255, 0, 0)
-					inputBoxUIStroke.Transparency = 0.2
+					inputBoxUIStroke.Color = Color3.fromRGB(255, 255, 255)
+					inputBoxUIStroke.Transparency = 0.9
 					inputBoxUIStroke.Parent = inputBox
 
 					local inputBoxUIPadding = Instance.new("UIPadding")
@@ -2327,8 +2327,8 @@ function MacLib:Window(Settings)
 					local binderBoxUIStroke = Instance.new("UIStroke")
 					binderBoxUIStroke.Name = "BinderBoxUIStroke"
 					binderBoxUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-					binderBoxUIStroke.Color = Color3.fromRGB(255, 0, 0)
-					binderBoxUIStroke.Transparency = 0.2
+					binderBoxUIStroke.Color = Color3.fromRGB(255, 255, 255)
+					binderBoxUIStroke.Transparency = 0.9
 					binderBoxUIStroke.Parent = binderBox
 
 					local binderBoxUIPadding = Instance.new("UIPadding")
@@ -2481,23 +2481,6 @@ function MacLib:Window(Settings)
 					interact.Size = UDim2.new(1, 0, 0, 38)
 					interact.Parent = dropdown
 
-					-- Header icon (affiché quand une option avec icône est sélectionnée)
-					local dropdownHeaderIcon = Instance.new("ImageLabel")
-					dropdownHeaderIcon.Name = "DropdownHeaderIcon"
-					dropdownHeaderIcon.Image = ""
-					dropdownHeaderIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					dropdownHeaderIcon.BackgroundTransparency = 1
-					dropdownHeaderIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					dropdownHeaderIcon.BorderSizePixel = 0
-					dropdownHeaderIcon.AnchorPoint = Vector2.new(0, 0.5)
-					dropdownHeaderIcon.Position = UDim2.new(0, 0, 0, 19) -- fixe à 19px = centre du header 38px
-					dropdownHeaderIcon.Size = UDim2.fromOffset(20, 20)
-					dropdownHeaderIcon.Visible = false
-					local dropdownHeaderIconUICorner = Instance.new("UICorner")
-					dropdownHeaderIconUICorner.CornerRadius = UDim.new(1, 0)
-					dropdownHeaderIconUICorner.Parent = dropdownHeaderIcon
-					dropdownHeaderIcon.Parent = dropdown
-
 					local dropdownName = Instance.new("TextLabel")
 					dropdownName.Name = "DropdownName"
 					dropdownName.FontFace = Font.new(assets.interFont)
@@ -2516,25 +2499,11 @@ function MacLib:Window(Settings)
 					dropdownName.Size = UDim2.new(1, -20, 0, 38)
 					dropdownName.Parent = dropdown
 
-					local function UpdateHeaderIcon(iconId)
-						if iconId and iconId ~= "" then
-							dropdownHeaderIcon.Image = iconId
-							dropdownHeaderIcon.Visible = true
-							-- Décale le texte vers la droite pour laisser la place à l'icône
-							dropdownName.Size = UDim2.new(1, -46, 0, 38)
-							dropdownName.Position = UDim2.new(0, 26, 0, 0)
-						else
-							dropdownHeaderIcon.Visible = false
-							dropdownName.Size = UDim2.new(1, -20, 0, 38)
-							dropdownName.Position = UDim2.new(0, 0, 0, 0)
-						end
-					end
-
 					local dropdownUIStroke = Instance.new("UIStroke")
 					dropdownUIStroke.Name = "DropdownUIStroke"
 					dropdownUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-					dropdownUIStroke.Color = Color3.fromRGB(255, 0, 0)
-					dropdownUIStroke.Transparency = 0.2
+					dropdownUIStroke.Color = Color3.fromRGB(255, 255, 255)
+					dropdownUIStroke.Transparency = 0.95
 					dropdownUIStroke.Parent = dropdown
 
 					local dropdownUICorner = Instance.new("UICorner")
@@ -2745,18 +2714,6 @@ function MacLib:Window(Settings)
 						else
 							dropdownName.Text = DropdownFunctions.Settings.Name .. "..."
 						end
-
-						-- Met à jour l'icône du header (seulement en single select)
-						if not DropdownFunctions.Settings.Multi then
-							if #Selected > 0 then
-								local selData = OptionObjs[Selected[1]]
-								UpdateHeaderIcon(selData and selData.Icon or nil)
-							else
-								UpdateHeaderIcon(nil)
-							end
-						else
-							UpdateHeaderIcon(nil)
-						end
 					end
 
 					local dropped = false
@@ -2797,12 +2754,6 @@ function MacLib:Window(Settings)
 					interact.MouseButton1Click:Connect(ToggleDropdown)
 
 					local function addOption(i, v)
-						-- Support {Name, Icon} ou simple string
-						local optionDisplayName = (type(v) == "table") and v.Name or v
-						local optionIcon = (type(v) == "table") and v.Icon or nil
-						-- Clé utilisée dans OptionObjs et Selected = toujours le nom string
-						local optionKey = optionDisplayName
-
 						local option = Instance.new("TextButton")
 						option.Name = "Option"
 						option.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
@@ -2820,9 +2771,29 @@ function MacLib:Window(Settings)
 						optionUIPadding.PaddingLeft = UDim.new(0, 15)
 						optionUIPadding.Parent = option
 
+						local optionName = Instance.new("TextLabel")
+						optionName.Name = "OptionName"
+						optionName.FontFace = Font.new(assets.interFont)
+						optionName.Text = v
+						optionName.RichText = true
+						optionName.TextColor3 = Color3.fromRGB(255, 255, 255)
+						optionName.TextSize = 13
+						optionName.TextTransparency = 0.5
+						optionName.TextTruncate = Enum.TextTruncate.AtEnd
+						optionName.TextXAlignment = Enum.TextXAlignment.Left
+						optionName.TextYAlignment = Enum.TextYAlignment.Top
+						optionName.AnchorPoint = Vector2.new(0, 0.5)
+						optionName.AutomaticSize = Enum.AutomaticSize.XY
+						optionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						optionName.BackgroundTransparency = 1
+						optionName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						optionName.BorderSizePixel = 0
+						optionName.Position = UDim2.fromScale(1.3e-07, 0.5)
+						optionName.Parent = option
+
 						local optionUIListLayout = Instance.new("UIListLayout")
 						optionUIListLayout.Name = "OptionUIListLayout"
-						optionUIListLayout.Padding = UDim.new(0, 7)
+						optionUIListLayout.Padding = UDim.new(0, 10)
 						optionUIListLayout.FillDirection = Enum.FillDirection.Horizontal
 						optionUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 						optionUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
@@ -2848,60 +2819,15 @@ function MacLib:Window(Settings)
 						checkmark.Size = UDim2.fromOffset(-10, 0)
 						checkmark.Parent = option
 
-						-- Icône option (visible seulement si optionIcon fourni)
-						local optionIconLabel = Instance.new("ImageLabel")
-						optionIconLabel.Name = "OptionIcon"
-						optionIconLabel.BackgroundTransparency = 1
-						optionIconLabel.BorderSizePixel = 0
-						optionIconLabel.Size = UDim2.fromOffset(20, 20)
-						optionIconLabel.LayoutOrder = 0
-						optionIconLabel.AnchorPoint = Vector2.new(0, 0.5)
-						if optionIcon and optionIcon ~= "" then
-							optionIconLabel.Image = optionIcon
-							optionIconLabel.Visible = true
-							local iconCorner = Instance.new("UICorner")
-							iconCorner.CornerRadius = UDim.new(1, 0)
-							iconCorner.Parent = optionIconLabel
-						else
-							optionIconLabel.Visible = false
-							optionIconLabel.Size = UDim2.fromOffset(0, 20)
-						end
-						optionIconLabel.Parent = option
-
-						local optionName = Instance.new("TextLabel")
-						optionName.Name = "OptionName"
-						optionName.FontFace = Font.new(assets.interFont)
-						optionName.Text = optionDisplayName
-						optionName.RichText = true
-						optionName.TextColor3 = Color3.fromRGB(255, 255, 255)
-						optionName.TextSize = 13
-						optionName.TextTransparency = 0.5
-						optionName.TextTruncate = Enum.TextTruncate.AtEnd
-						optionName.TextXAlignment = Enum.TextXAlignment.Left
-						optionName.TextYAlignment = Enum.TextYAlignment.Top
-						optionName.AnchorPoint = Vector2.new(0, 0.5)
-						optionName.AutomaticSize = Enum.AutomaticSize.XY
-						optionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-						optionName.BackgroundTransparency = 1
-						optionName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-						optionName.BorderSizePixel = 0
-						optionName.LayoutOrder = 1
-						optionName.Position = UDim2.fromScale(1.3e-07, 0.5)
-						optionName.Parent = option
-
 						option.Parent = dropdownFrame
 
 						dropdownFrame.Parent = dropdown
-						OptionObjs[optionKey] = {
+						OptionObjs[v] = {
 							Index = i,
 							Button = option,
 							NameLabel = optionName,
-							Checkmark = checkmark,
-							Icon = optionIcon or nil
+							Checkmark = checkmark
 						}
-
-						-- Remplace v par optionKey pour que Toggle fonctionne sur le nom string
-						v = optionKey
 
 						local tweensettings = {
 							duration = 0.2,
@@ -4396,6 +4322,31 @@ function MacLib:Window(Settings)
 					uIPadding.PaddingBottom = UDim.new(0, 5)
 					uIPadding.Parent = header
 
+					-- UIListLayout horizontal pour icône + texte
+					local headerUIListLayout = Instance.new("UIListLayout")
+					headerUIListLayout.Name = "HeaderUIListLayout"
+					headerUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+					headerUIListLayout.Padding = UDim.new(0, 7)
+					headerUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+					headerUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+					headerUIListLayout.Parent = header
+
+					-- Icône optionnelle (LayoutOrder = 0, donc avant le texte)
+					local headerIcon = nil
+					if Settings.Icon and Settings.Icon ~= "" then
+						headerIcon = Instance.new("ImageLabel")
+						headerIcon.Name = "HeaderIcon"
+						headerIcon.Image = Settings.Icon
+						headerIcon.BackgroundTransparency = 1
+						headerIcon.BorderSizePixel = 0
+						headerIcon.Size = UDim2.fromOffset(18, 18)
+						headerIcon.LayoutOrder = 0
+						local headerIconUICorner = Instance.new("UICorner")
+						headerIconUICorner.CornerRadius = UDim.new(0, 4)
+						headerIconUICorner.Parent = headerIcon
+						headerIcon.Parent = header
+					end
+
 					local headerText = Instance.new("TextLabel")
 					headerText.Name = "HeaderText"
 					headerText.FontFace = Font.new(
@@ -4410,12 +4361,13 @@ function MacLib:Window(Settings)
 					headerText.TextTransparency = 0.3
 					headerText.TextWrapped = true
 					headerText.TextXAlignment = Enum.TextXAlignment.Left
-					headerText.AutomaticSize = Enum.AutomaticSize.Y
+					headerText.AutomaticSize = Enum.AutomaticSize.XY
 					headerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 					headerText.BackgroundTransparency = 1
 					headerText.BorderColor3 = Color3.fromRGB(0, 0, 0)
 					headerText.BorderSizePixel = 0
-					headerText.Size = UDim2.fromScale(1, 0)
+					headerText.LayoutOrder = 1
+					headerText.Size = UDim2.fromOffset(0, 0)
 					headerText.Parent = header
 
 					function HeaderFunctions:UpdateName(New)
@@ -4423,6 +4375,11 @@ function MacLib:Window(Settings)
 					end
 					function HeaderFunctions:SetVisibility(State)
 						header.Visible = State
+					end
+					function HeaderFunctions:UpdateIcon(NewIcon)
+						if headerIcon then
+							headerIcon.Image = NewIcon
+						end
 					end
 
 					if Flag then

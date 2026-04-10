@@ -1768,7 +1768,7 @@ togglerHead.ImageTransparency = 0.8
 
 toggle1.Parent = toggle
 
-local toggle1Transparency = {Enabled = 0, Disabled = 0.5}
+local toggle1Transparency = {Enabled = 0.5, Disabled = 0.75}
 local togglerHeadTransparency = {Enabled = 0, Disabled = 0}
 
 local TweenSettings = {

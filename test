@@ -125,7 +125,7 @@ function MacLib:Window(Settings)
 	local baseUIStroke = Instance.new("UIStroke")
 	baseUIStroke.Name = "BaseUIStroke"
 	baseUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	baseUIStroke.Color = Color3.fromRGB(255, 255, 255)
+	baseUIStroke.Color = Color3.fromRGB(255, 0, 0)
 	baseUIStroke.Transparency = 0.9
 	baseUIStroke.Parent = base
 
@@ -141,8 +141,8 @@ function MacLib:Window(Settings)
 	local divider = Instance.new("Frame")
 	divider.Name = "Divider"
 	divider.AnchorPoint = Vector2.new(1, 0)
-	divider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider.BackgroundTransparency = 0.9
+	divider.BackgroundColor3 = Color3.fromRGB(255,0,0)
+	divider.BackgroundTransparency = 0.2
 	divider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider.BorderSizePixel = 0
 	divider.Position = UDim2.fromScale(1, 0)
@@ -299,8 +299,8 @@ function MacLib:Window(Settings)
 	local divider1 = Instance.new("Frame")
 	divider1.Name = "Divider"
 	divider1.AnchorPoint = Vector2.new(0, 1)
-	divider1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider1.BackgroundTransparency = 0.9
+	divider1.BackgroundColor3 = Color3.fromRGB(255,0,0)
+	divider1.BackgroundTransparency = 0.2
 	divider1.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider1.BorderSizePixel = 0
 	divider1.Position = UDim2.fromScale(0, 1)
@@ -321,8 +321,8 @@ function MacLib:Window(Settings)
 	local divider2 = Instance.new("Frame")
 	divider2.Name = "Divider"
 	divider2.AnchorPoint = Vector2.new(0, 1)
-	divider2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider2.BackgroundTransparency = 0.9
+	divider2.BackgroundColor3 = Color3.fromRGB(255,0,0)
+	divider2.BackgroundTransparency = 0.2
 	divider2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider2.BorderSizePixel = 0
 	divider2.Position = UDim2.fromScale(0, 1)
@@ -508,8 +508,8 @@ function MacLib:Window(Settings)
 	local baseUIStroke2 = Instance.new("UIStroke")
 	baseUIStroke2.Name = "BaseUIStroke"
 	baseUIStroke2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	baseUIStroke2.Color = Color3.fromRGB(255, 255, 255)
-	baseUIStroke2.Transparency = 0.9
+	baseUIStroke2.Color = Color3.fromRGB(255,0,0)
+	baseUIStroke2.Transparency = 0.2
 	baseUIStroke2.Parent = headshot
 
 	headshot.Parent = informationGroup

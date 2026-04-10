@@ -5,7 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
---toggle
+
 --// Services
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
@@ -141,8 +141,8 @@ function MacLib:Window(Settings)
 	local divider = Instance.new("Frame")
 	divider.Name = "Divider"
 	divider.AnchorPoint = Vector2.new(1, 0)
-	divider.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	divider.BackgroundTransparency = 0.2
+	divider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider.BackgroundTransparency = 0.9
 	divider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider.BorderSizePixel = 0
 	divider.Position = UDim2.fromScale(1, 0)
@@ -299,8 +299,8 @@ function MacLib:Window(Settings)
 	local divider1 = Instance.new("Frame")
 	divider1.Name = "Divider"
 	divider1.AnchorPoint = Vector2.new(0, 1)
-	divider1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	divider1.BackgroundTransparency = 0.2
+	divider1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider1.BackgroundTransparency = 0.9
 	divider1.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider1.BorderSizePixel = 0
 	divider1.Position = UDim2.fromScale(0, 1)
@@ -321,8 +321,8 @@ function MacLib:Window(Settings)
 	local divider2 = Instance.new("Frame")
 	divider2.Name = "Divider"
 	divider2.AnchorPoint = Vector2.new(0, 1)
-	divider2.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	divider2.BackgroundTransparency = 0.2
+	divider2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider2.BackgroundTransparency = 0.9
 	divider2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider2.BorderSizePixel = 0
 	divider2.Position = UDim2.fromScale(0, 1)
@@ -716,8 +716,8 @@ function MacLib:Window(Settings)
 	local divider4 = Instance.new("Frame")
 	divider4.Name = "Divider"
 	divider4.AnchorPoint = Vector2.new(0, 1)
-	divider4.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	divider4.BackgroundTransparency = 0.2
+	divider4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	divider4.BackgroundTransparency = 0.9
 	divider4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider4.BorderSizePixel = 0
 	divider4.Position = UDim2.fromScale(0, 1)
@@ -1354,8 +1354,8 @@ function MacLib:Window(Settings)
 		local divider3 = Instance.new("Frame")
 		divider3.Name = "Divider"
 		divider3.AnchorPoint = Vector2.new(0.5, 1)
-		divider3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-		divider3.BackgroundTransparency = 0.2
+		divider3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		divider3.BackgroundTransparency = 0.9
 		divider3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		divider3.BorderSizePixel = 0
 		divider3.Position = UDim2.fromScale(0.5, 1)
@@ -1579,8 +1579,8 @@ function MacLib:Window(Settings)
 				local sectionUIStroke = Instance.new("UIStroke")
 				sectionUIStroke.Name = "SectionUIStroke"
 				sectionUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-				sectionUIStroke.Color = Color3.fromRGB(255, 0, 0)
-				sectionUIStroke.Transparency = 0.2
+				sectionUIStroke.Color = Color3.fromRGB(255, 255, 255)
+				sectionUIStroke.Transparency = 0.95
 				sectionUIStroke.Parent = section
 
 				local sectionUIListLayout = Instance.new("UIListLayout")
@@ -1727,7 +1727,7 @@ function MacLib:Window(Settings)
 					local toggle1 = Instance.new("ImageButton")
 					toggle1.Name = "Toggle"
 					toggle1.Image = assets.toggleBackground
-					toggle1.ImageColor3 = Color3.fromRGB(255,0,0)
+					toggle1.ImageColor3 = Color3.fromRGB(87, 86, 86)
 					toggle1.AutoButtonColor = false
 					toggle1.AnchorPoint = Vector2.new(1, 0.5)
 					toggle1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1749,7 +1749,7 @@ function MacLib:Window(Settings)
 					local togglerHead = Instance.new("ImageLabel")
 					togglerHead.Name = "TogglerHead"
 					togglerHead.Image = assets.togglerHead
-					togglerHead.ImageColor3 = Color3.fromRGB(0, 255, 0)
+					togglerHead.ImageColor3 = ToggleFunctions.Settings.Default and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 50, 50)
 					togglerHead.AnchorPoint = Vector2.new(1, 0.5)
 					togglerHead.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 					togglerHead.BackgroundTransparency = 1
@@ -1779,13 +1779,15 @@ function MacLib:Window(Settings)
 						local transparencyValues = State and {toggle1Transparency.Enabled, togglerHeadTransparency.Enabled}
 							or {toggle1Transparency.Disabled, togglerHeadTransparency.Disabled}
 						local position = State and TweenSettings.EnabledPosition or TweenSettings.DisabledPosition
+						local headColor = State and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 50, 50)
 
 						Tween(toggle1, TweenSettings.Info, {
 							ImageTransparency = transparencyValues[1]
 						}):Play()
 
 						Tween(togglerHead, TweenSettings.Info, {
-							ImageTransparency = transparencyValues[2]
+							ImageTransparency = transparencyValues[2],
+							ImageColor3 = headColor
 						}):Play()
 
 						Tween(togglerHead, TweenSettings.Info, {
@@ -2502,8 +2504,8 @@ function MacLib:Window(Settings)
 					local dropdownUIStroke = Instance.new("UIStroke")
 					dropdownUIStroke.Name = "DropdownUIStroke"
 					dropdownUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-					dropdownUIStroke.Color = Color3.fromRGB(255, 0, 0)
-					dropdownUIStroke.Transparency = 0.2
+					dropdownUIStroke.Color = Color3.fromRGB(255, 255, 255)
+					dropdownUIStroke.Transparency = 0.95
 					dropdownUIStroke.Parent = dropdown
 
 					local dropdownUICorner = Instance.new("UICorner")

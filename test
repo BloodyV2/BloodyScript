@@ -1,5 +1,3 @@
---optionuilist
-
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2483,6 +2481,23 @@ function MacLib:Window(Settings)
 					interact.Size = UDim2.new(1, 0, 0, 38)
 					interact.Parent = dropdown
 
+					-- Header icon (affiché quand une option avec icône est sélectionnée)
+					local dropdownHeaderIcon = Instance.new("ImageLabel")
+					dropdownHeaderIcon.Name = "DropdownHeaderIcon"
+					dropdownHeaderIcon.Image = ""
+					dropdownHeaderIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					dropdownHeaderIcon.BackgroundTransparency = 1
+					dropdownHeaderIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					dropdownHeaderIcon.BorderSizePixel = 0
+					dropdownHeaderIcon.AnchorPoint = Vector2.new(0, 0.5)
+					dropdownHeaderIcon.Position = UDim2.new(0, 0, 0.5, 0)
+					dropdownHeaderIcon.Size = UDim2.fromOffset(20, 20)
+					dropdownHeaderIcon.Visible = false
+					local dropdownHeaderIconUICorner = Instance.new("UICorner")
+					dropdownHeaderIconUICorner.CornerRadius = UDim.new(1, 0)
+					dropdownHeaderIconUICorner.Parent = dropdownHeaderIcon
+					dropdownHeaderIcon.Parent = dropdown
+
 					local dropdownName = Instance.new("TextLabel")
 					dropdownName.Name = "DropdownName"
 					dropdownName.FontFace = Font.new(assets.interFont)
@@ -2500,6 +2515,21 @@ function MacLib:Window(Settings)
 					dropdownName.BorderSizePixel = 0
 					dropdownName.Size = UDim2.new(1, -20, 0, 38)
 					dropdownName.Parent = dropdown
+
+					-- Fonction interne pour mettre à jour l'icône header
+					local function UpdateHeaderIcon(iconId)
+						if iconId and iconId ~= "" then
+							dropdownHeaderIcon.Image = iconId
+							dropdownHeaderIcon.Visible = true
+							-- Décale le texte vers la droite pour laisser la place à l'icône
+							dropdownName.Size = UDim2.new(1, -46, 0, 38)
+							dropdownName.Position = UDim2.new(0, 26, 0, 0)
+						else
+							dropdownHeaderIcon.Visible = false
+							dropdownName.Size = UDim2.new(1, -20, 0, 38)
+							dropdownName.Position = UDim2.new(0, 0, 0, 0)
+						end
+					end
 
 					local dropdownUIStroke = Instance.new("UIStroke")
 					dropdownUIStroke.Name = "DropdownUIStroke"
@@ -2716,6 +2746,18 @@ function MacLib:Window(Settings)
 						else
 							dropdownName.Text = DropdownFunctions.Settings.Name .. "..."
 						end
+
+						-- Met à jour l'icône du header (seulement en single select)
+						if not DropdownFunctions.Settings.Multi then
+							if #Selected > 0 then
+								local selData = OptionObjs[Selected[1]]
+								UpdateHeaderIcon(selData and selData.Icon or nil)
+							else
+								UpdateHeaderIcon(nil)
+							end
+						else
+							UpdateHeaderIcon(nil)
+						end
 					end
 
 					local dropped = false
@@ -2756,6 +2798,12 @@ function MacLib:Window(Settings)
 					interact.MouseButton1Click:Connect(ToggleDropdown)
 
 					local function addOption(i, v)
+						-- Support {Name, Icon} ou simple string
+						local optionDisplayName = (type(v) == "table") and v.Name or v
+						local optionIcon = (type(v) == "table") and v.Icon or nil
+						-- Clé utilisée dans OptionObjs et Selected = toujours le nom string
+						local optionKey = optionDisplayName
+
 						local option = Instance.new("TextButton")
 						option.Name = "Option"
 						option.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
@@ -2773,47 +2821,13 @@ function MacLib:Window(Settings)
 						optionUIPadding.PaddingLeft = UDim.new(0, 15)
 						optionUIPadding.Parent = option
 
-						local optionName = Instance.new("TextLabel")
-						optionName.Name = "OptionName"
-						optionName.FontFace = Font.new(assets.interFont)
-						optionName.Text = v
-						optionName.RichText = true
-						optionName.TextColor3 = Color3.fromRGB(255, 255, 255)
-						optionName.TextSize = 13
-						optionName.TextTransparency = 0.5
-						optionName.TextTruncate = Enum.TextTruncate.AtEnd
-						optionName.TextXAlignment = Enum.TextXAlignment.Left
-						optionName.TextYAlignment = Enum.TextYAlignment.Top
-						optionName.AnchorPoint = Vector2.new(0, 0.5)
-						optionName.AutomaticSize = Enum.AutomaticSize.XY
-						optionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-						optionName.BackgroundTransparency = 1
-						optionName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-						optionName.BorderSizePixel = 0
-						optionName.Position = UDim2.fromScale(1.3e-07, 0.5)
-						optionName.Parent = option
-
 						local optionUIListLayout = Instance.new("UIListLayout")
 						optionUIListLayout.Name = "OptionUIListLayout"
-						optionUIListLayout.Padding = UDim.new(0, 10)
+						optionUIListLayout.Padding = UDim.new(0, 7)
 						optionUIListLayout.FillDirection = Enum.FillDirection.Horizontal
 						optionUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 						optionUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 						optionUIListLayout.Parent = option
-
-local optionIcon = Instance.new("ImageLabel")
-optionIcon.Name = "Icon"
-optionIcon.Size = UDim2.fromOffset(18, 18)
-optionIcon.BackgroundTransparency = 1
-optionIcon.ImageTransparency = 0.2
-optionIcon.LayoutOrder = 0
-if typeof(v) == "table" and v.Image then
-    optionIcon.Image = v.Image
-    optionIcon.Visible = true
-else
-    optionIcon.Visible = false
-end
-optionIcon.Parent = option
 
 						local checkmark = Instance.new("TextLabel")
 						checkmark.Name = "Checkmark"
@@ -2835,15 +2849,60 @@ optionIcon.Parent = option
 						checkmark.Size = UDim2.fromOffset(-10, 0)
 						checkmark.Parent = option
 
+						-- Icône option (visible seulement si optionIcon fourni)
+						local optionIconLabel = Instance.new("ImageLabel")
+						optionIconLabel.Name = "OptionIcon"
+						optionIconLabel.BackgroundTransparency = 1
+						optionIconLabel.BorderSizePixel = 0
+						optionIconLabel.Size = UDim2.fromOffset(20, 20)
+						optionIconLabel.LayoutOrder = 0
+						optionIconLabel.AnchorPoint = Vector2.new(0, 0.5)
+						if optionIcon and optionIcon ~= "" then
+							optionIconLabel.Image = optionIcon
+							optionIconLabel.Visible = true
+							local iconCorner = Instance.new("UICorner")
+							iconCorner.CornerRadius = UDim.new(1, 0)
+							iconCorner.Parent = optionIconLabel
+						else
+							optionIconLabel.Visible = false
+							optionIconLabel.Size = UDim2.fromOffset(0, 20)
+						end
+						optionIconLabel.Parent = option
+
+						local optionName = Instance.new("TextLabel")
+						optionName.Name = "OptionName"
+						optionName.FontFace = Font.new(assets.interFont)
+						optionName.Text = optionDisplayName
+						optionName.RichText = true
+						optionName.TextColor3 = Color3.fromRGB(255, 255, 255)
+						optionName.TextSize = 13
+						optionName.TextTransparency = 0.5
+						optionName.TextTruncate = Enum.TextTruncate.AtEnd
+						optionName.TextXAlignment = Enum.TextXAlignment.Left
+						optionName.TextYAlignment = Enum.TextYAlignment.Top
+						optionName.AnchorPoint = Vector2.new(0, 0.5)
+						optionName.AutomaticSize = Enum.AutomaticSize.XY
+						optionName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						optionName.BackgroundTransparency = 1
+						optionName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						optionName.BorderSizePixel = 0
+						optionName.LayoutOrder = 1
+						optionName.Position = UDim2.fromScale(1.3e-07, 0.5)
+						optionName.Parent = option
+
 						option.Parent = dropdownFrame
 
 						dropdownFrame.Parent = dropdown
-						OptionObjs[v] = {
+						OptionObjs[optionKey] = {
 							Index = i,
 							Button = option,
 							NameLabel = optionName,
-							Checkmark = checkmark
+							Checkmark = checkmark,
+							Icon = optionIcon or nil
 						}
+
+						-- Remplace v par optionKey pour que Toggle fonctionne sur le nom string
+						v = optionKey
 
 						local tweensettings = {
 							duration = 0.2,

@@ -2490,7 +2490,7 @@ function MacLib:Window(Settings)
 					dropdownHeaderIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
 					dropdownHeaderIcon.BorderSizePixel = 0
 					dropdownHeaderIcon.AnchorPoint = Vector2.new(0, 0.5)
-					dropdownHeaderIcon.Position = UDim2.new(0, 0, 0.5, 0)
+					dropdownHeaderIcon.Position = UDim2.new(0, 0, 0, 19) -- fixe à 19px = centre du header 38px
 					dropdownHeaderIcon.Size = UDim2.fromOffset(20, 20)
 					dropdownHeaderIcon.Visible = false
 					local dropdownHeaderIconUICorner = Instance.new("UICorner")
@@ -2516,7 +2516,6 @@ function MacLib:Window(Settings)
 					dropdownName.Size = UDim2.new(1, -20, 0, 38)
 					dropdownName.Parent = dropdown
 
-					-- Fonction interne pour mettre à jour l'icône header
 					local function UpdateHeaderIcon(iconId)
 						if iconId and iconId ~= "" then
 							dropdownHeaderIcon.Image = iconId

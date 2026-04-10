@@ -1691,9 +1691,8 @@ function MacLib:Window(Settings)
 					return ButtonFunctions
 				end
 
-function SectionFunctions:Toggle(Settings, Flag)
+				function SectionFunctions:Toggle(Settings, Flag)
     local ToggleFunctions = { Settings = Settings, IgnoreConfig = false, Class = "Toggle" }
-    
     local toggle = Instance.new("Frame")
     toggle.Name = "Toggle"
     toggle.AutomaticSize = Enum.AutomaticSize.Y
@@ -1728,7 +1727,7 @@ function SectionFunctions:Toggle(Settings, Flag)
     local toggle1 = Instance.new("ImageButton")
     toggle1.Name = "Toggle"
     toggle1.Image = assets.toggleBackground
-    toggle1.ImageColor3 = Color3.fromRGB(88,86,86) -- gris initial
+    toggle1.ImageColor3 = Color3.fromRGB(255, 0, 0)
     toggle1.AutoButtonColor = false
     toggle1.AnchorPoint = Vector2.new(1, 0.5)
     toggle1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1737,7 +1736,7 @@ function SectionFunctions:Toggle(Settings, Flag)
     toggle1.BorderSizePixel = 0
     toggle1.Position = UDim2.fromScale(1, 0.5)
     toggle1.Size = UDim2.fromOffset(41, 21)
-    toggle1.ImageTransparency = 0.5
+    toggle1.ImageTransparency = 0.2
 
     local toggleUIPadding = Instance.new("UIPadding")
     toggleUIPadding.Name = "ToggleUIPadding"
@@ -1750,7 +1749,7 @@ function SectionFunctions:Toggle(Settings, Flag)
     local togglerHead = Instance.new("ImageLabel")
     togglerHead.Name = "TogglerHead"
     togglerHead.Image = assets.togglerHead
-    togglerHead.ImageColor3 = Color3.fromRGB(0, 255, 0) -- vert par défaut
+    togglerHead.ImageColor3 = Color3.fromRGB(255, 255, 255)
     togglerHead.AnchorPoint = Vector2.new(1, 0.5)
     togglerHead.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     togglerHead.BackgroundTransparency = 1
@@ -1760,22 +1759,9 @@ function SectionFunctions:Toggle(Settings, Flag)
     togglerHead.Size = UDim2.fromOffset(15, 15)
     togglerHead.ZIndex = 2
     togglerHead.Parent = toggle1
-    togglerHead.ImageTransparency = 0.8
+    togglerHead.ImageTransparency = 0.85
 
     toggle1.Parent = toggle
-
-    local toggle1Transparency = {Enabled = 0, Disabled = 0.2} -- moins gris (0.2 au lieu de 0.5)
-    local togglerHeadTransparency = {Enabled = 0, Disabled = 0.85}
-    
-    -- NOUVELLES COULEURS
-    local toggle1Colors = {
-        Enabled = Color3.fromRGB(0, 255, 0),   -- VERT quand activé
-        Disabled = Color3.fromRGB(255, 0, 0)   -- ROUGE quand désactivé
-    }
-    local togglerHeadColors = {
-        Enabled = Color3.fromRGB(255, 255, 255),  -- Blanc pour le head activé
-        Disabled = Color3.fromRGB(255, 255, 255)  -- Blanc pour le head désactivé
-    }
 
     local TweenSettings = {
         Info = TweenInfo.new(0.15, Enum.EasingStyle.Quad),
@@ -1786,33 +1772,17 @@ function SectionFunctions:Toggle(Settings, Flag)
     local togglebool = ToggleFunctions.Settings.Default
 
     local function NewState(State, callback)
-        local transparencyValues = State and {toggle1Transparency.Enabled, togglerHeadTransparency.Enabled}
-            or {toggle1Transparency.Disabled, togglerHeadTransparency.Disabled}
+        local transparencyValues = State and {0, 0} or {0.2, 0.85}
         local position = State and TweenSettings.EnabledPosition or TweenSettings.DisabledPosition
-        local toggle1Color = State and toggle1Colors.Enabled or toggle1Colors.Disabled
-        local togglerHeadColor = State and togglerHeadColors.Enabled or togglerHeadColors.Disabled
+        local toggle1Color = State and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
 
-        -- Tween transparence
         Tween(toggle1, TweenSettings.Info, {
-            ImageTransparency = transparencyValues[1]
-        }):Play()
-
-        Tween(togglerHead, TweenSettings.Info, {
-            ImageTransparency = transparencyValues[2]
-        }):Play()
-
-        -- Tween couleur toggle1
-        Tween(toggle1, TweenSettings.Info, {
+            ImageTransparency = transparencyValues[1],
             ImageColor3 = toggle1Color
         }):Play()
 
-        -- Tween couleur togglerHead (optionnel)
         Tween(togglerHead, TweenSettings.Info, {
-            ImageColor3 = togglerHeadColor
-        }):Play()
-
-        -- Tween position
-        Tween(togglerHead, TweenSettings.Info, {
+            ImageTransparency = transparencyValues[2],
             Position = position
         }):Play()
 

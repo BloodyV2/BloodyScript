@@ -5,7 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
-
+--toggle
 --// Services
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
@@ -141,8 +141,8 @@ function MacLib:Window(Settings)
 	local divider = Instance.new("Frame")
 	divider.Name = "Divider"
 	divider.AnchorPoint = Vector2.new(1, 0)
-	divider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider.BackgroundTransparency = 0.9
+	divider.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	divider.BackgroundTransparency = 0.2
 	divider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider.BorderSizePixel = 0
 	divider.Position = UDim2.fromScale(1, 0)
@@ -299,8 +299,8 @@ function MacLib:Window(Settings)
 	local divider1 = Instance.new("Frame")
 	divider1.Name = "Divider"
 	divider1.AnchorPoint = Vector2.new(0, 1)
-	divider1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider1.BackgroundTransparency = 0.9
+	divider1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	divider1.BackgroundTransparency = 0.2
 	divider1.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider1.BorderSizePixel = 0
 	divider1.Position = UDim2.fromScale(0, 1)
@@ -321,8 +321,8 @@ function MacLib:Window(Settings)
 	local divider2 = Instance.new("Frame")
 	divider2.Name = "Divider"
 	divider2.AnchorPoint = Vector2.new(0, 1)
-	divider2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider2.BackgroundTransparency = 0.9
+	divider2.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	divider2.BackgroundTransparency = 0.2
 	divider2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider2.BorderSizePixel = 0
 	divider2.Position = UDim2.fromScale(0, 1)
@@ -716,8 +716,8 @@ function MacLib:Window(Settings)
 	local divider4 = Instance.new("Frame")
 	divider4.Name = "Divider"
 	divider4.AnchorPoint = Vector2.new(0, 1)
-	divider4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	divider4.BackgroundTransparency = 0.9
+	divider4.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	divider4.BackgroundTransparency = 0.2
 	divider4.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	divider4.BorderSizePixel = 0
 	divider4.Position = UDim2.fromScale(0, 1)
@@ -1354,8 +1354,8 @@ function MacLib:Window(Settings)
 		local divider3 = Instance.new("Frame")
 		divider3.Name = "Divider"
 		divider3.AnchorPoint = Vector2.new(0.5, 1)
-		divider3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		divider3.BackgroundTransparency = 0.9
+		divider3.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+		divider3.BackgroundTransparency = 0.2
 		divider3.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		divider3.BorderSizePixel = 0
 		divider3.Position = UDim2.fromScale(0.5, 1)
@@ -1579,8 +1579,8 @@ function MacLib:Window(Settings)
 				local sectionUIStroke = Instance.new("UIStroke")
 				sectionUIStroke.Name = "SectionUIStroke"
 				sectionUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-				sectionUIStroke.Color = Color3.fromRGB(255, 255, 255)
-				sectionUIStroke.Transparency = 0.95
+				sectionUIStroke.Color = Color3.fromRGB(255, 0, 0)
+				sectionUIStroke.Transparency = 0.2
 				sectionUIStroke.Parent = section
 
 				local sectionUIListLayout = Instance.new("UIListLayout")
@@ -1691,146 +1691,168 @@ function MacLib:Window(Settings)
 					return ButtonFunctions
 				end
 
-				function SectionFunctions:Toggle(Settings, Flag)
-					local ToggleFunctions = { Settings = Settings, IgnoreConfig = false, Class = "Toggle" }
-					local toggle = Instance.new("Frame")
-					toggle.Name = "Toggle"
-					toggle.AutomaticSize = Enum.AutomaticSize.Y
-					toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-					toggle.BackgroundTransparency = 1
-					toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					toggle.BorderSizePixel = 0
-					toggle.Size = UDim2.new(1, 0, 0, 38)
-					toggle.Parent = section
+function SectionFunctions:Toggle(Settings, Flag)
+    local ToggleFunctions = { Settings = Settings, IgnoreConfig = false, Class = "Toggle" }
+    
+    local toggle = Instance.new("Frame")
+    toggle.Name = "Toggle"
+    toggle.AutomaticSize = Enum.AutomaticSize.Y
+    toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    toggle.BackgroundTransparency = 1
+    toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    toggle.BorderSizePixel = 0
+    toggle.Size = UDim2.new(1, 0, 0, 38)
+    toggle.Parent = section
 
-					local toggleName = Instance.new("TextLabel")
-					toggleName.Name = "ToggleName"
-					toggleName.FontFace = Font.new(assets.interFont)
-					toggleName.Text = ToggleFunctions.Settings.Name
-					toggleName.RichText = true
-					toggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
-					toggleName.TextSize = 13
-					toggleName.TextTransparency = 0.5
-					toggleName.TextTruncate = Enum.TextTruncate.AtEnd
-					toggleName.TextXAlignment = Enum.TextXAlignment.Left
-					toggleName.TextYAlignment = Enum.TextYAlignment.Top
-					toggleName.AnchorPoint = Vector2.new(0, 0.5)
-					toggleName.AutomaticSize = Enum.AutomaticSize.Y
-					toggleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					toggleName.BackgroundTransparency = 1
-					toggleName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					toggleName.BorderSizePixel = 0
-					toggleName.Position = UDim2.fromScale(0, 0.5)
-					toggleName.Size = UDim2.new(1, -50, 0, 0)
-					toggleName.Parent = toggle
+    local toggleName = Instance.new("TextLabel")
+    toggleName.Name = "ToggleName"
+    toggleName.FontFace = Font.new(assets.interFont)
+    toggleName.Text = ToggleFunctions.Settings.Name
+    toggleName.RichText = true
+    toggleName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggleName.TextSize = 13
+    toggleName.TextTransparency = 0.5
+    toggleName.TextTruncate = Enum.TextTruncate.AtEnd
+    toggleName.TextXAlignment = Enum.TextXAlignment.Left
+    toggleName.TextYAlignment = Enum.TextYAlignment.Top
+    toggleName.AnchorPoint = Vector2.new(0, 0.5)
+    toggleName.AutomaticSize = Enum.AutomaticSize.Y
+    toggleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    toggleName.BackgroundTransparency = 1
+    toggleName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    toggleName.BorderSizePixel = 0
+    toggleName.Position = UDim2.fromScale(0, 0.5)
+    toggleName.Size = UDim2.new(1, -50, 0, 0)
+    toggleName.Parent = toggle
 
-					local toggle1 = Instance.new("ImageButton")
-					toggle1.Name = "Toggle"
-					toggle1.Image = assets.toggleBackground
-					toggle1.ImageColor3 = Color3.fromRGB(87, 86, 86)
-					toggle1.AutoButtonColor = false
-					toggle1.AnchorPoint = Vector2.new(1, 0.5)
-					toggle1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					toggle1.BackgroundTransparency = 1
-					toggle1.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					toggle1.BorderSizePixel = 0
-					toggle1.Position = UDim2.fromScale(1, 0.5)
-					toggle1.Size = UDim2.fromOffset(41, 21)
-					toggle1.ImageTransparency = 0.5
+    local toggle1 = Instance.new("ImageButton")
+    toggle1.Name = "Toggle"
+    toggle1.Image = assets.toggleBackground
+    toggle1.ImageColor3 = Color3.fromRGB(88,86,86) -- gris initial
+    toggle1.AutoButtonColor = false
+    toggle1.AnchorPoint = Vector2.new(1, 0.5)
+    toggle1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    toggle1.BackgroundTransparency = 1
+    toggle1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    toggle1.BorderSizePixel = 0
+    toggle1.Position = UDim2.fromScale(1, 0.5)
+    toggle1.Size = UDim2.fromOffset(41, 21)
+    toggle1.ImageTransparency = 0.5
 
-					local toggleUIPadding = Instance.new("UIPadding")
-					toggleUIPadding.Name = "ToggleUIPadding"
-					toggleUIPadding.PaddingBottom = UDim.new(0, 1)
-					toggleUIPadding.PaddingLeft = UDim.new(0, -2)
-					toggleUIPadding.PaddingRight = UDim.new(0, 3)
-					toggleUIPadding.PaddingTop = UDim.new(0, 1)
-					toggleUIPadding.Parent = toggle1
+    local toggleUIPadding = Instance.new("UIPadding")
+    toggleUIPadding.Name = "ToggleUIPadding"
+    toggleUIPadding.PaddingBottom = UDim.new(0, 1)
+    toggleUIPadding.PaddingLeft = UDim.new(0, -2)
+    toggleUIPadding.PaddingRight = UDim.new(0, 3)
+    toggleUIPadding.PaddingTop = UDim.new(0, 1)
+    toggleUIPadding.Parent = toggle1
 
-					local togglerHead = Instance.new("ImageLabel")
-					togglerHead.Name = "TogglerHead"
-					togglerHead.Image = assets.togglerHead
-					togglerHead.ImageColor3 = ToggleFunctions.Settings.Default and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 50, 50)
-					togglerHead.AnchorPoint = Vector2.new(1, 0.5)
-					togglerHead.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-					togglerHead.BackgroundTransparency = 1
-					togglerHead.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					togglerHead.BorderSizePixel = 0
-					togglerHead.Position = UDim2.fromScale(0.5, 0.5)
-					togglerHead.Size = UDim2.fromOffset(15, 15)
-					togglerHead.ZIndex = 2
-					togglerHead.Parent = toggle1
-					togglerHead.ImageTransparency = 0.8
+    local togglerHead = Instance.new("ImageLabel")
+    togglerHead.Name = "TogglerHead"
+    togglerHead.Image = assets.togglerHead
+    togglerHead.ImageColor3 = Color3.fromRGB(0, 255, 0) -- vert par défaut
+    togglerHead.AnchorPoint = Vector2.new(1, 0.5)
+    togglerHead.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    togglerHead.BackgroundTransparency = 1
+    togglerHead.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    togglerHead.BorderSizePixel = 0
+    togglerHead.Position = UDim2.fromScale(0.5, 0.5)
+    togglerHead.Size = UDim2.fromOffset(15, 15)
+    togglerHead.ZIndex = 2
+    togglerHead.Parent = toggle1
+    togglerHead.ImageTransparency = 0.8
 
-					toggle1.Parent = toggle
+    toggle1.Parent = toggle
 
-					local toggle1Transparency = {Enabled = 0, Disabled = 0.5}
-					local togglerHeadTransparency = {Enabled = 0, Disabled = 0.85}
+    local toggle1Transparency = {Enabled = 0, Disabled = 0.2} -- moins gris (0.2 au lieu de 0.5)
+    local togglerHeadTransparency = {Enabled = 0, Disabled = 0.85}
+    
+    -- NOUVELLES COULEURS
+    local toggle1Colors = {
+        Enabled = Color3.fromRGB(0, 255, 0),   -- VERT quand activé
+        Disabled = Color3.fromRGB(255, 0, 0)   -- ROUGE quand désactivé
+    }
+    local togglerHeadColors = {
+        Enabled = Color3.fromRGB(255, 255, 255),  -- Blanc pour le head activé
+        Disabled = Color3.fromRGB(255, 255, 255)  -- Blanc pour le head désactivé
+    }
 
-					local TweenSettings = {
-						Info = TweenInfo.new(0.15, Enum.EasingStyle.Quad),
+    local TweenSettings = {
+        Info = TweenInfo.new(0.15, Enum.EasingStyle.Quad),
+        EnabledPosition = UDim2.new(1, 0, 0.5, 0),
+        DisabledPosition = UDim2.new(0.5, 0, 0.5, 0),
+    }
 
-						EnabledPosition = UDim2.new(1, 0, 0.5, 0),
-						DisabledPosition = UDim2.new(0.5, 0, 0.5, 0),
-					}
+    local togglebool = ToggleFunctions.Settings.Default
 
-					local togglebool = ToggleFunctions.Settings.Default
+    local function NewState(State, callback)
+        local transparencyValues = State and {toggle1Transparency.Enabled, togglerHeadTransparency.Enabled}
+            or {toggle1Transparency.Disabled, togglerHeadTransparency.Disabled}
+        local position = State and TweenSettings.EnabledPosition or TweenSettings.DisabledPosition
+        local toggle1Color = State and toggle1Colors.Enabled or toggle1Colors.Disabled
+        local togglerHeadColor = State and togglerHeadColors.Enabled or togglerHeadColors.Disabled
 
-					local function NewState(State, callback)
-						local transparencyValues = State and {toggle1Transparency.Enabled, togglerHeadTransparency.Enabled}
-							or {toggle1Transparency.Disabled, togglerHeadTransparency.Disabled}
-						local position = State and TweenSettings.EnabledPosition or TweenSettings.DisabledPosition
-						local headColor = State and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 50, 50)
+        -- Tween transparence
+        Tween(toggle1, TweenSettings.Info, {
+            ImageTransparency = transparencyValues[1]
+        }):Play()
 
-						Tween(toggle1, TweenSettings.Info, {
-							ImageTransparency = transparencyValues[1]
-						}):Play()
+        Tween(togglerHead, TweenSettings.Info, {
+            ImageTransparency = transparencyValues[2]
+        }):Play()
 
-						Tween(togglerHead, TweenSettings.Info, {
-							ImageTransparency = transparencyValues[2],
-							ImageColor3 = headColor
-						}):Play()
+        -- Tween couleur toggle1
+        Tween(toggle1, TweenSettings.Info, {
+            ImageColor3 = toggle1Color
+        }):Play()
 
-						Tween(togglerHead, TweenSettings.Info, {
-							Position = position
-						}):Play()
+        -- Tween couleur togglerHead (optionnel)
+        Tween(togglerHead, TweenSettings.Info, {
+            ImageColor3 = togglerHeadColor
+        }):Play()
 
-						ToggleFunctions.State = State
-						if callback then
-							callback(togglebool)
-						end
-					end
+        -- Tween position
+        Tween(togglerHead, TweenSettings.Info, {
+            Position = position
+        }):Play()
 
-					NewState(togglebool)
+        ToggleFunctions.State = State
+        if callback then
+            callback(togglebool)
+        end
+    end
 
-					local function Toggle()
-						togglebool = not togglebool
-						NewState(togglebool, ToggleFunctions.Settings.Callback)
-					end
+    NewState(togglebool)
 
-					toggle1.MouseButton1Click:Connect(Toggle)
+    local function Toggle()
+        togglebool = not togglebool
+        NewState(togglebool, ToggleFunctions.Settings.Callback)
+    end
 
-					function ToggleFunctions:Toggle()
-						Toggle()
-					end
-					function ToggleFunctions:UpdateState(State)
-						togglebool = State
-						NewState(togglebool, ToggleFunctions.Settings.Callback)
-					end
-					function ToggleFunctions:GetState()
-						return togglebool
-					end
-					function ToggleFunctions:UpdateName(Name)
-						toggleName.Text = Name
-					end
-					function ToggleFunctions:SetVisibility(State)
-						toggle.Visible = State
-					end
+    toggle1.MouseButton1Click:Connect(Toggle)
 
-					if Flag then
-						MacLib.Options[Flag] = ToggleFunctions
-					end
-					return ToggleFunctions
-				end
+    function ToggleFunctions:Toggle()
+        Toggle()
+    end
+    function ToggleFunctions:UpdateState(State)
+        togglebool = State
+        NewState(togglebool, ToggleFunctions.Settings.Callback)
+    end
+    function ToggleFunctions:GetState()
+        return togglebool
+    end
+    function ToggleFunctions:UpdateName(Name)
+        toggleName.Text = Name
+    end
+    function ToggleFunctions:SetVisibility(State)
+        toggle.Visible = State
+    end
+
+    if Flag then
+        MacLib.Options[Flag] = ToggleFunctions
+    end
+    return ToggleFunctions
+end
 
 				function SectionFunctions:Slider(Settings, Flag)
 					local SliderFunctions = { Settings = Settings, IgnoreConfig = false, Class = "Slider" }
@@ -2504,8 +2526,8 @@ function MacLib:Window(Settings)
 					local dropdownUIStroke = Instance.new("UIStroke")
 					dropdownUIStroke.Name = "DropdownUIStroke"
 					dropdownUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-					dropdownUIStroke.Color = Color3.fromRGB(255, 255, 255)
-					dropdownUIStroke.Transparency = 0.95
+					dropdownUIStroke.Color = Color3.fromRGB(255, 0, 0)
+					dropdownUIStroke.Transparency = 0.2
 					dropdownUIStroke.Parent = dropdown
 
 					local dropdownUICorner = Instance.new("UICorner")
@@ -4324,6 +4346,31 @@ function MacLib:Window(Settings)
 					uIPadding.PaddingBottom = UDim.new(0, 5)
 					uIPadding.Parent = header
 
+					-- UIListLayout horizontal pour icône + texte
+					local headerUIListLayout = Instance.new("UIListLayout")
+					headerUIListLayout.Name = "HeaderUIListLayout"
+					headerUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+					headerUIListLayout.Padding = UDim.new(0, 7)
+					headerUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+					headerUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+					headerUIListLayout.Parent = header
+
+					-- Icône optionnelle (LayoutOrder = 0, donc avant le texte)
+					local headerIcon = nil
+					if Settings.Icon and Settings.Icon ~= "" then
+						headerIcon = Instance.new("ImageLabel")
+						headerIcon.Name = "HeaderIcon"
+						headerIcon.Image = Settings.Icon
+						headerIcon.BackgroundTransparency = 1
+						headerIcon.BorderSizePixel = 0
+						headerIcon.Size = UDim2.fromOffset(18, 18)
+						headerIcon.LayoutOrder = 0
+						local headerIconUICorner = Instance.new("UICorner")
+						headerIconUICorner.CornerRadius = UDim.new(0, 4)
+						headerIconUICorner.Parent = headerIcon
+						headerIcon.Parent = header
+					end
+
 					local headerText = Instance.new("TextLabel")
 					headerText.Name = "HeaderText"
 					headerText.FontFace = Font.new(
@@ -4338,12 +4385,13 @@ function MacLib:Window(Settings)
 					headerText.TextTransparency = 0.3
 					headerText.TextWrapped = true
 					headerText.TextXAlignment = Enum.TextXAlignment.Left
-					headerText.AutomaticSize = Enum.AutomaticSize.Y
+					headerText.AutomaticSize = Enum.AutomaticSize.XY
 					headerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 					headerText.BackgroundTransparency = 1
 					headerText.BorderColor3 = Color3.fromRGB(0, 0, 0)
 					headerText.BorderSizePixel = 0
-					headerText.Size = UDim2.fromScale(1, 0)
+					headerText.LayoutOrder = 1
+					headerText.Size = UDim2.fromOffset(0, 0)
 					headerText.Parent = header
 
 					function HeaderFunctions:UpdateName(New)
@@ -4351,6 +4399,11 @@ function MacLib:Window(Settings)
 					end
 					function HeaderFunctions:SetVisibility(State)
 						header.Visible = State
+					end
+					function HeaderFunctions:UpdateIcon(NewIcon)
+						if headerIcon then
+							headerIcon.Image = NewIcon
+						end
 					end
 
 					if Flag then

@@ -5,7 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
---// Services
+--// Services local optionName.Parent = option
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
 local HttpService = MacLib.GetService("HttpService")
@@ -2758,6 +2758,9 @@ end
 					interact.MouseButton1Click:Connect(ToggleDropdown)
 
 					local function addOption(i, v)
+    					local optionName = type(v) == "table" and v.Name or v
+    					local optionIcon = type(v) == "table" and v.Icon or nil
+    					v = optionName 
 						local option = Instance.new("TextButton")
 						option.Name = "Option"
 						option.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
@@ -2794,6 +2797,20 @@ end
 						optionName.BorderSizePixel = 0
 						optionName.Position = UDim2.fromScale(1.3e-07, 0.5)
 						optionName.Parent = option
+
+						if optionIcon then
+    				    local iconLabel = Instance.new("ImageLabel")
+    				    iconLabel.Name = "OptionIcon"
+    				    iconLabel.Image = optionIcon
+     				    iconLabel.BackgroundTransparency = 1
+     				    iconLabel.BorderSizePixel = 0
+     				    iconLabel.Size = UDim2.fromOffset(18, 18)
+     					iconLabel.LayoutOrder = -2
+     					local uiCorner = Instance.new("UICorner")
+  				    	uiCorner.CornerRadius = UDim.new(0, 4)
+  					    uiCorner.Parent = iconLabel
+   					    iconLabel.Parent = option
+  					end
 
 						local optionUIListLayout = Instance.new("UIListLayout")
 						optionUIListLayout.Name = "OptionUIListLayout"

@@ -5,7 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
---// Services local optionName.Parent = option
+--// Services WindowFunctions:Notify
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
 local HttpService = MacLib.GetService("HttpService")
@@ -4841,6 +4841,13 @@ end
 		notification.Size = UDim2.fromOffset(Settings.SizeX or 250, 0)
 
 		notification.Parent = notifications
+
+        local notifSound = Instance.new("Sound")
+        notifSound.SoundId = "rbxassetid://18595195017"
+        notifSound.Volume = 1
+        notifSound.Parent = notification
+        notifSound:Play()
+        game:GetService("Debris"):AddItem(notifSound, 5)
 
 		local notificationUIStroke = Instance.new("UIStroke")
 		notificationUIStroke.Name = "NotificationUIStroke"

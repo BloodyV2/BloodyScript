@@ -4,8 +4,7 @@ local MacLib = {
 	GetService = function(service)
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
-}--else
-    if newSelected and DropdownFunctions.Settings.Callback then
+}
 
 --// Services WindowFunctions:Notify
 local TweenService = MacLib.GetService("TweenService")

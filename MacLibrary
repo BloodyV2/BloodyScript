@@ -4,7 +4,9 @@ local MacLib = {
 	GetService = function(service)
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
-}
+}--else
+    if newSelected and DropdownFunctions.Settings.Callback then
+
 --// Services WindowFunctions:Notify
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
@@ -2692,14 +2694,15 @@ end
 							}):Play()
 							checkmark.TextTransparency = 0
 						else
-							if DropdownFunctions.Settings.Multi then
-								local idx = table.find(Selected, optionName)
-								if idx then
-									table.remove(Selected, idx)
-								end
-							else
-								Selected = {}
-							end
+                            if DropdownFunctions.Settings.Multi then
+                                    local idx = table.find(Selected, optionName)
+                                    if idx then
+                                        table.remove(Selected, idx)
+                                    end
+                                else
+                                    Selected = {}
+                                    DropdownFunctions.Value = nil
+                                end
 							Tween(checkmark, TweenInfo.new(tweensettings.duration, tweensettings.easingStyle), {
 								Size = UDim2.new(checkmark.Size.X.Scale, tweensettings.checkSizeDecrease, checkmark.Size.Y.Scale, checkmark.Size.Y.Offset)
 							}):Play()
@@ -2907,9 +2910,9 @@ end
 									end
 
 								else
-									if newSelected and DropdownFunctions.Settings.Callback then
-										DropdownFunctions.Settings.Callback(Selected[1] or nil)
-									end
+								    if DropdownFunctions.Settings.Callback then
+								        DropdownFunctions.Settings.Callback(Selected[1] or nil)
+								    end
 								end
 							end)
 						end)

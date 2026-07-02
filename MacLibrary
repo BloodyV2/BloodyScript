@@ -5,6 +5,7 @@ local MacLib = {
 		return cloneref and cloneref(game:GetService(service)) or game:GetService(service)
 	end
 }
+
 --// Services WindowFunctions:Notify
 local TweenService = MacLib.GetService("TweenService")
 local RunService = MacLib.GetService("RunService")
@@ -75,6 +76,8 @@ function MacLib:Window(Settings)
 	end
 
 	local macLib = GetGui()
+
+	macLib.Enabled = false
 
 	local notifications = Instance.new("Frame")
 	notifications.Name = "Notifications"
@@ -859,27 +862,57 @@ function MacLib:Window(Settings)
 		end)
 	end
 
+	local currentTabHolder = Instance.new("Frame")
+	currentTabHolder.Name = "CurrentTabHolder"
+	currentTabHolder.AnchorPoint = Vector2.new(0, 0.5)
+	currentTabHolder.AutomaticSize = Enum.AutomaticSize.XY
+	currentTabHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	currentTabHolder.BackgroundTransparency = 1
+	currentTabHolder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	currentTabHolder.BorderSizePixel = 0
+	currentTabHolder.Position = UDim2.fromScale(0, 0.5)
+	currentTabHolder.Size = UDim2.new(0.9, 0, 0, 0)
+
+	local currentTabHolderUIListLayout = Instance.new("UIListLayout")
+	currentTabHolderUIListLayout.Name = "CurrentTabHolderUIListLayout"
+	currentTabHolderUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+	currentTabHolderUIListLayout.Padding = UDim.new(0, 7)
+	currentTabHolderUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	currentTabHolderUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	currentTabHolderUIListLayout.Parent = currentTabHolder
+
+	local currentTabIcon = Instance.new("ImageLabel")
+	currentTabIcon.Name = "CurrentTabIcon"
+	currentTabIcon.BackgroundTransparency = 1
+	currentTabIcon.BorderSizePixel = 0
+	currentTabIcon.Size = UDim2.fromOffset(18, 18)
+	currentTabIcon.LayoutOrder = 0
+	currentTabIcon.Visible = false
+	local currentTabIconUICorner = Instance.new("UICorner")
+	currentTabIconUICorner.CornerRadius = UDim.new(0, 4)
+	currentTabIconUICorner.Parent = currentTabIcon
+	currentTabIcon.Parent = currentTabHolder
+
 	local currentTab = Instance.new("TextLabel")
 	currentTab.Name = "CurrentTab"
 	currentTab.FontFace = Font.new(assets.interFont)
 	currentTab.RichText = true
 	currentTab.Text = ""
-	currentTab.RichText = true
 	currentTab.TextColor3 = Color3.fromRGB(255, 255, 255)
 	currentTab.TextSize = 15
 	currentTab.TextTransparency = 0.5
 	currentTab.TextTruncate = Enum.TextTruncate.SplitWord
 	currentTab.TextXAlignment = Enum.TextXAlignment.Left
 	currentTab.TextYAlignment = Enum.TextYAlignment.Top
-	currentTab.AnchorPoint = Vector2.new(0, 0.5)
-	currentTab.AutomaticSize = Enum.AutomaticSize.Y
+	currentTab.AutomaticSize = Enum.AutomaticSize.XY
 	currentTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	currentTab.BackgroundTransparency = 1
 	currentTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	currentTab.BorderSizePixel = 0
-	currentTab.Position = UDim2.fromScale(0, 0.5)
-	currentTab.Size = UDim2.fromScale(0.9, 0)
-	currentTab.Parent = elements
+	currentTab.LayoutOrder = 1
+	currentTab.Parent = currentTabHolder
+
+	currentTabHolder.Parent = elements
 
 	elements.Parent = topbar
 
@@ -4692,7 +4725,14 @@ end
 
 				tabs[tabSwitcher].tabContent.Parent = content
 				currentTabInstance = tabs[tabSwitcher].tabContent
-				currentTab.Text = Settings.Name
+
+				currentTab.Text = Settings.Title or Settings.Name
+				if Settings.TitleIcon then
+					currentTabIcon.Image = Settings.TitleIcon
+					currentTabIcon.Visible = true
+				else
+					currentTabIcon.Visible = false
+				end
 			end
 
 			tabSwitcher.MouseButton1Click:Connect(function()
@@ -5675,8 +5715,6 @@ end
 
 		return out
 	end
-
-	macLib.Enabled = false
 
 	local assetList = {}
 	for _, assetId in pairs(assets) do

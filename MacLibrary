@@ -1,3 +1,4 @@
+--fixed2
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -790,7 +791,7 @@ function MacLib:Window(Settings)
 		ChangemoveIconState("Default")
 	end)
 
-	local dragging_ = false
+local dragging_ = false
 	local dragInput
 	local dragStart
 	local startPos
@@ -820,25 +821,30 @@ function MacLib:Window(Settings)
 		end
 	end
 
-	base.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        onDragStart(input)
-    end
-end)
+	local function connectDrag(instance)
+		instance.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				onDragStart(input)
+			end
+		end)
 
-base.InputChanged:Connect(onDragUpdate)
+		instance.InputChanged:Connect(onDragUpdate)
 
-UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging_ then
-        update(input)
-    end
-end)
+		instance.InputEnded:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging_ = false
+			end
+		end)
+	end
 
-base.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging_ = false
-    end
-end)
+	connectDrag(base)
+	connectDrag(interact)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging_ then
+			update(input)
+		end
+	end)
 
 	local currentTabHolder = Instance.new("Frame")
 	currentTabHolder.Name = "CurrentTabHolder"

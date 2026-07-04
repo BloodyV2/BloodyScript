@@ -1,3 +1,4 @@
+--fixed
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 

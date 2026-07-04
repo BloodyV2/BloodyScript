@@ -754,7 +754,7 @@ function MacLib:Window(Settings)
 	moveIcon.Position = UDim2.fromScale(1, 0.5)
 	moveIcon.Size = UDim2.fromOffset(15, 15)
 	moveIcon.Parent = elements
-	moveIcon.Visible = not Settings.DragStyle or Settings.DragStyle == 1
+	moveIcon.Visible = true
 
 	local interact = Instance.new("TextButton")
 	interact.Name = "Interact"

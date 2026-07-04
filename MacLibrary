@@ -1,4 +1,4 @@
---worked
+--SectionFunctions
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -4459,6 +4459,51 @@ end
 					end
 					return HeaderFunctions
 				end
+				
+				function SectionFunctions:Image(Settings, Flag)
+    local ImageFunctions = {Settings = Settings}
+
+    local imageHolder = Instance.new("Frame")
+    imageHolder.Name = "Image"
+    imageHolder.AutomaticSize = Enum.AutomaticSize.Y
+    imageHolder.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    imageHolder.BackgroundTransparency = 1
+    imageHolder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    imageHolder.BorderSizePixel = 0
+    imageHolder.Size = UDim2.new(1, 0, 0, 0)
+    imageHolder.Parent = section
+
+    local imageLabel = Instance.new("ImageLabel")
+    imageLabel.Name = "ImageLabel"
+    imageLabel.Image = ImageFunctions.Settings.Image or ""
+    imageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    imageLabel.BackgroundTransparency = 1
+    imageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    imageLabel.BorderSizePixel = 0
+    imageLabel.ScaleType = ImageFunctions.Settings.ScaleType or Enum.ScaleType.Fit
+    imageLabel.Size = ImageFunctions.Settings.Size or UDim2.fromOffset(200, 200)
+    imageLabel.Parent = imageHolder
+
+    local imageUICorner = Instance.new("UICorner")
+    imageUICorner.Name = "ImageUICorner"
+    imageUICorner.CornerRadius = UDim.new(0, 6)
+    imageUICorner.Parent = imageLabel
+
+    function ImageFunctions:UpdateImage(NewImage)
+        imageLabel.Image = NewImage
+    end
+    function ImageFunctions:UpdateSize(NewSize)
+        imageLabel.Size = NewSize
+    end
+    function ImageFunctions:SetVisibility(State)
+        imageHolder.Visible = State
+    end
+
+    if Flag then
+        MacLib.Options[Flag] = ImageFunctions
+    end
+    return ImageFunctions
+end
 
 				function SectionFunctions:Label(Settings, Flag)
 					local LabelFunctions = {Settings = Settings}

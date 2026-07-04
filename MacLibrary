@@ -1,4 +1,3 @@
---fixed2
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -132,7 +131,7 @@ function MacLib:Window(Settings)
 	baseUIStroke.Transparency = 0.9
 	baseUIStroke.Parent = base
 
-	base.Parent = macLib
+	--base.Parent = macLib
 
 	local sidebar = Instance.new("Frame")
 	sidebar.Name = "Sidebar"

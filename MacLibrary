@@ -2893,15 +2893,20 @@ end
 							})
 						}
 
-						local isSelected = false
-						if DropdownFunctions.Settings.Default then
-							if DropdownFunctions.Settings.Multi then
-								isSelected = table.find(DropdownFunctions.Settings.Default, v) and true or false
-							else
-								isSelected = (DropdownFunctions.Settings.Default == i) and true or false
-							end
-						end
-						Toggle(v, isSelected)
+local isSelected = false
+if DropdownFunctions.Settings.Default then
+    if DropdownFunctions.Settings.Multi then
+        isSelected = table.find(DropdownFunctions.Settings.Default, v) and true or false
+    else
+        local Default = DropdownFunctions.Settings.Default
+        if type(Default) == "number" then
+            isSelected = (Default == i)
+        else
+            isSelected = (Default == v)
+        end
+    end
+end
+Toggle(v, isSelected)
 
 						local option = OptionObjs[v].Button
 

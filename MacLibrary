@@ -1,4 +1,4 @@
---fixed
+--worked
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1603,7 +1603,7 @@ local dragging_ = false
 
 				local sectionUIListLayout = Instance.new("UIListLayout")
 				sectionUIListLayout.Name = "SectionUIListLayout"
-				sectionUIListLayout.Padding = UDim.new(0, 5)
+				sectionUIListLayout.Padding = UDim.new(0, Settings.Padding or 10)
 				sectionUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 				sectionUIListLayout.Parent = section
 

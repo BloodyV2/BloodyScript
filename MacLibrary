@@ -1,3 +1,4 @@
+--worked
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2506,7 +2507,7 @@ end
 					local dropdownName = Instance.new("TextLabel")
 					dropdownName.Name = "DropdownName"
 					dropdownName.FontFace = Font.new(assets.interFont)
-					dropdownName.Text = Settings.Default and (DropdownFunctions.Settings.Name .. " • " .. table.concat(Selected, ", ")) or (DropdownFunctions.Settings.Name .. "...")
+					dropdownName.Text = DropdownFunctions.Settings.Name .. "..."
 					dropdownName.RichText = true
 					dropdownName.TextColor3 = Color3.fromRGB(255, 255, 255)
 					dropdownName.TextSize = 13
@@ -2710,15 +2711,17 @@ end
 							}):Play()
 							checkmark.TextTransparency = 0
 						else
-                            if DropdownFunctions.Settings.Multi then
-                                    local idx = table.find(Selected, optionName)
-                                    if idx then
-                                        table.remove(Selected, idx)
-                                    end
-                                else
-                                    Selected = {}
-                                    DropdownFunctions.Value = nil
-                                end
+    if DropdownFunctions.Settings.Multi then
+        local idx = table.find(Selected, optionName)
+        if idx then
+            table.remove(Selected, idx)
+        end
+    else
+        if Selected[1] == optionName then
+            Selected = {}
+            DropdownFunctions.Value = nil
+        end
+    end
 							Tween(checkmark, TweenInfo.new(tweensettings.duration, tweensettings.easingStyle), {
 								Size = UDim2.new(checkmark.Size.X.Scale, tweensettings.checkSizeDecrease, checkmark.Size.Y.Scale, checkmark.Size.Y.Offset)
 							}):Play()
@@ -2894,16 +2897,14 @@ end
 						}
 
 local isSelected = false
-if DropdownFunctions.Settings.Default then
-    if DropdownFunctions.Settings.Multi then
-        isSelected = table.find(DropdownFunctions.Settings.Default, v) and true or false
+local Default = DropdownFunctions.Settings.Default
+if Default ~= nil then
+    if type(Default) == "table" then
+        isSelected = table.find(Default, v) and true or false
+    elseif type(Default) == "number" then
+        isSelected = (Default == i)
     else
-        local Default = DropdownFunctions.Settings.Default
-        if type(Default) == "number" then
-            isSelected = (Default == i)
-        else
-            isSelected = (Default == v)
-        end
+        isSelected = (Default == v)
     end
 end
 Toggle(v, isSelected)

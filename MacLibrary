@@ -1,4 +1,4 @@
---worked v.2.07
+--worked v.2.34
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -95,7 +95,7 @@ function MacLib:Window(Settings)
 	notificationsUIListLayout.Padding = UDim.new(0, 10)
 	notificationsUIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
 	notificationsUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	notificationsUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+	notificationsUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 	notificationsUIListLayout.Parent = notifications
 
 	local notificationsUIPadding = Instance.new("UIPadding")

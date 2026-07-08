@@ -1,4 +1,4 @@
---worked v.2.06
+--worked v.2.07
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1821,7 +1821,7 @@ callback(togglebool)
 end
 end
 
-if ToggleFunctions.Settings.Callback then
+if togglebool and ToggleFunctions.Settings.Callback then
     task.spawn(function()
         ToggleFunctions.Settings.Callback(togglebool)
     end)

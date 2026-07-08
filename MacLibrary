@@ -1,4 +1,4 @@
---worked v.2.05
+--worked v.2.06
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -5623,11 +5623,11 @@ end
 					value = (data.Value and tostring(data.Value)) or false
 				}
 			end,
-			Load = function(Flag, data)
-				if MacLib.Options[Flag] and data.value then
-					MacLib.Options[Flag]:UpdateValue(data.value)
-				end
-			end
+Load = function(Flag, data)
+    if MacLib.Options[Flag] and data.state ~= nil then
+        MacLib.Options[Flag]:UpdateState(data.state)
+    end
+end
 		},
 		["Input"] = {
 			Save = function(Flag, data)

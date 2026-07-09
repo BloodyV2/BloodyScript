@@ -1,4 +1,4 @@
---worked v.2.34
+--worked v.2.35
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2679,6 +2679,33 @@ end
 						waitTime = 1
 					}
 
+					local function UpdateDisplayText()
+    if #Selected > 0 then
+        if DropdownFunctions.Settings.Multi then
+            local labels = {}
+            for _, name in ipairs(Selected) do
+                local icon = OptionObjs[name] and OptionObjs[name].Icon
+                if icon then
+                    table.insert(labels, string.format('<img src="%s" width="14" height="14"/> %s', icon, name))
+                else
+                    table.insert(labels, name)
+                end
+            end
+            dropdownName.Text = table.concat(labels, ", ")
+        else
+            local name = Selected[1]
+            local icon = OptionObjs[name] and OptionObjs[name].Icon
+            if icon then
+                dropdownName.Text = string.format('<img src="%s" width="14" height="14"/> %s', icon, name)
+            else
+                dropdownName.Text = name
+            end
+        end
+    else
+        dropdownName.Text = DropdownFunctions.Settings.Name .. "..."
+    end
+end
+
 					local function Toggle(optionName, State)
 						local option = OptionObjs[optionName]
 
@@ -2740,11 +2767,7 @@ end
 							return
 						end
 
-						if #Selected > 0 then
-							dropdownName.Text = DropdownFunctions.Settings.Name .. " • " .. table.concat(Selected, ", ")
-						else
-							dropdownName.Text = DropdownFunctions.Settings.Name .. "..."
-						end
+						UpdateDisplayText()
 					end
 
 					local dropped = false
@@ -2874,7 +2897,8 @@ end
 							Index = i,
 							Button = option,
 							NameLabel = optionName,
-							Checkmark = checkmark
+							Checkmark = checkmark,
+							Icon = optionIcon
 						}
 
 						local tweensettings = {
@@ -3034,6 +3058,7 @@ Toggle(v, isSelected)
 						end
 						OptionObjs = {}
 						Selected = {}
+						UpdateDisplayText()
 
 						if dropped then
 							dropdown.Size = UDim2.new(1, 0, 0, CalculateDropdownSize())
@@ -3051,26 +3076,24 @@ Toggle(v, isSelected)
 					end
 
 					function DropdownFunctions:RemoveOptions(remove)
-						if not remove then return end
-						for _, optionName in ipairs(remove) do
-							local optionData = OptionObjs[optionName]
-
-							if optionData then
-								for i = #Selected, 1, -1 do
-									if Selected[i] == optionName then
-										table.remove(Selected, i)
-									end
-								end
-
-								optionData.Button:Destroy()
-
-								OptionObjs[optionName] = nil
-							end
-						end
-
-						if dropped then
-							dropdown.Size = UDim2.new(1, 0, 0, CalculateDropdownSize())
-						end
+    if not remove then return end
+    for _, optionName in ipairs(remove) do
+        local optionData = OptionObjs[optionName]
+        if optionData then
+            for i = #Selected, 1, -1 do
+                if Selected[i] == optionName then
+                    table.remove(Selected, i)
+                end
+            end
+            optionData.Button:Destroy()
+            OptionObjs[optionName] = nil
+        end
+    end
+    UpdateDisplayText() 
+    if dropped then
+        dropdown.Size = UDim2.new(1, 0, 0, CalculateDropdownSize())
+    end
+end
 					end
 					function DropdownFunctions:IsOption(optionName)
 						if not optionName then return end

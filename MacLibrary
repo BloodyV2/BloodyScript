@@ -1,4 +1,4 @@
---worked v.2.35
+--worked v.2.36
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -3094,7 +3094,6 @@ Toggle(v, isSelected)
         dropdown.Size = UDim2.new(1, 0, 0, CalculateDropdownSize())
     end
 end
-					end
 					function DropdownFunctions:IsOption(optionName)
 						if not optionName then return end
 						return OptionObjs[optionName] ~= nil

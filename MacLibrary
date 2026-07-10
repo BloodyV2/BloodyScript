@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.59
+--better MacLib BloodyV3 v.2.60
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -3207,13 +3207,10 @@ end
 
 					colorCbg.Parent = colorpicker
 
-					if Settings.HideLabel then
+if Settings.HideLabel then
     colorpicker.AutomaticSize = Enum.AutomaticSize.None
-    colorpicker.Size = UDim2.fromOffset(32, 32)
+    colorpicker.Size = UDim2.fromOffset(21, 38)
     colorpickerName.Visible = false
-    colorCbg.AnchorPoint = Vector2.new(0.5, 0.5)
-    colorCbg.Position = UDim2.fromScale(0.5, 0.5)
-    colorCbg.Size = UDim2.fromOffset(28, 28)
 end
 
 					local colorPicker = Instance.new("Frame")
@@ -4422,16 +4419,10 @@ end
 
     local row = Instance.new("Frame")
     row.Name = "ColorpickerRow"
-    row.AutomaticSize = Enum.AutomaticSize.Y
     row.BackgroundTransparency = 1
     row.BorderSizePixel = 0
-    row.Size = UDim2.new(1, 0, 0, 0)
+    row.Size = UDim2.new(1, 0, 0, 38)
     row.Parent = section
-
-    local rowUIListLayout = Instance.new("UIListLayout")
-    rowUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    rowUIListLayout.Padding = UDim.new(0, 6)
-    rowUIListLayout.Parent = row
 
     local rowName = Instance.new("TextLabel")
     rowName.Name = "RowName"
@@ -4441,26 +4432,32 @@ end
     rowName.TextColor3 = Color3.fromRGB(255, 255, 255)
     rowName.TextSize = 13
     rowName.TextTransparency = 0.5
+    rowName.TextTruncate = Enum.TextTruncate.AtEnd
     rowName.TextXAlignment = Enum.TextXAlignment.Left
-    rowName.AutomaticSize = Enum.AutomaticSize.Y
+    rowName.TextYAlignment = Enum.TextYAlignment.Top
+    rowName.AnchorPoint = Vector2.new(0, 0.5)
+    rowName.AutomaticSize = Enum.AutomaticSize.XY
     rowName.BackgroundTransparency = 1
     rowName.BorderSizePixel = 0
-    rowName.Size = UDim2.new(1, 0, 0, 0)
+    rowName.Position = UDim2.fromScale(0, 0.5)
     rowName.Parent = row
 
     local swatches = Instance.new("Frame")
     swatches.Name = "Swatches"
-    swatches.AutomaticSize = Enum.AutomaticSize.Y
+    swatches.AnchorPoint = Vector2.new(1, 0.5)
+    swatches.AutomaticSize = Enum.AutomaticSize.X
     swatches.BackgroundTransparency = 1
     swatches.BorderSizePixel = 0
-    swatches.LayoutOrder = 1
-    swatches.Size = UDim2.new(1, 0, 0, 32)
+    swatches.Position = UDim2.fromScale(1, 0.5)
+    swatches.Size = UDim2.new(0, 0, 0, 38)
     swatches.Parent = row
 
     local swatchesUIListLayout = Instance.new("UIListLayout")
     swatchesUIListLayout.FillDirection = Enum.FillDirection.Horizontal
-    swatchesUIListLayout.Padding = UDim.new(0, 8)
+    swatchesUIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+    swatchesUIListLayout.Padding = UDim.new(0, 12)
     swatchesUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    swatchesUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
     swatchesUIListLayout.Parent = swatches
 
     local Results = {}

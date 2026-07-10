@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.58
+--better MacLib BloodyV3 v.2.59
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -3136,7 +3136,7 @@ end
 					colorpicker.BorderColor3 = Color3.fromRGB(0, 0, 0)
 					colorpicker.BorderSizePixel = 0
 					colorpicker.Size = UDim2.new(1, 0, 0, 38)
-					colorpicker.Parent = section
+					colorpicker.Parent = Settings.Container or section
 
 					local colorpickerName = Instance.new("TextLabel")
 					colorpickerName.Name = "KeybindName"
@@ -3206,6 +3206,15 @@ end
 					uICorner1.Parent = colorCbg
 
 					colorCbg.Parent = colorpicker
+
+					if Settings.HideLabel then
+    colorpicker.AutomaticSize = Enum.AutomaticSize.None
+    colorpicker.Size = UDim2.fromOffset(32, 32)
+    colorpickerName.Visible = false
+    colorCbg.AnchorPoint = Vector2.new(0.5, 0.5)
+    colorCbg.Position = UDim2.fromScale(0.5, 0.5)
+    colorCbg.Size = UDim2.fromOffset(28, 28)
+end
 
 					local colorPicker = Instance.new("Frame")
 					colorPicker.Name = "ColorPicker"
@@ -4404,6 +4413,70 @@ end
 					end
 					return ColorpickerFunctions
 				end
+
+				function SectionFunctions:ColorpickerRow(Settings, list)
+    if not list or #list == 0 then return end
+    if #list > 5 then
+        warn("ColorpickerRow: maximum 5 colorpickers per row")
+    end
+
+    local row = Instance.new("Frame")
+    row.Name = "ColorpickerRow"
+    row.AutomaticSize = Enum.AutomaticSize.Y
+    row.BackgroundTransparency = 1
+    row.BorderSizePixel = 0
+    row.Size = UDim2.new(1, 0, 0, 0)
+    row.Parent = section
+
+    local rowUIListLayout = Instance.new("UIListLayout")
+    rowUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    rowUIListLayout.Padding = UDim.new(0, 6)
+    rowUIListLayout.Parent = row
+
+    local rowName = Instance.new("TextLabel")
+    rowName.Name = "RowName"
+    rowName.FontFace = Font.new(assets.interFont)
+    rowName.Text = Settings.Name
+    rowName.RichText = true
+    rowName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    rowName.TextSize = 13
+    rowName.TextTransparency = 0.5
+    rowName.TextXAlignment = Enum.TextXAlignment.Left
+    rowName.AutomaticSize = Enum.AutomaticSize.Y
+    rowName.BackgroundTransparency = 1
+    rowName.BorderSizePixel = 0
+    rowName.Size = UDim2.new(1, 0, 0, 0)
+    rowName.Parent = row
+
+    local swatches = Instance.new("Frame")
+    swatches.Name = "Swatches"
+    swatches.AutomaticSize = Enum.AutomaticSize.Y
+    swatches.BackgroundTransparency = 1
+    swatches.BorderSizePixel = 0
+    swatches.LayoutOrder = 1
+    swatches.Size = UDim2.new(1, 0, 0, 32)
+    swatches.Parent = row
+
+    local swatchesUIListLayout = Instance.new("UIListLayout")
+    swatchesUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+    swatchesUIListLayout.Padding = UDim.new(0, 8)
+    swatchesUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    swatchesUIListLayout.Parent = swatches
+
+    local Results = {}
+
+    for i, entry in ipairs(list) do
+        entry.Container = swatches
+        entry.HideLabel = true
+
+        local flag = entry.Flag
+        entry.Flag = nil
+
+        Results[i] = SectionFunctions:Colorpicker(entry, flag)
+    end
+
+    return Results
+end
 
 				function SectionFunctions:Header(Settings, Flag)
 					local HeaderFunctions = {Settings = Settings}

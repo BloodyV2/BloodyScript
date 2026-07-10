@@ -1,4 +1,4 @@
---worked v.2.57
+--better MacLib BloodyV3 v.2.58
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2540,7 +2540,7 @@ local dropdownSelectedIconCorner = Instance.new("UICorner")
 dropdownSelectedIconCorner.CornerRadius = UDim.new(0, 4)
 dropdownSelectedIconCorner.Parent = dropdownSelectedIcon
 
-dropdownSelectedIcon.Parent = dropdown
+dropdownSelectedIcon.Parent = interact
 
 					local dropdownUIStroke = Instance.new("UIStroke")
 					dropdownUIStroke.Name = "DropdownUIStroke"

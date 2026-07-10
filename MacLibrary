@@ -1,4 +1,4 @@
---worked v.2.36
+--worked v.2.49
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2680,13 +2680,17 @@ end
 					}
 
 					local function UpdateDisplayText()
+    local function escapeUrl(url)
+        return url:gsub("&", "&amp;")
+    end
+
     if #Selected > 0 then
         if DropdownFunctions.Settings.Multi then
             local labels = {}
             for _, name in ipairs(Selected) do
                 local icon = OptionObjs[name] and OptionObjs[name].Icon
                 if icon then
-                    table.insert(labels, string.format('<img src="%s" width="14" height="14"/> %s', icon, name))
+                    table.insert(labels, string.format('<img src="%s" width="14" height="14"/> %s', escapeUrl(icon), name))
                 else
                     table.insert(labels, name)
                 end
@@ -2696,7 +2700,7 @@ end
             local name = Selected[1]
             local icon = OptionObjs[name] and OptionObjs[name].Icon
             if icon then
-                dropdownName.Text = string.format('<img src="%s" width="14" height="14"/> %s', icon, name)
+                dropdownName.Text = string.format('<img src="%s" width="14" height="14"/> %s', escapeUrl(icon), name)
             else
                 dropdownName.Text = name
             end

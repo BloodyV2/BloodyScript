@@ -1,4 +1,4 @@
---worked v.2.49
+--worked v.2.57
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2527,6 +2527,21 @@ end
 					dropdownName.Size = UDim2.new(1, -20, 0, 38)
 					dropdownName.Parent = dropdown
 
+					local dropdownSelectedIcon = Instance.new("ImageLabel")
+dropdownSelectedIcon.Name = "DropdownSelectedIcon"
+dropdownSelectedIcon.BackgroundTransparency = 1
+dropdownSelectedIcon.BorderSizePixel = 0
+dropdownSelectedIcon.AnchorPoint = Vector2.new(0, 0.5)
+dropdownSelectedIcon.Position = UDim2.fromScale(0, 0.5)
+dropdownSelectedIcon.Size = UDim2.fromOffset(16, 16)
+dropdownSelectedIcon.Visible = false
+
+local dropdownSelectedIconCorner = Instance.new("UICorner")
+dropdownSelectedIconCorner.CornerRadius = UDim.new(0, 4)
+dropdownSelectedIconCorner.Parent = dropdownSelectedIcon
+
+dropdownSelectedIcon.Parent = dropdown
+
 					local dropdownUIStroke = Instance.new("UIStroke")
 					dropdownUIStroke.Name = "DropdownUIStroke"
 					dropdownUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -2680,32 +2695,28 @@ end
 					}
 
 					local function UpdateDisplayText()
-    local function escapeUrl(url)
-        return url:gsub("&", "&amp;")
-    end
-
     if #Selected > 0 then
         if DropdownFunctions.Settings.Multi then
-            local labels = {}
-            for _, name in ipairs(Selected) do
-                local icon = OptionObjs[name] and OptionObjs[name].Icon
-                if icon then
-                    table.insert(labels, string.format('<img src="%s" width="14" height="14"/> %s', escapeUrl(icon), name))
-                else
-                    table.insert(labels, name)
-                end
-            end
-            dropdownName.Text = table.concat(labels, ", ")
+            dropdownName.Text = table.concat(Selected, ", ")
+            dropdownSelectedIcon.Visible = false
+            dropdownName.Position = UDim2.fromOffset(0, 0)
         else
             local name = Selected[1]
             local icon = OptionObjs[name] and OptionObjs[name].Icon
+            dropdownName.Text = name
+
             if icon then
-                dropdownName.Text = string.format('<img src="%s" width="14" height="14"/> %s', escapeUrl(icon), name)
+                dropdownSelectedIcon.Image = icon
+                dropdownSelectedIcon.Visible = true
+                dropdownName.Position = UDim2.fromOffset(22, 0)
             else
-                dropdownName.Text = name
+                dropdownSelectedIcon.Visible = false
+                dropdownName.Position = UDim2.fromOffset(0, 0)
             end
         end
     else
+        dropdownSelectedIcon.Visible = false
+        dropdownName.Position = UDim2.fromOffset(0, 0)
         dropdownName.Text = DropdownFunctions.Settings.Name .. "..."
     end
 end

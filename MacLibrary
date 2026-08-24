@@ -5942,6 +5942,102 @@ end
 	end
 
 	ContentProvider:PreloadAsync(assetList)
+	local prompt = Instance.new("Frame")
+	prompt.Name = "Prompt"
+	prompt.AnchorPoint = Vector2.new(0.5, 0)
+	prompt.Position = UDim2.new(0.5, 0, 0, 12)
+	prompt.Size = UDim2.fromOffset(UserInputService.TouchEnabled and 140 or 124, UserInputService.TouchEnabled and 38 or 32)
+	prompt.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	prompt.BackgroundTransparency = 0.1
+	prompt.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	prompt.BorderSizePixel = 0
+	prompt.ZIndex = 3
+	prompt.Parent = macLib
+
+	local promptUICorner = Instance.new("UICorner")
+	promptUICorner.Name = "PromptUICorner"
+	promptUICorner.CornerRadius = UDim.new(0, 10)
+	promptUICorner.Parent = prompt
+
+	local promptUIStroke = Instance.new("UIStroke")
+	promptUIStroke.Name = "PromptUIStroke"
+	promptUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	promptUIStroke.Color = Color3.fromRGB(255, 255, 255)
+	promptUIStroke.Transparency = 0.9
+	promptUIStroke.Parent = prompt
+
+	local promptTitle = Instance.new("TextLabel")
+	promptTitle.Name = "Title"
+	promptTitle.FontFace = Font.new(
+		assets.interFont,
+		Enum.FontWeight.SemiBold,
+		Enum.FontStyle.Normal
+	)
+	promptTitle.Text = Settings.Title or "Menu"
+	promptTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+	promptTitle.RichText = true
+	promptTitle.TextSize = 15
+	promptTitle.TextTransparency = 0.1
+	promptTitle.TextTruncate = Enum.TextTruncate.SplitWord
+	promptTitle.BackgroundTransparency = 1
+	promptTitle.BorderSizePixel = 0
+	promptTitle.Size = UDim2.fromScale(1, 1)
+	promptTitle.Parent = prompt
+
+	local promptInteract = Instance.new("TextButton")
+	promptInteract.Name = "Interact"
+	promptInteract.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
+	promptInteract.Text = ""
+	promptInteract.TextColor3 = Color3.fromRGB(0, 0, 0)
+	promptInteract.TextSize = 14
+	promptInteract.AutoButtonColor = false
+	promptInteract.BackgroundTransparency = 1
+	promptInteract.BorderSizePixel = 0
+	promptInteract.Size = UDim2.fromScale(1, 1)
+	promptInteract.ZIndex = 2
+	promptInteract.Parent = prompt
+
+	do
+		local dragging, moved, relative, origin = false, false, Vector2.zero, Vector2.zero
+		local inset = MacLib.GetService("GuiService"):GetGuiInset()
+
+		promptInteract.InputBegan:Connect(function(input)
+			local inputType = input.UserInputType.Name
+			if inputType ~= "MouseButton1" and inputType ~= "Touch" then return end
+
+			dragging = true
+			moved = false
+			origin = UserInputService:GetMouseLocation()
+			relative = prompt.AbsolutePosition + prompt.AbsoluteSize * prompt.AnchorPoint - origin
+			Tween(prompt, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+		end)
+
+		UserInputService.InputEnded:Connect(function(input)
+			if not dragging then return end
+			local inputType = input.UserInputType.Name
+			if inputType ~= "MouseButton1" and inputType ~= "Touch" then return end
+
+			dragging = false
+			Tween(prompt, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.1}):Play()
+
+			if not moved then
+				WindowFunctions:SetState(not WindowFunctions:GetState())
+			end
+		end)
+
+		RunService.RenderStepped:Connect(function()
+			if not dragging then return end
+
+			local mouse = UserInputService:GetMouseLocation()
+			if (mouse - origin).Magnitude > 4 then
+				moved = true
+			end
+
+			local position = mouse + relative + inset
+			prompt.Position = UDim2.fromOffset(position.X, position.Y)
+		end)
+	end
+
 	macLib.Enabled = true
 	windowState = true
 

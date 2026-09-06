@@ -5956,6 +5956,141 @@ end
 	prompt.ZIndex = 3
 	prompt.Parent = macLib
 
+	local promptWidth = UserInputService.TouchEnabled and 140 or 124
+	local promptHeight = UserInputService.TouchEnabled and 38 or 32
+	local infoBarGap = 10
+
+	local infoBar = Instance.new("Frame")
+	infoBar.Name = "InfoBar"
+	infoBar.AnchorPoint = Vector2.new(1, 0)
+	infoBar.Position = UDim2.new(0.5, -(promptWidth / 2) - infoBarGap, 0, 12)
+	infoBar.Size = UDim2.fromOffset(promptWidth * 2, promptHeight)
+	infoBar.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	infoBar.BackgroundTransparency = 0.1
+	infoBar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	infoBar.BorderSizePixel = 0
+	infoBar.ZIndex = 3
+	infoBar.Parent = macLib
+
+	local infoBarUICorner = Instance.new("UICorner")
+	infoBarUICorner.CornerRadius = UDim.new(0, 10)
+	infoBarUICorner.Parent = infoBar
+
+	local infoBarUIStroke = Instance.new("UIStroke")
+	infoBarUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	infoBarUIStroke.Color = Color3.fromRGB(255, 255, 255)
+	infoBarUIStroke.Transparency = 0.9
+	infoBarUIStroke.Parent = infoBar
+
+	local infoBarUIPadding = Instance.new("UIPadding")
+	infoBarUIPadding.PaddingLeft = UDim.new(0, 12)
+	infoBarUIPadding.PaddingRight = UDim.new(0, 12)
+	infoBarUIPadding.Parent = infoBar
+
+	local infoBarUIListLayout = Instance.new("UIListLayout")
+	infoBarUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+	infoBarUIListLayout.Padding = UDim.new(0, 8)
+	infoBarUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	infoBarUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	infoBarUIListLayout.Parent = infoBar
+
+	local roseIcon = Instance.new("TextLabel")
+	roseIcon.Name = "RoseIcon"
+	roseIcon.Text = "🌹"
+	roseIcon.FontFace = Font.new(assets.interFont)
+	roseIcon.TextSize = 16
+	roseIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+	roseIcon.TextTransparency = 0
+	roseIcon.BackgroundTransparency = 1
+	roseIcon.BorderSizePixel = 0
+	roseIcon.AutomaticSize = Enum.AutomaticSize.XY
+	roseIcon.LayoutOrder = 0
+	roseIcon.Parent = infoBar
+
+	local bloodyLabel = Instance.new("TextLabel")
+	bloodyLabel.Name = "BloodyLabel"
+	bloodyLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+	bloodyLabel.Text = "Bloody"
+	bloodyLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	bloodyLabel.TextSize = 14
+	bloodyLabel.TextTransparency = 0.1
+	bloodyLabel.BackgroundTransparency = 1
+	bloodyLabel.BorderSizePixel = 0
+	bloodyLabel.AutomaticSize = Enum.AutomaticSize.XY
+	bloodyLabel.LayoutOrder = 1
+	bloodyLabel.Parent = infoBar
+
+	local function CreateSeparator(order)
+		local sep = Instance.new("TextLabel")
+		sep.Name = "Separator"
+		sep.FontFace = Font.new(assets.interFont)
+		sep.Text = "|"
+		sep.TextColor3 = Color3.fromRGB(255, 255, 255)
+		sep.TextSize = 14
+		sep.TextTransparency = 0.6
+		sep.BackgroundTransparency = 1
+		sep.BorderSizePixel = 0
+		sep.AutomaticSize = Enum.AutomaticSize.XY
+		sep.LayoutOrder = order
+		sep.Parent = infoBar
+		return sep
+	end
+
+	CreateSeparator(2)
+
+	local fpsLabel = Instance.new("TextLabel")
+	fpsLabel.Name = "FPSLabel"
+	fpsLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	fpsLabel.Text = "0 fps"
+	fpsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	fpsLabel.TextSize = 13
+	fpsLabel.TextTransparency = 0.3
+	fpsLabel.BackgroundTransparency = 1
+	fpsLabel.BorderSizePixel = 0
+	fpsLabel.AutomaticSize = Enum.AutomaticSize.XY
+	fpsLabel.LayoutOrder = 3
+	fpsLabel.Parent = infoBar
+
+	CreateSeparator(4)
+
+	local pingLabel = Instance.new("TextLabel")
+	pingLabel.Name = "PingLabel"
+	pingLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	pingLabel.Text = "0 ms"
+	pingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	pingLabel.TextSize = 13
+	pingLabel.TextTransparency = 0.3
+	pingLabel.BackgroundTransparency = 1
+	pingLabel.BorderSizePixel = 0
+	pingLabel.AutomaticSize = Enum.AutomaticSize.XY
+	pingLabel.LayoutOrder = 5
+	pingLabel.Parent = infoBar
+
+	local frameCount = 0
+	local lastFpsUpdate = tick()
+	RunService.RenderStepped:Connect(function()
+		frameCount += 1
+		local now = tick()
+		if now - lastFpsUpdate >= 1 then
+			fpsLabel.Text = tostring(frameCount) .. " fps"
+			frameCount = 0
+			lastFpsUpdate = now
+		end
+	end)
+
+	local Stats = game:GetService("Stats")
+	task.spawn(function()
+		while infoBar.Parent do
+			local ok, pingValue = pcall(function()
+				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+			end)
+			if ok and pingValue then
+				pingLabel.Text = tostring(math.floor(pingValue)) .. " ms"
+			end
+			task.wait(1)
+		end
+	end)
+
 	local promptUICorner = Instance.new("UICorner")
 	promptUICorner.Name = "PromptUICorner"
 	promptUICorner.CornerRadius = UDim.new(0, 10)

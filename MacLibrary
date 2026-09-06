@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.60
+--better MacLib BloodyV3 v.2.65
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -114,7 +114,7 @@ function MacLib:Window(Settings)
 	base.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	base.BorderSizePixel = 0
 	base.Position = UDim2.fromScale(0.5, 0.5)
-	base.Size = Settings.Size or UDim2.fromOffset(868, 650)
+	base.Size = Settings.Size or UDim2.fromOffset(600, 500)
 
 	local baseUIScale = Instance.new("UIScale")
 	baseUIScale.Name = "BaseUIScale"
@@ -141,7 +141,7 @@ function MacLib:Window(Settings)
 	sidebar.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	sidebar.BorderSizePixel = 0
 	sidebar.Position = UDim2.fromScale(-3.52e-08, 4.69e-08)
-	sidebar.Size = UDim2.fromScale(0.325, 1)
+	sidebar.Size = UDim2.fromScale(0.28, 1)
 
 	local divider = Instance.new("Frame")
 	divider.Name = "Divider"
@@ -163,7 +163,7 @@ function MacLib:Window(Settings)
 	dividerInteract.BorderSizePixel = 0
 	dividerInteract.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
 	dividerInteract.Position = UDim2.fromScale(0.5, 0)
-	dividerInteract.Size = UDim2.new(1, 6, 1, 0)
+	dividerInteract.Size = UDim2.new(1, 4, 1, 0)
 	dividerInteract.Text = ""
 	dividerInteract.TextColor3 = Color3.fromRGB(0, 0, 0)
 	dividerInteract.TextSize = 14
@@ -175,7 +175,7 @@ function MacLib:Window(Settings)
 	windowControls.BackgroundTransparency = 1
 	windowControls.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	windowControls.BorderSizePixel = 0
-	windowControls.Size = UDim2.new(1, 0, 0, 31)
+	windowControls.Size = UDim2.new(1, 0, 0, 25)
 
 	local controls = Instance.new("Frame")
 	controls.Name = "Controls"
@@ -187,7 +187,7 @@ function MacLib:Window(Settings)
 
 	local uIListLayout = Instance.new("UIListLayout")
 	uIListLayout.Name = "UIListLayout"
-	uIListLayout.Padding = UDim.new(0, 5)
+	uIListLayout.Padding = UDim.new(0, 3)
 	uIListLayout.FillDirection = Enum.FillDirection.Horizontal
 	uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	uIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
@@ -195,7 +195,7 @@ function MacLib:Window(Settings)
 
 	local uIPadding = Instance.new("UIPadding")
 	uIPadding.Name = "UIPadding"
-	uIPadding.PaddingLeft = UDim.new(0, 11)
+	uIPadding.PaddingLeft = UDim.new(0, 8)
 	uIPadding.Parent = controls
 
 	local windowControlSettings = {
@@ -321,7 +321,7 @@ function MacLib:Window(Settings)
 	information.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	information.BorderSizePixel = 0
 	information.Position = UDim2.fromOffset(0, 31)
-	information.Size = UDim2.new(1, 0, 0, 60)
+	information.Size = UDim2.new(1, 0, 0, 45)
 
 	local divider2 = Instance.new("Frame")
 	divider2.Name = "Divider"
@@ -344,10 +344,10 @@ function MacLib:Window(Settings)
 
 	local informationHolderUIPadding = Instance.new("UIPadding")
 	informationHolderUIPadding.Name = "InformationHolderUIPadding"
-	informationHolderUIPadding.PaddingBottom = UDim.new(0, 10)
-	informationHolderUIPadding.PaddingLeft = UDim.new(0, 23)
-	informationHolderUIPadding.PaddingRight = UDim.new(0, 22)
-	informationHolderUIPadding.PaddingTop = UDim.new(0, 10)
+	informationHolderUIPadding.PaddingBottom = UDim.new(0, 5)
+	informationHolderUIPadding.PaddingLeft = UDim.new(0, 15)
+	informationHolderUIPadding.PaddingRight = UDim.new(0, 15)
+	informationHolderUIPadding.PaddingTop = UDim.new(0, 5)
 	informationHolderUIPadding.Parent = informationHolder
 
 	local globalSettingsButton = Instance.new("ImageButton")
@@ -360,7 +360,7 @@ function MacLib:Window(Settings)
 	globalSettingsButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	globalSettingsButton.BorderSizePixel = 0
 	globalSettingsButton.Position = UDim2.fromScale(1, 0.5)
-	globalSettingsButton.Size = UDim2.fromOffset(16,16)
+	globalSettingsButton.Size = UDim2.fromOffset(14,14)
 	globalSettingsButton.Parent = informationHolder
 
 	local function ChangeGlobalSettingsButtonState(State)
@@ -440,7 +440,7 @@ function MacLib:Window(Settings)
 
 	local titleFrameUIListLayout = Instance.new("UIListLayout")
 	titleFrameUIListLayout.Name = "TitleFrameUIListLayout"
-	titleFrameUIListLayout.Padding = UDim.new(0, 3)
+	titleFrameUIListLayout.Padding = UDim.new(0, 2)
 	titleFrameUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	titleFrameUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 	titleFrameUIListLayout.Parent = titleFrame
@@ -457,8 +457,8 @@ function MacLib:Window(Settings)
 	sidebarGroup.BackgroundTransparency = 1
 	sidebarGroup.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	sidebarGroup.BorderSizePixel = 0
-	sidebarGroup.Position = UDim2.fromOffset(0, 91)
-	sidebarGroup.Size = UDim2.new(1, 0, 1, -91)
+	sidebarGroup.Position = UDim2.fromOffset(0, 70)
+	sidebarGroup.Size = UDim2.new(1, 0, 1, -70)
 
 	local userInfo = Instance.new("Frame")
 	userInfo.Name = "UserInfo"
@@ -468,7 +468,7 @@ function MacLib:Window(Settings)
 	userInfo.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	userInfo.BorderSizePixel = 0
 	userInfo.Position = UDim2.fromScale(0, 1)
-	userInfo.Size = UDim2.new(1, 0, 0, 107)
+	userInfo.Size = UDim2.new(1, 0, 0, 85)
 
 	local informationGroup = Instance.new("Frame")
 	informationGroup.Name = "InformationGroup"
@@ -480,8 +480,8 @@ function MacLib:Window(Settings)
 
 	local informationGroupUIPadding = Instance.new("UIPadding")
 	informationGroupUIPadding.Name = "InformationGroupUIPadding"
-	informationGroupUIPadding.PaddingBottom = UDim.new(0, 17)
-	informationGroupUIPadding.PaddingLeft = UDim.new(0, 25)
+	informationGroupUIPadding.PaddingBottom = UDim.new(0, 12)
+	informationGroupUIPadding.PaddingLeft = UDim.new(0, 20)
 	informationGroupUIPadding.Parent = informationGroup
 
 	local informationGroupUIListLayout = Instance.new("UIListLayout")
@@ -502,7 +502,7 @@ function MacLib:Window(Settings)
 	headshot.BackgroundTransparency = 1
 	headshot.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	headshot.BorderSizePixel = 0
-	headshot.Size = UDim2.fromOffset(32, 32)
+	headshot.Size = UDim2.fromOffset(28, 28)
 	headshot.Image = (isReady and headshotImage) or "rbxassetid://0"
 
 	local uICorner3 = Instance.new("UICorner")
@@ -552,8 +552,8 @@ function MacLib:Window(Settings)
 
 	local userAndDisplayFrameUIPadding = Instance.new("UIPadding")
 	userAndDisplayFrameUIPadding.Name = "UserAndDisplayFrameUIPadding"
-	userAndDisplayFrameUIPadding.PaddingLeft = UDim.new(0, 8)
-	userAndDisplayFrameUIPadding.PaddingTop = UDim.new(0, 3)
+	userAndDisplayFrameUIPadding.PaddingLeft = UDim.new(0, 6)
+	userAndDisplayFrameUIPadding.PaddingTop = UDim.new(0, 2)
 	userAndDisplayFrameUIPadding.Parent = userAndDisplayFrame
 
 	local userAndDisplayFrameUIListLayout = Instance.new("UIListLayout")
@@ -599,9 +599,9 @@ function MacLib:Window(Settings)
 
 	local sidebarGroupUIPadding = Instance.new("UIPadding")
 	sidebarGroupUIPadding.Name = "SidebarGroupUIPadding"
-	sidebarGroupUIPadding.PaddingLeft = UDim.new(0, 10)
-	sidebarGroupUIPadding.PaddingRight = UDim.new(0, 10)
-	sidebarGroupUIPadding.PaddingTop = UDim.new(0, 31)
+	sidebarGroupUIPadding.PaddingLeft = UDim.new(0, 8)
+	sidebarGroupUIPadding.PaddingRight = UDim.new(0, 8)
+	sidebarGroupUIPadding.PaddingTop = UDim.new(0, 20)
 	sidebarGroupUIPadding.Parent = sidebarGroup
 
 	local tabSwitchers = Instance.new("Frame")
@@ -610,7 +610,7 @@ function MacLib:Window(Settings)
 	tabSwitchers.BackgroundTransparency = 1
 	tabSwitchers.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	tabSwitchers.BorderSizePixel = 0
-	tabSwitchers.Size = UDim2.new(1, 0, 1, -107)
+	tabSwitchers.Size = UDim2.new(1, 0, 1, -85)
 
 	local tabSwitchersScrollingFrame = Instance.new("ScrollingFrame")
 	tabSwitchersScrollingFrame.Name = "TabSwitchersScrollingFrame"
@@ -628,7 +628,7 @@ function MacLib:Window(Settings)
 
 	local tabSwitchersScrollingFrameUIListLayout = Instance.new("UIListLayout")
 	tabSwitchersScrollingFrameUIListLayout.Name = "TabSwitchersScrollingFrameUIListLayout"
-	tabSwitchersScrollingFrameUIListLayout.Padding = UDim.new(0, 17)
+	tabSwitchersScrollingFrameUIListLayout.Padding = UDim.new(0, 10)
 	tabSwitchersScrollingFrameUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	tabSwitchersScrollingFrameUIListLayout.Parent = tabSwitchersScrollingFrame
 
@@ -658,8 +658,8 @@ function MacLib:Window(Settings)
 	local resizingContent = false
 	local defaultSidebarWidth = sidebar.AbsoluteSize.X
 	local initialMouseX, initialSidebarWidth
-	local snapRange = 20
-	local minSidebarWidth = 107
+	local snapRange = 15
+	local minSidebarWidth = 90
 	local maxSidebarWidth = base.AbsoluteSize.X - minSidebarWidth
 
 	local TweenSettings = {
@@ -716,7 +716,7 @@ function MacLib:Window(Settings)
 	topbar.BackgroundTransparency = 1
 	topbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	topbar.BorderSizePixel = 0
-	topbar.Size = UDim2.new(1, 0, 0, 63)
+	topbar.Size = UDim2.new(1, 0, 0, 45)
 
 	local divider4 = Instance.new("Frame")
 	divider4.Name = "Divider"
@@ -739,8 +739,8 @@ function MacLib:Window(Settings)
 
 	local uIPadding2 = Instance.new("UIPadding")
 	uIPadding2.Name = "UIPadding"
-	uIPadding2.PaddingLeft = UDim.new(0, 20)
-	uIPadding2.PaddingRight = UDim.new(0, 20)
+	uIPadding2.PaddingLeft = UDim.new(0, 15)
+	uIPadding2.PaddingRight = UDim.new(0, 15)
 	uIPadding2.Parent = elements
 
 	local moveIcon = Instance.new("ImageButton")
@@ -753,7 +753,7 @@ function MacLib:Window(Settings)
 	moveIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	moveIcon.BorderSizePixel = 0
 	moveIcon.Position = UDim2.fromScale(1, 0.5)
-	moveIcon.Size = UDim2.fromOffset(15, 15)
+	moveIcon.Size = UDim2.fromOffset(12, 12)
 	moveIcon.Parent = elements
 	moveIcon.Visible = true
 
@@ -769,7 +769,7 @@ function MacLib:Window(Settings)
 	interact.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	interact.BorderSizePixel = 0
 	interact.Position = UDim2.fromScale(0.5, 0.5)
-	interact.Size = UDim2.fromOffset(40, 40)
+	interact.Size = UDim2.fromOffset(30, 30)
 	interact.Parent = moveIcon
 
 	local function ChangemoveIconState(State)
@@ -860,7 +860,7 @@ local dragging_ = false
 	local currentTabHolderUIListLayout = Instance.new("UIListLayout")
 	currentTabHolderUIListLayout.Name = "CurrentTabHolderUIListLayout"
 	currentTabHolderUIListLayout.FillDirection = Enum.FillDirection.Horizontal
-	currentTabHolderUIListLayout.Padding = UDim.new(0, 7)
+	currentTabHolderUIListLayout.Padding = UDim.new(0, 5)
 	currentTabHolderUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	currentTabHolderUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 	currentTabHolderUIListLayout.Parent = currentTabHolder

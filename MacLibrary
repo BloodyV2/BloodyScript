@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.65
+--better MacLib BloodyV3 v.2.60
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -5949,7 +5949,7 @@ end
 	prompt.AnchorPoint = Vector2.new(0.5, 0)
 	prompt.Position = UDim2.new(0.5, 0, 0, 12)
 	prompt.AutomaticSize = Enum.AutomaticSize.X
-	prompt.Size = UDim2.new(0, 0, 0, UserInputService.TouchEnabled and 38 or 32)
+	prompt.Size = UDim2.new(0, 0, 0, UserInputService.TouchEnabled and 10 or 8)
 	prompt.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 	prompt.BackgroundTransparency = 0.1
 	prompt.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -5981,7 +5981,6 @@ end
 	promptUIPadding.PaddingRight = UDim.new(0, 12)
 	promptUIPadding.Parent = prompt
 
-	-- Titre (🌹 Bloody v3.17)
 	local promptTitle = Instance.new("TextLabel")
 	promptTitle.Name = "Title"
 	promptTitle.FontFace = Font.new(
@@ -6018,7 +6017,6 @@ end
 
 	CreatePromptSeparator(1)
 
-	-- FPS
 	local fpsLabel = Instance.new("TextLabel")
 	fpsLabel.Name = "FPSLabel"
 	fpsLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
@@ -6034,7 +6032,6 @@ end
 
 	CreatePromptSeparator(3)
 
-	-- Ping
 	local pingLabel = Instance.new("TextLabel")
 	pingLabel.Name = "PingLabel"
 	pingLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
@@ -6061,7 +6058,6 @@ end
 	promptInteract.ZIndex = 2
 	promptInteract.Parent = prompt
 
-	-- Calcul des FPS
 	local frameCount = 0
 	local lastFpsUpdate = tick()
 	RunService.RenderStepped:Connect(function()
@@ -6074,7 +6070,6 @@ end
 		end
 	end)
 
-	-- Calcul du ping
 	local Stats = game:GetService("Stats")
 	task.spawn(function()
 		while prompt.Parent do

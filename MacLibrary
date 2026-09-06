@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.63
+--better MacLib BloodyV3 v.2.60
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -3224,7 +3224,7 @@ end
 					colorPicker.Size = UDim2.fromScale(1, 1)
 					colorPicker.Visible = false
 
-										local baseUICorner = Instance.new("UICorner")
+					local baseUICorner = Instance.new("UICorner")
 					baseUICorner.Name = "BaseUICorner"
 					baseUICorner.CornerRadius = UDim.new(0, 10)
 					baseUICorner.Parent = colorPicker
@@ -3238,134 +3238,6 @@ end
 					prompt.BorderSizePixel = 0
 					prompt.Position = UDim2.fromScale(0.5, 0.5)
 					prompt.Size = UDim2.fromOffset(420, 0)
-
-					local promptUIScale = Instance.new("UIScale")
-
-	local promptUICorner = Instance.new("UICorner")
-	promptUICorner.Name = "PromptUICorner"
-	promptUICorner.CornerRadius = UDim.new(0, 10)
-	promptUICorner.Parent = prompt
-
-	local promptUIStroke = Instance.new("UIStroke")
-	promptUIStroke.Name = "PromptUIStroke"
-	promptUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	promptUIStroke.Color = Color3.fromRGB(255, 255, 255)
-	promptUIStroke.Transparency = 0.9
-	promptUIStroke.Parent = prompt
-
-	local promptUIListLayout = Instance.new("UIListLayout")
-	promptUIListLayout.FillDirection = Enum.FillDirection.Horizontal
-	promptUIListLayout.Padding = UDim.new(0, 8)
-	promptUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-	promptUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	promptUIListLayout.Parent = prompt
-
-	local promptUIPadding = Instance.new("UIPadding")
-	promptUIPadding.PaddingLeft = UDim.new(0, 12)
-	promptUIPadding.PaddingRight = UDim.new(0, 12)
-	promptUIPadding.Parent = prompt
-
-	local promptTitle = Instance.new("TextLabel")
-	promptTitle.Name = "Title"
-	promptTitle.FontFace = Font.new(
-		assets.interFont,
-		Enum.FontWeight.SemiBold,
-		Enum.FontStyle.Normal
-	)
-	promptTitle.Text = Settings.Title or "Menu"
-	promptTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-	promptTitle.RichText = true
-	promptTitle.TextSize = 15
-	promptTitle.TextTransparency = 0.1
-	promptTitle.BackgroundTransparency = 1
-	promptTitle.BorderSizePixel = 0
-	promptTitle.AutomaticSize = Enum.AutomaticSize.XY
-	promptTitle.LayoutOrder = 0
-	promptTitle.Parent = prompt
-
-	local function CreatePromptSeparator(order)
-		local sep = Instance.new("TextLabel")
-		sep.Name = "Separator"
-		sep.FontFace = Font.new(assets.interFont)
-		sep.Text = "|"
-		sep.TextColor3 = Color3.fromRGB(255, 255, 255)
-		sep.TextSize = 14
-		sep.TextTransparency = 0.6
-		sep.BackgroundTransparency = 1
-		sep.BorderSizePixel = 0
-		sep.AutomaticSize = Enum.AutomaticSize.XY
-		sep.LayoutOrder = order
-		sep.Parent = prompt
-		return sep
-	end
-
-	CreatePromptSeparator(1)
-
-	local fpsLabel = Instance.new("TextLabel")
-	fpsLabel.Name = "FPSLabel"
-	fpsLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-	fpsLabel.Text = "0 fps"
-	fpsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	fpsLabel.TextSize = 13
-	fpsLabel.TextTransparency = 0.3
-	fpsLabel.BackgroundTransparency = 1
-	fpsLabel.BorderSizePixel = 0
-	fpsLabel.AutomaticSize = Enum.AutomaticSize.XY
-	fpsLabel.LayoutOrder = 2
-	fpsLabel.Parent = prompt
-
-	CreatePromptSeparator(3)
-
-	local pingLabel = Instance.new("TextLabel")
-	pingLabel.Name = "PingLabel"
-	pingLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-	pingLabel.Text = "0 ms"
-	pingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	pingLabel.TextSize = 13
-	pingLabel.TextTransparency = 0.3
-	pingLabel.BackgroundTransparency = 1
-	pingLabel.BorderSizePixel = 0
-	pingLabel.AutomaticSize = Enum.AutomaticSize.XY
-	pingLabel.LayoutOrder = 4
-	pingLabel.Parent = prompt
-
-	local promptInteract = Instance.new("TextButton")
-	promptInteract.Name = "Interact"
-	promptInteract.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
-	promptInteract.Text = ""
-	promptInteract.TextColor3 = Color3.fromRGB(0, 0, 0)
-	promptInteract.TextSize = 14
-	promptInteract.AutoButtonColor = false
-	promptInteract.BackgroundTransparency = 1
-	promptInteract.BorderSizePixel = 0
-	promptInteract.Size = UDim2.fromScale(1, 1)
-	promptInteract.ZIndex = 2
-	promptInteract.Parent = prompt
-
-	local frameCount = 0
-	local lastFpsUpdate = tick()
-	RunService.RenderStepped:Connect(function()
-		frameCount += 1
-		local now = tick()
-		if now - lastFpsUpdate >= 1 then
-			fpsLabel.Text = tostring(frameCount) .. " fps"
-			frameCount = 0
-			lastFpsUpdate = now
-		end
-	end)
-
-	local Stats = game:GetService("Stats")
-	task.spawn(function()
-		while prompt.Parent do
-			local ok, pingValue = pcall(function()
-				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-			end)
-			if ok and pingValue then
-				pingLabel.Text = tostring(math.floor(pingValue)) .. " ms"
-			end
-			task.wait(1)
-		end
-	end)
 
 					local promptUIScale = Instance.new("UIScale")
 					promptUIScale.Name = "BaseUIScale"
@@ -6071,7 +5943,7 @@ end
 		table.insert(assetList, assetId)
 	end
 
-		ContentProvider:PreloadAsync(assetList)
+	ContentProvider:PreloadAsync(assetList)
 	local prompt = Instance.new("Frame")
 	prompt.Name = "Prompt"
 	prompt.AnchorPoint = Vector2.new(0.5, 0)
@@ -6109,6 +5981,7 @@ end
 	promptUIPadding.PaddingRight = UDim.new(0, 12)
 	promptUIPadding.Parent = prompt
 
+	-- Titre (🌹 Bloody v3.17)
 	local promptTitle = Instance.new("TextLabel")
 	promptTitle.Name = "Title"
 	promptTitle.FontFace = Font.new(
@@ -6145,6 +6018,7 @@ end
 
 	CreatePromptSeparator(1)
 
+	-- FPS
 	local fpsLabel = Instance.new("TextLabel")
 	fpsLabel.Name = "FPSLabel"
 	fpsLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
@@ -6160,6 +6034,7 @@ end
 
 	CreatePromptSeparator(3)
 
+	-- Ping
 	local pingLabel = Instance.new("TextLabel")
 	pingLabel.Name = "PingLabel"
 	pingLabel.FontFace = Font.new(assets.interFont, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
@@ -6186,6 +6061,7 @@ end
 	promptInteract.ZIndex = 2
 	promptInteract.Parent = prompt
 
+	-- Calcul des FPS
 	local frameCount = 0
 	local lastFpsUpdate = tick()
 	RunService.RenderStepped:Connect(function()
@@ -6198,6 +6074,7 @@ end
 		end
 	end)
 
+	-- Calcul du ping
 	local Stats = game:GetService("Stats")
 	task.spawn(function()
 		while prompt.Parent do

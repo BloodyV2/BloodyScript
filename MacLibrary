@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.61
+--better MacLib BloodyV3 v.2.62
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -90,14 +90,30 @@ local function CacheOriginalTexts(instances)
 end
 
 local function TranslateText(text, targetCode)
+    if type(text) ~= "string" or text == "" then
+        return text
+    end
+    if type(targetCode) ~= "string" or targetCode == "" then
+        return text
+    end
+
     local success, result = pcall(function()
+        local encodedText = HttpService:UrlEncode(text)
         local url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl="
-            .. targetCode .. "&dt=t&q=" .. HttpService:UrlEncode(text)
+            .. targetCode .. "&dt=t&q=" .. encodedText
+
+        if type(url) ~= "string" then
+            error("URL construction failed")
+        end
 
         local response = request({
             Url = url,
             Method = "GET"
         })
+
+        if not response or not response.Body then
+            error("No response body")
+        end
 
         local decoded = HttpService:JSONDecode(response.Body)
         local translated = ""
@@ -107,7 +123,7 @@ local function TranslateText(text, targetCode)
         return translated
     end)
 
-    return success and result or text 
+    return success and result or text
 end
 
 local function ApplyAutoTranslation(root, targetLang, excludeList)
@@ -121,6 +137,10 @@ local function ApplyAutoTranslation(root, targetLang, excludeList)
 
     for _, inst in ipairs(instances) do
         local original = OriginalTexts[inst]
+        
+        if not original or original == "" then
+            continue
+        end
 
         if code == "en" then
             inst.Text = original

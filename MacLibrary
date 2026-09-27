@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.63
+--better MacLib BloodyV3 v.2.64
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -6152,6 +6152,9 @@ end
 
 	macLib.Enabled = true
 	windowState = true
+
+	WindowFunctions.RootFrame = base
+	WindowFunctions.TitleLabel = title
 
 	return WindowFunctions
 end

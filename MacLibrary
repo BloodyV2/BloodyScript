@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.65
+--better MacLib BloodyV3 v.2.66
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -4971,124 +4971,6 @@ end
 					viewportCamera.Parent = viewportFrame
 					viewportFrame.CurrentCamera = viewportCamera
 
-					local rotationSpeed = Settings.RotationSpeed or 1
-					local rotationAngle = 0
-					local distance = Settings.Distance or 8
-					local height = Settings.Height or 2
-					local target = Settings.Target or nil
-					local rotationConnection = nil
-					local characterAddedConnection = nil
-					local clonedCharacter = nil
-
-					local function setupViewport()
-						-- Si une target est fournie, l'utiliser directement
-						if target and target.Parent then
-							return
-						end
-						
-						-- Sinon, cloner le personnage du joueur
-						local player = LocalPlayer
-						local character = player.Character or player.CharacterAdded:Wait()
-						
-						-- Créer un clone du personnage
-						clonedCharacter = character:Clone()
-						clonedCharacter.Name = "ViewPortFrameChar"
-						
-						-- Nettoyer le clone (enlever scripts, etc.)
-						for _, child in ipairs(clonedCharacter:GetDescendants()) do
-							if child:IsA("Script") or child:IsA("LocalScript") then
-								child:Destroy()
-							elseif child:IsA("Humanoid") then
-								child.PlatformStand = true
-							end
-						end
-						
-						-- Parenter au viewport
-						clonedCharacter.Parent = viewportFrame
-						clonedCharacter.PrimaryPart = clonedCharacter:FindFirstChild("HumanoidRootPart")
-						
-						target = clonedCharacter.PrimaryPart
-						
-						-- Positionner le clone au centre
-						clonedCharacter:SetPrimaryPartCFrame(CFrame.new(0, 0, 0))
-					end
-
-					local function startRotation()
-						if rotationConnection then
-							rotationConnection:Disconnect()
-						end
-
-						rotationConnection = RunService.RenderStepped:Connect(function(deltaTime)
-							if target and target.Parent then
-								rotationAngle = (rotationAngle + rotationSpeed * deltaTime) % (math.pi * 2)
-								
-								local x = math.sin(rotationAngle) * distance
-								local z = math.cos(rotationAngle) * distance
-								
-								viewportCamera.CFrame = CFrame.new(
-									Vector3.new(x, height, z),
-									target.Position
-								)
-							end
-						end)
-					end
-
-					local function cleanup()
-						if rotationConnection then
-							rotationConnection:Disconnect()
-							rotationConnection = nil
-						end
-						if characterAddedConnection then
-							characterAddedConnection:Disconnect()
-							characterAddedConnection = nil
-						end
-						
-						-- Nettoyer le clone si on l'a créé
-						if clonedCharacter and clonedCharacter.Parent then
-							clonedCharacter:Destroy()
-							clonedCharacter = nil
-						end
-					end
-
-					local function initialize()
-						cleanup()
-						setupViewport()
-						startRotation()
-					end
-
-					-- Initialisation
-					if Settings.Target and Settings.Target.Parent then
-						-- Utiliser la target fournie
-						target = Settings.Target
-						startRotation()
-					else
-						-- Cloner le personnage du joueur
-						if LocalPlayer.Character then
-							initialize()
-						else
-							LocalPlayer.CharacterAdded:Connect(function()
-								initialize()
-							end)
-						end
-						
-						-- Recharger quand le personnage change
-						characterAddedConnection = LocalPlayer.CharacterAdded:Connect(function()
-							initialize()
-						end)
-					end
-
-					function ViewportLabelFunctions:UpdateRotationSpeed(speed)
-						rotationSpeed = speed or 1
-					end
-
-					function ViewportLabelFunctions:UpdateDistance(dist)
-						distance = dist or 8
-					end
-
-					function ViewportLabelFunctions:UpdateHeight(h)
-						height = h or 2
-					end
-
 					function ViewportLabelFunctions:UpdateSize(newSize)
 						viewportFrame.Size = newSize
 					end
@@ -5097,24 +4979,12 @@ end
 						viewportFrame.Visible = State
 					end
 
-					function ViewportLabelFunctions:Refresh()
-						initialize()
+					function ViewportLabelFunctions:GetViewportFrame()
+						return viewportFrame
 					end
 
-					function ViewportLabelFunctions:StopRotation()
-						if rotationConnection then
-							rotationConnection:Disconnect()
-							rotationConnection = nil
-						end
-					end
-
-					function ViewportLabelFunctions:StartRotation()
-						startRotation()
-					end
-
-					function ViewportLabelFunctions:Destroy()
-						cleanup()
-						viewportFrame:Destroy()
+					function ViewportLabelFunctions:GetCamera()
+						return viewportCamera
 					end
 
 					if Flag then

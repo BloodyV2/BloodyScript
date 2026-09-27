@@ -46,6 +46,96 @@ local assets = {
 	sliderhead = "rbxassetid://18772834246",
 }
 
+local LanguageCodes = {
+    English    = "en",
+    Français   = "fr",
+    Español    = "es",
+    Deutsch    = "de",
+    Português  = "pt",
+    Italiano   = "it",
+    Русский    = "ru",
+    ["中文"]    = "zh-CN",
+    日本語      = "ja",
+    한국어      = "ko",
+}
+
+local OriginalTexts = {}     
+local TranslationCache = {}  
+
+local function GetTextInstances(root, excludeList)
+    local list = {}
+    for _, v in ipairs(root:GetDescendants()) do
+        if (v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox")) then
+            local isExcluded = false
+            for _, ex in ipairs(excludeList) do
+                if v == ex then
+                    isExcluded = true
+                    break
+                end
+            end
+            if not isExcluded and v.Text and v.Text ~= "" then
+                table.insert(list, v)
+            end
+        end
+    end
+    return list
+end
+
+local function CacheOriginalTexts(instances)
+    for _, inst in ipairs(instances) do
+        if not OriginalTexts[inst] then
+            OriginalTexts[inst] = inst.Text
+        end
+    end
+end
+
+local function TranslateText(text, targetCode)
+    local success, result = pcall(function()
+        local url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl="
+            .. targetCode .. "&dt=t&q=" .. HttpService:UrlEncode(text)
+
+        local response = request({
+            Url = url,
+            Method = "GET"
+        })
+
+        local decoded = HttpService:JSONDecode(response.Body)
+        local translated = ""
+        for _, chunk in ipairs(decoded[1]) do
+            translated = translated .. chunk[1]
+        end
+        return translated
+    end)
+
+    return success and result or text 
+end
+
+local function ApplyAutoTranslation(root, targetLang, excludeList)
+    local code = LanguageCodes[targetLang]
+    if not code then return end
+
+    local instances = GetTextInstances(root, excludeList)
+    CacheOriginalTexts(instances)
+
+    TranslationCache[code] = TranslationCache[code] or {}
+
+    for _, inst in ipairs(instances) do
+        local original = OriginalTexts[inst]
+
+        if code == "en" then
+            inst.Text = original
+        elseif TranslationCache[code][original] then
+            inst.Text = TranslationCache[code][original]
+        else
+            task.spawn(function()
+                local translated = TranslateText(original, code)
+                TranslationCache[code][original] = translated
+                inst.Text = translated
+            end)
+        end
+    end
+end
+
 --// Functions
 local function GetGui()
 	local newGui = Instance.new("ScreenGui")

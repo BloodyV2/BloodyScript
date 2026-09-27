@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.60
+--better MacLib BloodyV3 v.2.61
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -47,16 +47,16 @@ local assets = {
 }
 
 local LanguageCodes = {
-    English    = "en",
-    Français   = "fr",
-    Español    = "es",
-    Deutsch    = "de",
-    Português  = "pt",
-    Italiano   = "it",
-    Русский    = "ru",
-    ["中文"]    = "zh-CN",
-    日本語      = "ja",
-    한국어      = "ko",
+    English         = "en",
+    ["Français"]    = "fr",
+    ["Español"]     = "es",
+    Deutsch         = "de",
+    ["Português"]   = "pt",
+    Italiano        = "it",
+    ["Русский"]     = "ru",
+    ["中文"]         = "zh-CN",
+    ["日本語"]        = "ja",
+    ["한국어"]        = "ko",
 }
 
 local OriginalTexts = {}     

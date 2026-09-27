@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.67
+--better MacLib BloodyV3 v.2.65
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -4978,6 +4978,7 @@ end
 					local target = Settings.Target or nil
 					local rotationConnection = nil
 					local characterAddedConnection = nil
+					local clonedCharacter = nil
 
 					local function setupViewport()
 						-- Si une target est fournie, l'utiliser
@@ -4985,13 +4986,31 @@ end
 							return
 						end
 						
-						-- Sinon, utiliser le personnage du joueur
+						-- Sinon, cloner le personnage du joueur (OBLIGATOIRE pour ViewportFrame)
 						local player = LocalPlayer
-						local character = player.Character
+						local character = player.Character or player.CharacterAdded:Wait()
 						
-						if character then
-							target = character:FindFirstChild("HumanoidRootPart")
+						-- Créer un clone du personnage
+						clonedCharacter = character:Clone()
+						clonedCharacter.Name = "ViewPortFrameChar"
+						
+						-- Nettoyer le clone (enlever scripts, etc.)
+						for _, child in ipairs(clonedCharacter:GetDescendants()) do
+							if child:IsA("Script") or child:IsA("LocalScript") then
+								child:Destroy()
+							elseif child:IsA("Humanoid") then
+								child.PlatformStand = true
+							end
 						end
+						
+						-- Parenter au viewport (OBLIGATOIRE pour que ça s'affiche)
+						clonedCharacter.Parent = viewportFrame
+						clonedCharacter.PrimaryPart = clonedCharacter:FindFirstChild("HumanoidRootPart")
+						
+						target = clonedCharacter.PrimaryPart
+						
+						-- Positionner le clone au centre
+						clonedCharacter:SetPrimaryPartCFrame(CFrame.new(0, 0, 0))
 					end
 
 					local function startRotation()
@@ -5023,6 +5042,12 @@ end
 							characterAddedConnection:Disconnect()
 							characterAddedConnection = nil
 						end
+						
+						-- Nettoyer le clone
+						if clonedCharacter and clonedCharacter.Parent then
+							clonedCharacter:Destroy()
+							clonedCharacter = nil
+						end
 					end
 
 					local function initialize()
@@ -5037,7 +5062,7 @@ end
 						target = Settings.Target
 						startRotation()
 					else
-						-- Utiliser le personnage du joueur
+						-- Cloner le personnage du joueur (OBLIGATOIRE)
 						if LocalPlayer.Character then
 							initialize()
 						else

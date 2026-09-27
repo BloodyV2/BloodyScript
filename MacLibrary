@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.62
+--better MacLib BloodyV3 v.2.63
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -46,7 +46,7 @@ local assets = {
 	sliderhead = "rbxassetid://18772834246",
 }
 
-local LanguageCodes = {
+MacLib.LanguageCodes = {
     English         = "en",
     ["Français"]    = "fr",
     ["Español"]     = "es",
@@ -127,7 +127,7 @@ local function TranslateText(text, targetCode)
 end
 
 local function ApplyAutoTranslation(root, targetLang, excludeList)
-    local code = LanguageCodes[targetLang]
+    local code = MacLib.LanguageCodes[targetLang] 
     if not code then return end
 
     local instances = GetTextInstances(root, excludeList)
@@ -6418,5 +6418,7 @@ function MacLib:Demo()
 	tabs.Main:Select()
 	MacLib:LoadAutoLoadConfig()
 end
+
+MacLib.ApplyAutoTranslation = ApplyAutoTranslation
 
 return MacLib

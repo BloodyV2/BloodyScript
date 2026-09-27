@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.64
+--better MacLib BloodyV3 v.2.65
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -102,17 +102,23 @@ local function TranslateText(text, targetCode)
         local url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl="
             .. targetCode .. "&dt=t&q=" .. encodedText
 
-        if type(url) ~= "string" then
-            error("URL construction failed")
-        end
-
         local response = request({
             Url = url,
-            Method = "GET"
+            Method = "GET",
+            Headers = {
+                ["User-Agent"] = "Mozilla/5.0"
+            }
         })
 
-        if not response or not response.Body then
-            error("No response body")
+        if not response then
+            error("Pas de réponse du serveur")
+        end
+        
+        print("Status:", response.StatusCode)
+        print("Body:", response.Body)
+
+        if not response.Body or response.Body == "" then
+            error("Réponse vide")
         end
 
         local decoded = HttpService:JSONDecode(response.Body)
@@ -122,6 +128,10 @@ local function TranslateText(text, targetCode)
         end
         return translated
     end)
+
+    if not success then
+        warn("Erreur de traduction:", result)
+    end
 
     return success and result or text
 end

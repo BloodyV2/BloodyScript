@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.70
+--better MacLib BloodyV3 v.2.71
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1637,7 +1637,6 @@ local dragging_ = false
 				tabImage.BorderColor3 = Color3.fromRGB(0, 0, 0)
 				tabImage.BorderSizePixel = 0
 				tabImage.Size = UDim2.fromOffset(18, 18)
-				tabImage.AnchorPoint = Vector2.new(0.5, 0.5)
 				tabImage.Parent = tabSwitcher
 			end
 
@@ -5256,9 +5255,12 @@ end
 
 				-- Démarrer la rotation en boucle pour l'onglet sélectionné
 				if tabs[tabSwitcher].switcherImage then
-					print("Démarrage rotation pour:", Settings.Name)
+					print("Démarrage rotation pour:", Settings.Name, "Image:", tabs[tabSwitcher].switcherImage, "Rotation actuelle:", tabs[tabSwitcher].switcherImage.Rotation)
+					tabs[tabSwitcher].switcherImage.Rotation = 0
 					rotationConnection = RunService.RenderStepped:Connect(function(deltaTime)
-						tabs[tabSwitcher].switcherImage.Rotation = (tabs[tabSwitcher].switcherImage.Rotation + 180 * deltaTime) % 360
+						local currentRotation = tabs[tabSwitcher].switcherImage.Rotation
+						local newRotation = (currentRotation + 180 * deltaTime) % 360
+						tabs[tabSwitcher].switcherImage.Rotation = newRotation
 					end)
 				else
 					print("Pas d'image pour:", Settings.Name)

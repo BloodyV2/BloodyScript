@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.71
+--better MacLib BloodyV3 v.2.70
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -6360,13 +6360,13 @@ end
 	promptTitle.Text = Settings.Title or "Menu"
 	promptTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 	promptTitle.RichText = true
-	promptTitle.TextSize = 15
+	promptTitle.TextSize = 13
 	promptTitle.TextTransparency = 0.1
-	promptTitle.TextTruncate = Enum.TextTruncate.SplitWord
+	promptTitle.TextTruncate = Enum.TextTruncate.None
 	promptTitle.BackgroundTransparency = 1
 	promptTitle.BorderSizePixel = 0
 	promptTitle.Size = UDim2.fromScale(1, 1)
-	promptTitle.TextXAlignment = Enum.TextXAlignment.Left
+	promptTitle.TextXAlignment = Enum.TextXAlignment.Center
 	promptTitle.Parent = prompt
 
 	local promptInteract = Instance.new("TextButton")

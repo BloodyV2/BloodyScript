@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.72
+--better MacLib BloodyV3 v.2.70
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1161,12 +1161,13 @@ local dragging_ = false
 	task.spawn(function()
 		while fpsPingLabel and fpsPingLabel.Parent do
 			-- Update FPS display
-			local avgFPS = 0
+			local avgFPS = currentFPS
 			if #fpsValues > 0 then
+				local totalFPS = 0
 				for _, fps in ipairs(fpsValues) do
-					avgFPS += fps
+					totalFPS += fps
 				end
-				avgFPS = math.floor(avgFPS / #fpsValues)
+				avgFPS = math.floor(totalFPS / #fpsValues)
 			end
 
 			-- Update Ping using the proper method
@@ -6383,8 +6384,10 @@ end
 	fpsPingLabel.TextXAlignment = Enum.TextXAlignment.Right
 	fpsPingLabel.BackgroundTransparency = 1
 	fpsPingLabel.BorderSizePixel = 0
-	fpsPingLabel.Size = UDim2.fromOffset(95, 20)
-	fpsPingLabel.Position = UDim2.new(1, -100, 0.5, -10)
+	fpsPingLabel.AutomaticSize = Enum.AutomaticSize.XY
+	fpsPingLabel.Size = UDim2.fromOffset(0, 20)
+	fpsPingLabel.Position = UDim2.new(1, -10, 0.5, -10)
+	fpsPingLabel.AnchorPoint = Vector2.new(1, 0.5)
 	fpsPingLabel.Parent = prompt
 
 	local promptInteract = Instance.new("TextButton")

@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.70
+--better MacLib BloodyV3 v.2.71
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1138,6 +1138,7 @@ local dragging_ = false
 	local lastTime = tick()
 	local frameCount = 0
 	local currentFPS = 0
+	local originalTitle = Settings.Title or "Menu"
 
 	local function updateFPS()
 		frameCount += 1
@@ -1159,7 +1160,7 @@ local dragging_ = false
 	RunService.RenderStepped:Connect(updateFPS)
 
 	task.spawn(function()
-		while fpsPingLabel and fpsPingLabel.Parent do
+		while promptTitle and promptTitle.Parent do
 			-- Update FPS display
 			local avgFPS = 0
 			if #fpsValues > 0 then
@@ -1175,9 +1176,9 @@ local dragging_ = false
 			end)
 
 			if success then
-				fpsPingLabel.Text = avgFPS .. " FPS | " .. math.floor(ping) .. " ms"
+				promptTitle.Text = "🌹 " .. originalTitle .. " | " .. avgFPS .. " FPS | " .. math.floor(ping) .. " ms"
 			else
-				fpsPingLabel.Text = avgFPS .. " FPS | N/A"
+				promptTitle.Text = "🌹 " .. originalTitle .. " | " .. avgFPS .. " FPS | N/A"
 			end
 
 			task.wait(0.25)
@@ -6329,7 +6330,7 @@ end
 	prompt.Name = "Prompt"
 	prompt.AnchorPoint = Vector2.new(0.5, 0)
 	prompt.Position = UDim2.new(0.5, 0, 0, 12)
-	prompt.Size = UDim2.fromOffset(UserInputService.TouchEnabled and 140 or 124, UserInputService.TouchEnabled and 38 or 32)
+	prompt.Size = UDim2.fromOffset(UserInputService.TouchEnabled and 250 or 220, UserInputService.TouchEnabled and 38 or 32)
 	prompt.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 	prompt.BackgroundTransparency = 0.1
 	prompt.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -6364,28 +6365,9 @@ end
 	promptTitle.TextTruncate = Enum.TextTruncate.SplitWord
 	promptTitle.BackgroundTransparency = 1
 	promptTitle.BorderSizePixel = 0
-	promptTitle.Size = UDim2.new(1, -100, 1, 0)
+	promptTitle.Size = UDim2.fromScale(1, 1)
 	promptTitle.TextXAlignment = Enum.TextXAlignment.Left
 	promptTitle.Parent = prompt
-
-	-- FPS and Ping display label
-	local fpsPingLabel = Instance.new("TextLabel")
-	fpsPingLabel.Name = "FpsPingLabel"
-	fpsPingLabel.FontFace = Font.new(
-		assets.interFont,
-		Enum.FontWeight.Medium,
-		Enum.FontStyle.Normal
-	)
-	fpsPingLabel.Text = "0 FPS | 0 ms"
-	fpsPingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	fpsPingLabel.TextSize = 12
-	fpsPingLabel.TextTransparency = 0.5
-	fpsPingLabel.TextXAlignment = Enum.TextXAlignment.Right
-	fpsPingLabel.BackgroundTransparency = 1
-	fpsPingLabel.BorderSizePixel = 0
-	fpsPingLabel.Size = UDim2.fromOffset(95, 20)
-	fpsPingLabel.Position = UDim2.new(1, -100, 0.5, -10)
-	fpsPingLabel.Parent = prompt
 
 	local promptInteract = Instance.new("TextButton")
 	promptInteract.Name = "Interact"

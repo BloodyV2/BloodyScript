@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.71
+--better MacLib BloodyV3 v.2.72
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -5257,10 +5257,14 @@ end
 				if tabs[tabSwitcher].switcherImage then
 					print("Démarrage rotation pour:", Settings.Name, "Image:", tabs[tabSwitcher].switcherImage, "Rotation actuelle:", tabs[tabSwitcher].switcherImage.Rotation)
 					tabs[tabSwitcher].switcherImage.Rotation = 0
-					rotationConnection = RunService.RenderStepped:Connect(function(deltaTime)
-						local currentRotation = tabs[tabSwitcher].switcherImage.Rotation
-						local newRotation = (currentRotation + 180 * deltaTime) % 360
-						tabs[tabSwitcher].switcherImage.Rotation = newRotation
+					local rotationSpeed = 90 -- degrés par seconde
+					rotationConnection = RunService.Heartbeat:Connect(function(deltaTime)
+						if tabs[tabSwitcher] and tabs[tabSwitcher].switcherImage then
+							local currentRotation = tabs[tabSwitcher].switcherImage.Rotation
+							local newRotation = (currentRotation + rotationSpeed * deltaTime) % 360
+							tabs[tabSwitcher].switcherImage.Rotation = newRotation
+							-- print("Rotation:", newRotation) -- Décommente pour voir si ça tourne
+						end
 					end)
 				else
 					print("Pas d'image pour:", Settings.Name)

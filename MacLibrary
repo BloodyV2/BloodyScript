@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.73
+--better MacLib BloodyV3 v.2.70
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1626,8 +1626,17 @@ local dragging_ = false
 			tabSwitcherUIListLayout.Parent = tabSwitcher
 
 			local tabImage
+			local tabImageContainer
 
 			if Settings.Image then
+				tabImageContainer = Instance.new("Frame")
+				tabImageContainer.Name = "TabImageContainer"
+				tabImageContainer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				tabImageContainer.BackgroundTransparency = 1
+				tabImageContainer.BorderSizePixel = 0
+				tabImageContainer.Size = UDim2.fromOffset(18, 18)
+				tabImageContainer.Parent = tabSwitcher
+
 				tabImage = Instance.new("ImageLabel")
 				tabImage.Name = "TabImage"
 				tabImage.Image = Settings.Image
@@ -1636,8 +1645,10 @@ local dragging_ = false
 				tabImage.BackgroundTransparency = 1
 				tabImage.BorderColor3 = Color3.fromRGB(0, 0, 0)
 				tabImage.BorderSizePixel = 0
-				tabImage.Size = UDim2.fromOffset(18, 18)
-				tabImage.Parent = tabSwitcher
+				tabImage.Size = UDim2.fromScale(1, 1)
+				tabImage.AnchorPoint = Vector2.new(0.5, 0.5)
+				tabImage.Position = UDim2.fromScale(0.5, 0.5)
+				tabImage.Parent = tabImageContainer
 			end
 
 			local tabSwitcherName = Instance.new("TextLabel")
@@ -5254,13 +5265,14 @@ end
 				-- Démarrer la rotation en boucle pour l'onglet sélectionné
 				if tabs[tabSwitcher].switcherImage then
 					print("Démarrage rotation pour:", Settings.Name, "Image:", tabs[tabSwitcher].switcherImage, "Rotation actuelle:", tabs[tabSwitcher].switcherImage.Rotation)
-					tabs[tabSwitcher].switcherImage.Rotation = 0
+					local currentImage = tabs[tabSwitcher].switcherImage -- Capture directe
+					currentImage.Rotation = 0
 					local rotationSpeed = 180 -- degrés par seconde
 					rotationRunning = true
 					
 					task.spawn(function()
-						while rotationRunning and tabs[tabSwitcher] and tabs[tabSwitcher].switcherImage do
-							tabs[tabSwitcher].switcherImage.Rotation = (tabs[tabSwitcher].switcherImage.Rotation + rotationSpeed * 0.016) % 360
+						while rotationRunning and currentImage and currentImage.Parent do
+							currentImage.Rotation = (currentImage.Rotation + rotationSpeed * 0.016) % 360
 							task.wait(0.016) -- ~60 FPS
 						end
 					end)
@@ -5408,7 +5420,7 @@ end
 			tabs[tabSwitcher] = {
 				tabContent = elements1,
 				tabStroke = tabSwitcherUIStroke,
-				switcherImage = tabImage,
+				switcherImage = tabImageContainer, -- Container pour rotation
 				switcherName = tabSwitcherName,
 			}
 

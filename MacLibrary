@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.67
+--better MacLib BloodyV3 v.2.68
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -28,6 +28,7 @@ local tabs = {}
 local currentTabInstance = nil
 local tabIndex = 0
 local unloaded = false
+local rotationConnection = nil
 
 local assets = {
 	interFont = "rbxassetid://12187365364",
@@ -5212,6 +5213,12 @@ end
 					currentTabInstance.Parent = nil
 				end
 
+				-- Arrêter l'ancienne rotation
+				if rotationConnection then
+					rotationConnection:Disconnect()
+					rotationConnection = nil
+				end
+
 				for i, tabInfo in pairs(tabs) do
 					Tween(i, TweenInfo.new(easetime, Enum.EasingStyle.Sine), {
 						BackgroundTransparency = (i == tabSwitcher and 0.98 or 1)
@@ -5224,7 +5231,8 @@ end
 					end
 					if tabInfo.switcherImage then
 						Tween(tabInfo.switcherImage, TweenInfo.new(easetime, Enum.EasingStyle.Sine), {
-							ImageTransparency = (i == tabSwitcher and 0.1 or 0.5)
+							ImageTransparency = (i == tabSwitcher and 0.1 or 0.5),
+							Rotation = 0
 						}):Play()
 					end
 					if tabInfo.switcherName then
@@ -5243,6 +5251,13 @@ end
 					currentTabIcon.Visible = true
 				else
 					currentTabIcon.Visible = false
+				end
+
+				-- Démarrer la rotation en boucle pour l'onglet sélectionné
+				if tabs[tabSwitcher].switcherImage then
+					rotationConnection = RunService.RenderStepped:Connect(function(deltaTime)
+						tabs[tabSwitcher].switcherImage.Rotation = (tabs[tabSwitcher].switcherImage.Rotation + 180 * deltaTime) % 360
+					end)
 				end
 			end
 

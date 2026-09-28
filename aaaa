@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.70
+--better MacLib BloodyV3 v.2.71
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -591,8 +591,30 @@ function MacLib:Window(Settings)
 	title.BackgroundTransparency = 1
 	title.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	title.BorderSizePixel = 0
-	title.Size = UDim2.new(1, -20, 0, 0)
+	title.Size = UDim2.new(1, -100, 0, 0)
 	title.Parent = titleFrame
+
+	-- FPS and Ping display
+	local fpsPingLabel = Instance.new("TextLabel")
+	fpsPingLabel.Name = "FpsPingLabel"
+	fpsPingLabel.FontFace = Font.new(
+		assets.interFont,
+		Enum.FontWeight.Medium,
+		Enum.FontStyle.Normal
+	)
+	fpsPingLabel.Text = "0 FPS | 0 ms"
+	fpsPingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	fpsPingLabel.TextSize = 12
+	fpsPingLabel.TextTransparency = 0.5
+	fpsPingLabel.TextXAlignment = Enum.TextXAlignment.Right
+	fpsPingLabel.TextYAlignment = Enum.TextYAlignment.Top
+	fpsPingLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	fpsPingLabel.BackgroundTransparency = 1
+	fpsPingLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	fpsPingLabel.BorderSizePixel = 0
+	fpsPingLabel.Size = UDim2.fromOffset(80, 20)
+	fpsPingLabel.Position = UDim2.new(1, -85, 0, 0)
+	fpsPingLabel.Parent = titleFrame
 
 	local subtitle = Instance.new("TextLabel")
 	subtitle.Name = "Subtitle"
@@ -1131,6 +1153,61 @@ local dragging_ = false
 	function WindowFunctions:UpdateSubtitle(NewSubtitle)
 		subtitle.Text = NewSubtitle
 	end
+
+	-- FPS and Ping tracking system
+	local fpsValues = {}
+	local lastTime = tick()
+	local frameCount = 0
+	local currentFPS = 0
+	local currentPing = 0
+
+	local function updateFPS()
+		frameCount += 1
+		local currentTime = tick()
+		local deltaTime = currentTime - lastTime
+
+		if deltaTime >= 1 then
+			currentFPS = math.floor(frameCount / deltaTime)
+			frameCount = 0
+			lastTime = currentTime
+
+			table.insert(fpsValues, currentFPS)
+			if #fpsValues > 10 then
+				table.remove(fpsValues, 1)
+			end
+		end
+	end
+
+	local function updatePing()
+		local success, ping = pcall(function()
+			return LocalPlayer:GetNetworkPing()
+		end)
+		if success and ping then
+			currentPing = math.floor(ping * 1000)
+		else
+			currentPing = 0
+		end
+	end
+
+	local function updateFpsPingLabel()
+		local avgFPS = 0
+		if #fpsValues > 0 then
+			for _, fps in ipairs(fpsValues) do
+				avgFPS += fps
+			end
+			avgFPS = math.floor(avgFPS / #fpsValues)
+		end
+		fpsPingLabel.Text = avgFPS .. " FPS | " .. currentPing .. " ms"
+	end
+
+	RunService.RenderStepped:Connect(updateFPS)
+	task.spawn(function()
+		while true do
+			updatePing()
+			updateFpsPingLabel()
+			task.wait(0.5)
+		end
+	end)
 
 	local hovering
 	local toggled = globalSettingsUIScale.Scale == 1 and true or false

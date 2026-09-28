@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.70
+--better MacLib BloodyV3 v.2.71
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -5239,8 +5239,15 @@ end
 						}):Play()
 					end
 					if tabInfo.switcherImage then
+						-- Tweener l'icône à l'intérieur du conteneur
+						local icon = tabInfo.switcherImage:FindFirstChild("TabImage")
+						if icon then
+							Tween(icon, TweenInfo.new(easetime, Enum.EasingStyle.Sine), {
+								ImageTransparency = (i == tabSwitcher and 0.1 or 0.5)
+							}):Play()
+						end
+						-- Tweener la rotation du conteneur
 						Tween(tabInfo.switcherImage, TweenInfo.new(easetime, Enum.EasingStyle.Sine), {
-							ImageTransparency = (i == tabSwitcher and 0.1 or 0.5),
 							Rotation = 0
 						}):Play()
 					end

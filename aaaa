@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.71
+--better MacLib BloodyV3 v.2.70
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1131,6 +1131,58 @@ local dragging_ = false
 	function WindowFunctions:UpdateSubtitle(NewSubtitle)
 		subtitle.Text = NewSubtitle
 	end
+
+	-- FPS and Ping tracking system with proper ping method
+	local Stats = game:GetService("Stats")
+	local fpsValues = {}
+	local lastTime = tick()
+	local frameCount = 0
+	local currentFPS = 0
+
+	local function updateFPS()
+		frameCount += 1
+		local currentTime = tick()
+		local deltaTime = currentTime - lastTime
+
+		if deltaTime >= 1 then
+			currentFPS = math.floor(frameCount / deltaTime)
+			frameCount = 0
+			lastTime = currentTime
+
+			table.insert(fpsValues, currentFPS)
+			if #fpsValues > 10 then
+				table.remove(fpsValues, 1)
+			end
+		end
+	end
+
+	RunService.RenderStepped:Connect(updateFPS)
+
+	task.spawn(function()
+		while fpsPingLabel and fpsPingLabel.Parent do
+			-- Update FPS display
+			local avgFPS = 0
+			if #fpsValues > 0 then
+				for _, fps in ipairs(fpsValues) do
+					avgFPS += fps
+				end
+				avgFPS = math.floor(avgFPS / #fpsValues)
+			end
+
+			-- Update Ping using the proper method
+			local success, ping = pcall(function()
+				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+			end)
+
+			if success then
+				fpsPingLabel.Text = avgFPS .. " FPS | " .. math.floor(ping) .. " ms"
+			else
+				fpsPingLabel.Text = avgFPS .. " FPS | N/A"
+			end
+
+			task.wait(0.25)
+		end
+	end)
 
 	local hovering
 	local toggled = globalSettingsUIScale.Scale == 1 and true or false
@@ -6319,58 +6371,21 @@ end
 	-- FPS and Ping display label
 	local fpsPingLabel = Instance.new("TextLabel")
 	fpsPingLabel.Name = "FpsPingLabel"
-	fpsPingLabel.Text = "FPS : -- | Ping : -- ms"
+	fpsPingLabel.FontFace = Font.new(
+		assets.interFont,
+		Enum.FontWeight.Medium,
+		Enum.FontStyle.Normal
+	)
+	fpsPingLabel.Text = "0 FPS | 0 ms"
 	fpsPingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	fpsPingLabel.TextTransparency = 0.25
-	fpsPingLabel.TextSize = 13
-	fpsPingLabel.Font = Enum.Font.SourceSans
-	fpsPingLabel.TextXAlignment = Enum.TextXAlignment.Left
-	fpsPingLabel.TextYAlignment = Enum.TextYAlignment.Center
-	fpsPingLabel.TextWrapped = false
-	fpsPingLabel.AutomaticSize = Enum.AutomaticSize.X
-	fpsPingLabel.Size = UDim2.fromOffset(160, 24)
+	fpsPingLabel.TextSize = 12
+	fpsPingLabel.TextTransparency = 0.5
+	fpsPingLabel.TextXAlignment = Enum.TextXAlignment.Right
 	fpsPingLabel.BackgroundTransparency = 1
 	fpsPingLabel.BorderSizePixel = 0
-	fpsPingLabel.Position = UDim2.new(1, -170, 0.5, -12)
-	fpsPingLabel.AnchorPoint = Vector2.new(1, 0.5)
+	fpsPingLabel.Size = UDim2.fromOffset(95, 20)
+	fpsPingLabel.Position = UDim2.new(1, -100, 0.5, -10)
 	fpsPingLabel.Parent = prompt
-
-	-- FPS and Ping tracking system
-	local Stats = game:GetService("Stats")
-	local fps = 0
-	local frames = 0
-	local fpsTimer = os.clock()
-
-	RunService.RenderStepped:Connect(function()
-		frames += 1
-
-		local now = os.clock()
-		local elapsed = now - fpsTimer
-
-		if elapsed >= 1 then
-			fps = math.floor(frames / elapsed + 0.5)
-			frames = 0
-			fpsTimer = now
-		end
-	end)
-
-	task.spawn(function()
-		while fpsPingLabel and fpsPingLabel.Parent do
-			local ping = "--"
-
-			local success, value = pcall(function()
-				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-			end)
-
-			if success and typeof(value) == "number" then
-				ping = tostring(math.floor(value + 0.5))
-			end
-
-			fpsPingLabel.Text = string.format("FPS : %d | Ping : %s ms", fps, ping)
-
-			task.wait(0.25)
-		end
-	end)
 
 	local promptInteract = Instance.new("TextButton")
 	promptInteract.Name = "Interact"

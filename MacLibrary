@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.72
+--better MacLib BloodyV3 v.2.73
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -28,7 +28,7 @@ local tabs = {}
 local currentTabInstance = nil
 local tabIndex = 0
 local unloaded = false
-local rotationConnection = nil
+local rotationRunning = false
 
 local assets = {
 	interFont = "rbxassetid://12187365364",
@@ -5214,10 +5214,8 @@ end
 				end
 
 				-- Arrêter l'ancienne rotation
-				if rotationConnection then
-					rotationConnection:Disconnect()
-					rotationConnection = nil
-				end
+				rotationRunning = false
+				task.wait(0.05) -- Attendre que l'ancien thread s'arrête
 
 				for i, tabInfo in pairs(tabs) do
 					Tween(i, TweenInfo.new(easetime, Enum.EasingStyle.Sine), {
@@ -5257,13 +5255,13 @@ end
 				if tabs[tabSwitcher].switcherImage then
 					print("Démarrage rotation pour:", Settings.Name, "Image:", tabs[tabSwitcher].switcherImage, "Rotation actuelle:", tabs[tabSwitcher].switcherImage.Rotation)
 					tabs[tabSwitcher].switcherImage.Rotation = 0
-					local rotationSpeed = 90 -- degrés par seconde
-					rotationConnection = RunService.Heartbeat:Connect(function(deltaTime)
-						if tabs[tabSwitcher] and tabs[tabSwitcher].switcherImage then
-							local currentRotation = tabs[tabSwitcher].switcherImage.Rotation
-							local newRotation = (currentRotation + rotationSpeed * deltaTime) % 360
-							tabs[tabSwitcher].switcherImage.Rotation = newRotation
-							-- print("Rotation:", newRotation) -- Décommente pour voir si ça tourne
+					local rotationSpeed = 180 -- degrés par seconde
+					rotationRunning = true
+					
+					task.spawn(function()
+						while rotationRunning and tabs[tabSwitcher] and tabs[tabSwitcher].switcherImage do
+							tabs[tabSwitcher].switcherImage.Rotation = (tabs[tabSwitcher].switcherImage.Rotation + rotationSpeed * 0.016) % 360
+							task.wait(0.016) -- ~60 FPS
 						end
 					end)
 				else

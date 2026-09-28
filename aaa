@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.70
+--better MacLib BloodyV3 v.2.79
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -1131,59 +1131,6 @@ local dragging_ = false
 	function WindowFunctions:UpdateSubtitle(NewSubtitle)
 		subtitle.Text = NewSubtitle
 	end
-
-	-- FPS and Ping tracking system with proper ping method
-	local Stats = game:GetService("Stats")
-	local fpsValues = {}
-	local lastTime = tick()
-	local frameCount = 0
-	local currentFPS = 0
-	local originalTitle = Settings.Title or "Menu"
-
-	local function updateFPS()
-		frameCount += 1
-		local currentTime = tick()
-		local deltaTime = currentTime - lastTime
-
-		if deltaTime >= 1 then
-			currentFPS = math.floor(frameCount / deltaTime)
-			frameCount = 0
-			lastTime = currentTime
-
-			table.insert(fpsValues, currentFPS)
-			if #fpsValues > 10 then
-				table.remove(fpsValues, 1)
-			end
-		end
-	end
-
-	RunService.RenderStepped:Connect(updateFPS)
-
-	task.spawn(function()
-		while promptTitle and promptTitle.Parent do
-			-- Update FPS display
-			local avgFPS = 0
-			if #fpsValues > 0 then
-				for _, fps in ipairs(fpsValues) do
-					avgFPS += fps
-				end
-				avgFPS = math.floor(avgFPS / #fpsValues)
-			end
-
-			-- Update Ping using the proper method
-			local success, ping = pcall(function()
-				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
-			end)
-
-			if success then
-				promptTitle.Text = "🌹 " .. originalTitle .. " | " .. avgFPS .. " FPS | " .. math.floor(ping) .. " ms"
-			else
-				promptTitle.Text = "🌹 " .. originalTitle .. " | " .. avgFPS .. " FPS | N/A"
-			end
-
-			task.wait(0.25)
-		end
-	end)
 
 	local hovering
 	local toggled = globalSettingsUIScale.Scale == 1 and true or false
@@ -6368,6 +6315,65 @@ end
 	promptTitle.Size = UDim2.fromScale(1, 1)
 	promptTitle.TextXAlignment = Enum.TextXAlignment.Center
 	promptTitle.Parent = prompt
+
+	-- FPS and Ping tracking system
+	local Stats = game:GetService("Stats")
+	local fpsValues = {}
+	local lastTime = tick()
+	local frameCount = 0
+	local currentFPS = 0
+	local originalTitle = Settings.Title or "Menu"
+
+	local function updateFPS()
+		frameCount += 1
+		local currentTime = tick()
+		local deltaTime = currentTime - lastTime
+
+		if deltaTime >= 1 then
+			currentFPS = math.floor(frameCount / deltaTime)
+			frameCount = 0
+			lastTime = currentTime
+
+			table.insert(fpsValues, currentFPS)
+
+			if #fpsValues > 10 then
+				table.remove(fpsValues, 1)
+			end
+		end
+	end
+
+	RunService.RenderStepped:Connect(updateFPS)
+
+	task.spawn(function()
+		while promptTitle and promptTitle.Parent do
+			local avgFPS = 0
+
+			if #fpsValues > 0 then
+				for _, fps in ipairs(fpsValues) do
+					avgFPS += fps
+				end
+
+				avgFPS = math.floor(avgFPS / #fpsValues)
+			end
+
+			local success, ping = pcall(function()
+				return Stats.Network.ServerStatsItem["Data Ping"]:GetValue()
+			end)
+
+			if success then
+				promptTitle.Text =
+					"🌹 " .. originalTitle ..
+					" | " .. avgFPS .. " FPS" ..
+					" | " .. math.floor(ping) .. " ms"
+			else
+				promptTitle.Text =
+					"🌹 " .. originalTitle ..
+					" | " .. avgFPS .. " FPS | N/A"
+			end
+
+			task.wait(0.25)
+		end
+	end)
 
 	local promptInteract = Instance.new("TextButton")
 	promptInteract.Name = "Interact"

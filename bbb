@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.70
+--better MacLib BloodyV3 v.2.71
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -47,39 +47,58 @@ local assets = {
 	sliderhead = "rbxassetid://18772834246",
 }
 
+local TRANSLATIONS_URL = "https://raw.githubusercontent.com/BloodyV2/BloodyScript/refs/heads/main/Trad"
+
 MacLib.LanguageCodes = {
-    English         = "en",
-    ["Français"]    = "fr",
-    ["Español"]     = "es",
-    Deutsch         = "de",
-    ["Português"]   = "pt",
-    Italiano        = "it",
-    ["Русский"]     = "ru",
-    ["中文"]         = "zh",
-    ["日本語"]        = "ja",
-    ["한국어"]        = "ko",
+    English         = "English",
+    ["Français"]    = "French",
+    ["Español"]     = "Spanish",
+    Deutsch         = "German",
+    ["Português"]   = "Portuguese",
+    Italiano        = "Italian",
+    ["Русский"]     = "Russian",
+    ["中文"]         = "Chinese",
+    ["한국어"]        = "Korean",
 }
 
-local OriginalTexts = {}     
-local TranslationCache = {}  
+local TranslationDictionary = nil
+local OriginalTexts = {}
+
+local function LoadTranslations()
+    if TranslationDictionary then return true end
+
+    local success, result = pcall(function()
+        local response = request({
+            Url = TRANSLATIONS_URL,
+            Method = "GET"
+        })
+        if not response or response.StatusCode ~= 200 then
+            error("Impossible de charger les traductions")
+        end
+        return HttpService:JSONDecode(response.Body)
+    end)
+
+    if success then
+        TranslationDictionary = result
+        return true
+    else
+        warn("Erreur chargement traductions:", result)
+        return false
+    end
+end
 
 local function GetTextInstances(roots, excludeList)
     if typeof(roots) == "Instance" then
         roots = {roots}
     end
-
     local seen = {}
     local list = {}
-
     for _, root in ipairs(roots) do
         for _, v in ipairs(root:GetDescendants()) do
             if (v:IsA("TextLabel") or v:IsA("TextButton") or v:IsA("TextBox")) and not seen[v] then
                 local isExcluded = false
                 for _, ex in ipairs(excludeList) do
-                    if v == ex then
-                        isExcluded = true
-                        break
-                    end
+                    if v == ex then isExcluded = true break end
                 end
                 if not isExcluded and v.Text and v.Text ~= "" then
                     seen[v] = true
@@ -99,131 +118,34 @@ local function CacheOriginalTexts(instances)
     end
 end
 
-local LibreTranslateInstances = {
-    "https://translate.terraprint.co",
-    "https://translate.argosopentech.com",
-    "https://libretranslate.de",
-    "https://lt.vern.cc",
-}
-
-local currentInstanceIndex = 1
-
-local function TranslateText(text, targetCode)
-    if type(text) ~= "string" or text == "" then
-        return text
-    end
-    if type(targetCode) ~= "string" or targetCode == "" then
-        return text
-    end
-
-    for attempt = 1, #LibreTranslateInstances do
-        local instance = LibreTranslateInstances[currentInstanceIndex]
-        local url = instance .. "/translate"
-
-        local success, result = pcall(function()
-            local body = HttpService:JSONEncode({
-                q = text,
-                source = "en",
-                target = targetCode,
-                format = "text"
-            })
-
-            local response = request({
-                Url = url,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json",
-                    ["User-Agent"] = "Mozilla/5.0"
-                },
-                Body = body
-            })
-
-            if not response or not response.Body then
-                error("Pas de réponse")
-            end
-
-            if response.StatusCode ~= 200 then
-                error("Status " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
-            end
-
-            local decoded = HttpService:JSONDecode(response.Body)
-
-            if not decoded.translatedText then
-                error("Réponse invalide: " .. tostring(response.Body))
-            end
-
-            return decoded.translatedText
-        end)
-
-        if success then
-            return result
-        else
-            warn("Instance " .. instance .. " a échoué: " .. tostring(result))
-            currentInstanceIndex = (currentInstanceIndex % #LibreTranslateInstances) + 1
-        end
-    end
-
-    return text
-end
 local function ApplyAutoTranslation(roots, targetLang, excludeList)
-    local code = MacLib.LanguageCodes[targetLang]
-    if not code then return end
+    local langKey = MacLib.LanguageCodes[targetLang]
+    if not langKey then return end
 
     local instances = GetTextInstances(roots, excludeList)
     CacheOriginalTexts(instances)
 
-    TranslationCache[code] = TranslationCache[code] or {}
-
-    if code == "en" then
+    if langKey == "English" then
         for _, inst in ipairs(instances) do
             local original = OriginalTexts[inst]
-            if original then
-                inst.Text = original
-            end
+            if original then inst.Text = original end
         end
         return
     end
 
-    local textToInstances = {}
-    local queue = {}
+    if not LoadTranslations() then return end
+
+    local dict = TranslationDictionary[langKey]
+    if not dict then
+        warn("Pas de traductions trouvées pour: " .. langKey)
+        return
+    end
 
     for _, inst in ipairs(instances) do
         local original = OriginalTexts[inst]
-        if original and original ~= "" then
-            textToInstances[original] = textToInstances[original] or {}
-            table.insert(textToInstances[original], inst)
-
-            if TranslationCache[code][original] then
-                inst.Text = TranslationCache[code][original]
-            elseif not table.find(queue, original) then
-                table.insert(queue, original)
-            end
+        if original and dict[original] then
+            inst.Text = dict[original]
         end
-    end
-
-    local index = 0
-    local function worker()
-        while true do
-            index += 1
-            local i = index
-            if i > #queue then break end
-
-            local original = queue[i]
-            local translated = TranslateText(original, code)
-            TranslationCache[code][original] = translated
-
-            for _, inst in ipairs(textToInstances[original]) do
-                if inst and inst.Parent then
-                    inst.Text = translated
-                end
-            end
-
-            task.wait(0.1)
-        end
-    end
-
-    for _ = 1, 3 do
-        task.spawn(worker)
     end
 end
 

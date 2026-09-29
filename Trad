@@ -1,4 +1,4 @@
-{
+{--work
   "French": {
     "<b>Actions</b>": "<b>Actions</b>",
     "Aimbot": "Aimbot",
@@ -330,7 +330,11 @@
     "Auto Spin": "Rotation automatique",
     "Auto": "Automatique",
     "Preserve Plot": "Préserver la parcelle",
-    "Preserve Time": "Préserver le temps"
+    "Preserve Time": "Préserver le temps",
+    "Loop Explosion": "Explosion en boucle",
+    "Sequential Delay": "Délai séquentiel",
+    "Plot Time": "Temps de la parcelle",
+    "Conserve Plot": "Conserver la parcelle"
   },
   "Spanish": {
     "<b>Actions</b>": "<b>Acciones</b>",
@@ -663,7 +667,11 @@
     "Auto Spin": "Giro automático",
     "Auto": "Automático",
     "Preserve Plot": "Preservar la parcela",
-    "Preserve Time": "Preservar el tiempo"
+    "Preserve Time": "Preservar el tiempo",
+    "Loop Explosion": "Explosión en bucle",
+    "Sequential Delay": "Retraso secuencial",
+    "Plot Time": "Tiempo de la parcela",
+    "Conserve Plot": "Conservar la parcela"
   },
   "German": {
     "<b>Actions</b>": "<b>Aktionen</b>",
@@ -996,7 +1004,11 @@
     "Auto Spin": "Automatisches Drehen",
     "Auto": "Automatisch",
     "Preserve Plot": "Grundstück erhalten",
-    "Preserve Time": "Zeit erhalten"
+    "Preserve Time": "Zeit erhalten",
+    "Loop Explosion": "Explosion in Schleife",
+    "Sequential Delay": "Sequenzielle Verzögerung",
+    "Plot Time": "Grundstückszeit",
+    "Conserve Plot": "Grundstück behalten"
   },
   "Portuguese": {
     "<b>Actions</b>": "<b>Ações</b>",
@@ -1329,7 +1341,11 @@
     "Auto Spin": "Giro automático",
     "Auto": "Automático",
     "Preserve Plot": "Preservar terreno",
-    "Preserve Time": "Preservar tempo"
+    "Preserve Time": "Preservar tempo",
+    "Loop Explosion": "Explosão em loop",
+    "Sequential Delay": "Atraso sequencial",
+    "Plot Time": "Tempo do terreno",
+    "Conserve Plot": "Conservar terreno"
   },
   "Italian": {
     "<b>Actions</b>": "<b>Azioni</b>",
@@ -1662,7 +1678,11 @@
     "Auto Spin": "Rotazione automatica",
     "Auto": "Automatico",
     "Preserve Plot": "Preservare il terreno",
-    "Preserve Time": "Preservare il tempo"
+    "Preserve Time": "Preservare il tempo",
+    "Loop Explosion": "Esplosione in loop",
+    "Sequential Delay": "Ritardo sequenziale",
+    "Plot Time": "Tempo del terreno",
+    "Conserve Plot": "Conservare il terreno"
   },
   "Russian": {
     "<b>Actions</b>": "<b>Действия</b>",
@@ -1995,7 +2015,11 @@
     "Auto Spin": "Автовращение",
     "Auto": "Авто",
     "Preserve Plot": "Сохранить участок",
-    "Preserve Time": "Сохранить время"
+    "Preserve Time": "Сохранить время",
+    "Loop Explosion": "Взрыв в цикле",
+    "Sequential Delay": "Последовательная задержка",
+    "Plot Time": "Время участка",
+    "Conserve Plot": "Сохранить участок"
   },
   "Chinese": {
     "<b>Actions</b>": "<b>操作</b>",
@@ -2328,7 +2352,11 @@
     "Auto Spin": "自动旋转",
     "Auto": "自动",
     "Preserve Plot": "保留地块",
-    "Preserve Time": "保留时间"
+    "Preserve Time": "保留时间",
+    "Loop Explosion": "循环爆炸",
+    "Sequential Delay": "顺序延迟",
+    "Plot Time": "地块时间",
+    "Conserve Plot": "保留地块"
   },
   "Korean": {
     "<b>Actions</b>": "<b>행동</b>",
@@ -2661,6 +2689,10 @@
     "Auto Spin": "자동 회전",
     "Auto": "자동",
     "Preserve Plot": "구역 유지",
-    "Preserve Time": "시간 유지"
+    "Preserve Time": "시간 유지",
+    "Loop Explosion": "반복 폭발",
+    "Sequential Delay": "순차적 지연",
+    "Plot Time": "구역 시간",
+    "Conserve Plot": "구역 보존"
   }
 }

@@ -320,7 +320,17 @@
     "X Offset": "Décalage X",
     "Y Offset": "Décalage Y",
     "Z Offset": "Décalage Z",
-    "destroy Aura": "Aura de destruction"
+    "destroy Aura": "Aura de destruction",
+    "Explosion": "Explosion",
+    "Missiles": "Missiles",
+    "Sequential": "Séquentiel",
+    "Instant": "Instantané",
+    "Delay": "Délai",
+    "Auto Spam": "Spam automatique",
+    "Auto Spin": "Rotation automatique",
+    "Auto": "Automatique",
+    "Preserve Plot": "Préserver la parcelle",
+    "Preserve Time": "Préserver le temps"
   },
   "Spanish": {
     "<b>Actions</b>": "<b>Acciones</b>",
@@ -643,7 +653,17 @@
     "X Offset": "Desplazamiento X",
     "Y Offset": "Desplazamiento Y",
     "Z Offset": "Desplazamiento Z",
-    "destroy Aura": "Aura de destrucción"
+    "destroy Aura": "Aura de destrucción",
+    "Explosion": "Explosión",
+    "Missiles": "Misiles",
+    "Sequential": "Secuencial",
+    "Instant": "Instantáneo",
+    "Delay": "Retraso",
+    "Auto Spam": "Spam automático",
+    "Auto Spin": "Giro automático",
+    "Auto": "Automático",
+    "Preserve Plot": "Preservar la parcela",
+    "Preserve Time": "Preservar el tiempo"
   },
   "German": {
     "<b>Actions</b>": "<b>Aktionen</b>",
@@ -966,7 +986,17 @@
     "X Offset": "X-Versatz",
     "Y Offset": "Y-Versatz",
     "Z Offset": "Z-Versatz",
-    "destroy Aura": "Zerstörungs-Aura"
+    "destroy Aura": "Zerstörungs-Aura",
+    "Explosion": "Explosion",
+    "Missiles": "Raketen",
+    "Sequential": "Sequenziell",
+    "Instant": "Sofortig",
+    "Delay": "Verzögerung",
+    "Auto Spam": "Automatisches Spam",
+    "Auto Spin": "Automatisches Drehen",
+    "Auto": "Automatisch",
+    "Preserve Plot": "Grundstück erhalten",
+    "Preserve Time": "Zeit erhalten"
   },
   "Portuguese": {
     "<b>Actions</b>": "<b>Ações</b>",
@@ -1289,7 +1319,17 @@
     "X Offset": "Deslocamento X",
     "Y Offset": "Deslocamento Y",
     "Z Offset": "Deslocamento Z",
-    "destroy Aura": "Aura de destruição"
+    "destroy Aura": "Aura de destruição",
+    "Explosion": "Explosão",
+    "Missiles": "Mísseis",
+    "Sequential": "Sequencial",
+    "Instant": "Instantâneo",
+    "Delay": "Atraso",
+    "Auto Spam": "Spam automático",
+    "Auto Spin": "Giro automático",
+    "Auto": "Automático",
+    "Preserve Plot": "Preservar terreno",
+    "Preserve Time": "Preservar tempo"
   },
   "Italian": {
     "<b>Actions</b>": "<b>Azioni</b>",
@@ -1612,7 +1652,17 @@
     "X Offset": "Offset X",
     "Y Offset": "Offset Y",
     "Z Offset": "Offset Z",
-    "destroy Aura": "Aura di distruzione"
+    "destroy Aura": "Aura di distruzione",
+    "Explosion": "Esplosione",
+    "Missiles": "Missili",
+    "Sequential": "Sequenziale",
+    "Instant": "Istantaneo",
+    "Delay": "Ritardo",
+    "Auto Spam": "Spam automatico",
+    "Auto Spin": "Rotazione automatica",
+    "Auto": "Automatico",
+    "Preserve Plot": "Preservare il terreno",
+    "Preserve Time": "Preservare il tempo"
   },
   "Russian": {
     "<b>Actions</b>": "<b>Действия</b>",
@@ -1935,7 +1985,17 @@
     "X Offset": "Смещение X",
     "Y Offset": "Смещение Y",
     "Z Offset": "Смещение Z",
-    "destroy Aura": "Аура разрушения"
+    "destroy Aura": "Аура разрушения",
+    "Explosion": "Взрыв",
+    "Missiles": "Ракеты",
+    "Sequential": "Последовательный",
+    "Instant": "Мгновенный",
+    "Delay": "Задержка",
+    "Auto Spam": "Автоспам",
+    "Auto Spin": "Автовращение",
+    "Auto": "Авто",
+    "Preserve Plot": "Сохранить участок",
+    "Preserve Time": "Сохранить время"
   },
   "Chinese": {
     "<b>Actions</b>": "<b>操作</b>",
@@ -2258,7 +2318,17 @@
     "X Offset": "X偏移",
     "Y Offset": "Y偏移",
     "Z Offset": "Z偏移",
-    "destroy Aura": "毁灭光环"
+    "destroy Aura": "毁灭光环",
+    "Explosion": "爆炸",
+    "Missiles": "导弹",
+    "Sequential": "顺序",
+    "Instant": "瞬间",
+    "Delay": "延迟",
+    "Auto Spam": "自动刷屏",
+    "Auto Spin": "自动旋转",
+    "Auto": "自动",
+    "Preserve Plot": "保留地块",
+    "Preserve Time": "保留时间"
   },
   "Korean": {
     "<b>Actions</b>": "<b>행동</b>",
@@ -2581,6 +2651,16 @@
     "X Offset": "X 오프셋",
     "Y Offset": "Y 오프셋",
     "Z Offset": "Z 오프셋",
-    "destroy Aura": "파괴 오라"
+    "destroy Aura": "파괴 오라",
+    "Explosion": "폭발",
+    "Missiles": "미사일",
+    "Sequential": "순차적",
+    "Instant": "즉시",
+    "Delay": "지연",
+    "Auto Spam": "자동 도배",
+    "Auto Spin": "자동 회전",
+    "Auto": "자동",
+    "Preserve Plot": "구역 유지",
+    "Preserve Time": "시간 유지"
   }
 }

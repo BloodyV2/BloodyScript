@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.71
+--better MacLib BloodyV3 v.2.72
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -2126,33 +2126,44 @@ end
 					local finalValue
 
 					local function SetValue(val, ignorecallback)
-						local posXScale
+	local min = SliderFunctions.Settings.Minimum
+	local max = SliderFunctions.Settings.Maximum
+	local increment = SliderFunctions.Settings.Increment
 
-						if typeof(val) == "Instance" then
-							local input = val
-							posXScale = math.clamp((input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1)
-						else
-							local value = val
-							posXScale = (value - SliderFunctions.Settings.Minimum) / (SliderFunctions.Settings.Maximum - Settings.Minimum)
-						end
+	local rawValue
 
-						local pos = UDim2.new(posXScale, 0, 0.5, 0)
-						sliderHead.Position = pos
+	if typeof(val) == "Instance" then
+		local scale = math.clamp((val.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1)
+		rawValue = scale * (max - min) + min
+	else
+		rawValue = val
+	end
 
-						finalValue = posXScale * (SliderFunctions.Settings.Maximum - SliderFunctions.Settings.Minimum) + Settings.Minimum
+	rawValue = math.clamp(rawValue, min, max)
 
-						sliderValue.Text = (Settings.Prefix or "") .. ValueDisplayMethod(finalValue, SliderFunctions.Settings.Precision) .. (Settings.Suffix or "")
+	if increment and increment > 0 then
+		rawValue = min + math.round((rawValue - min) / increment) * increment
+		rawValue = math.clamp(rawValue, min, max)
+		rawValue = tonumber(string.format("%.10f", rawValue)) 
+	end
 
-						if not ignorecallback then
-							task.spawn(function()
-								if SliderFunctions.Settings.Callback then
-									SliderFunctions.Settings.Callback(finalValue)
-								end
-							end)
-						end
+	local posXScale = (rawValue - min) / (max - min)
+	sliderHead.Position = UDim2.new(posXScale, 0, 0.5, 0)
 
-						SliderFunctions.Value = finalValue
-					end
+	finalValue = rawValue
+
+	sliderValue.Text = (Settings.Prefix or "") .. ValueDisplayMethod(finalValue, SliderFunctions.Settings.Precision) .. (Settings.Suffix or "")
+
+	if not ignorecallback then
+		task.spawn(function()
+			if SliderFunctions.Settings.Callback then
+				SliderFunctions.Settings.Callback(finalValue)
+			end
+		end)
+	end
+
+	SliderFunctions.Value = finalValue
+end
 
 					SetValue(SliderFunctions.Settings.Default, true)
 

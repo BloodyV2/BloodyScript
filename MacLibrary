@@ -1420,19 +1420,11 @@ local dragging_ = false
 			if not State then
 				tweens.checkOut:Play()
 				tweens.nameOut:Play()
-				checkmark:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-					if checkmark.AbsoluteSize.X <= 0 then
-						checkmark.TextTransparency = 1
-					end
-				end)
+				checkmark.TextTransparency = 1
 			else
 				tweens.checkIn:Play()
 				tweens.nameIn:Play()
-				checkmark:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-					if checkmark.AbsoluteSize.X > 0 then
-						checkmark.TextTransparency = 0
-					end
-				end)
+				checkmark.TextTransparency = 0
 			end
 		end
 
@@ -1455,8 +1447,8 @@ local dragging_ = false
 		end
 
 		function GlobalSettingFunctions:UpdateState(NewState)
-			Toggle(NewState)
 			toggled = NewState
+			Toggle(NewState) -- Toggle ne fait que l'animation visuelle, pas de callback
 		end
 
 		return GlobalSettingFunctions
@@ -1956,7 +1948,7 @@ Toggle()
 end
 function ToggleFunctions:UpdateState(State)
 togglebool = State
-NewState(togglebool, ToggleFunctions.Settings.Callback)
+NewState(togglebool, nil) -- Pas de callback lors d'un UpdateState manuel
 end
 function ToggleFunctions:GetState()
 return togglebool

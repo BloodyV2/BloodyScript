@@ -350,7 +350,8 @@
     "Explode all Bomb": "Faire exploser toutes les bombes",
     "Automatically explode all parts that react to fire. (oven)": "Fait exploser automatiquement toutes les pièces qui réagissent au feu. (four)",
     "Auto Click": "Clic automatique",
-    "Click Speed": "Vitesse de clic"
+    "Click Speed": "Vitesse de clic",
+    "Highlight": "Surbrillance"
   },
   "Spanish": {
     "<b>Actions</b>": "<b>Acciones</b>",
@@ -703,7 +704,8 @@
     "Explode all Bomb": "Explotar todas las bombas",
     "Automatically explode all parts that react to fire. (oven)": "Explota automáticamente todas las piezas que reaccionan al fuego. (horno)",
     "Auto Click": "Clic automático",
-    "Click Speed": "Velocidad de clic"
+    "Click Speed": "Velocidad de clic",
+    "Highlight": "Resaltado"
   },
   "German": {
     "<b>Actions</b>": "<b>Aktionen</b>",
@@ -1056,7 +1058,8 @@
     "Explode all Bomb": "Alle Bomben explodieren lassen",
     "Automatically explode all parts that react to fire. (oven)": "Lässt automatisch alle Teile explodieren, die auf Feuer reagieren. (Ofen)",
     "Auto Click": "Automatischer Klick",
-    "Click Speed": "Klickgeschwindigkeit"
+    "Click Speed": "Klickgeschwindigkeit",
+    "Highlight": "Hervorhebung"
   },
   "Portuguese": {
     "<b>Actions</b>": "<b>Ações</b>",
@@ -1409,7 +1412,8 @@
     "Explode all Bomb": "Explodir todas as bombas",
     "Automatically explode all parts that react to fire. (oven)": "Explode automaticamente todas as peças que reagem ao fogo. (forno)",
     "Auto Click": "Clique automático",
-    "Click Speed": "Velocidade de clique"
+    "Click Speed": "Velocidade de clique",
+    "Highlight": "Destaque"
   },
   "Italian": {
     "<b>Actions</b>": "<b>Azioni</b>",
@@ -1762,7 +1766,8 @@
     "Explode all Bomb": "Fai esplodere tutte le bombe",
     "Automatically explode all parts that react to fire. (oven)": "Fa esplodere automaticamente tutte le parti che reagiscono al fuoco. (forno)",
     "Auto Click": "Clic automatico",
-    "Click Speed": "Velocità di clic"
+    "Click Speed": "Velocità di clic",
+    "Highlight": "Evidenziazione"
   },
   "Russian": {
     "<b>Actions</b>": "<b>Действия</b>",
@@ -2115,7 +2120,8 @@
     "Explode all Bomb": "Взорвать все бомбы",
     "Automatically explode all parts that react to fire. (oven)": "Автоматически взрывает все детали, реагирующие на огонь. (духовка)",
     "Auto Click": "Автоклик",
-    "Click Speed": "Скорость клика"
+    "Click Speed": "Скорость клика",
+    "Highlight": "Подсветка"
   },
   "Chinese": {
     "<b>Actions</b>": "<b>操作</b>",
@@ -2468,7 +2474,8 @@
     "Explode all Bomb": "引爆所有炸弹",
     "Automatically explode all parts that react to fire. (oven)": "自动引爆所有对火有反应的部件。（烤箱）",
     "Auto Click": "自动点击",
-    "Click Speed": "点击速度"
+    "Click Speed": "点击速度",
+    "Highlight": "高亮"
   },
   "Korean": {
     "<b>Actions</b>": "<b>행동</b>",
@@ -2821,6 +2828,7 @@
     "Explode all Bomb": "모든 폭탄 폭발",
     "Automatically explode all parts that react to fire. (oven)": "불에 반응하는 모든 부품을 자동으로 폭발시킵니다. (오븐)",
     "Auto Click": "자동 클릭",
-    "Click Speed": "클릭 속도"
+    "Click Speed": "클릭 속도",
+    "Highlight": "하이라이트"
   }
 }

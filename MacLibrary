@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.74
+--better MacLib BloodyV3 v.2.75
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 
@@ -29,6 +29,7 @@ local currentTabInstance = nil
 local tabIndex = 0
 local unloaded = false
 local rotationRunning = false
+local RESIZE_BAR_HEIGHT = 28
 
 local assets = {
 	interFont = "rbxassetid://12187365364",
@@ -45,6 +46,7 @@ local assets = {
 	dropdown = "rbxassetid://18865373378",
 	sliderbar = "rbxassetid://18772615246",
 	sliderhead = "rbxassetid://18772834246",
+    resizeIcon = "rbxassetid://6153965696",
 }
 
 local TRANSLATIONS_URL = "https://raw.githubusercontent.com/BloodyV2/BloodyScript/refs/heads/main/Trad"
@@ -1007,6 +1009,98 @@ local dragging_ = false
 
 	content.Parent = base
 
+	local resizeBar = Instance.new("Frame")
+	resizeBar.Name = "ResizeBar"
+	resizeBar.AnchorPoint = Vector2.new(0, 1)
+	resizeBar.BackgroundTransparency = 1
+	resizeBar.BorderSizePixel = 0
+	resizeBar.Position = UDim2.fromScale(0, 1)
+	resizeBar.Size = UDim2.new(1, 0, 0, RESIZE_BAR_HEIGHT)
+	resizeBar.ZIndex = 3
+	resizeBar.Parent = content
+
+	local resizeDivider = Instance.new("Frame")
+	resizeDivider.Name = "Divider"
+	resizeDivider.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	resizeDivider.BackgroundTransparency = 0.2
+	resizeDivider.BorderSizePixel = 0
+	resizeDivider.Size = UDim2.new(1, 0, 0, 1)
+	resizeDivider.ZIndex = 3
+	resizeDivider.Parent = resizeBar
+
+	local resizeHandle = Instance.new("ImageButton")
+	resizeHandle.Name = "ResizeHandle"
+	resizeHandle.Image = assets.resizeIcon
+	resizeHandle.ImageTransparency = 0.5
+	resizeHandle.AutoButtonColor = false
+	resizeHandle.Active = true
+	resizeHandle.AnchorPoint = Vector2.new(1, 0.5)
+	resizeHandle.BackgroundTransparency = 1
+	resizeHandle.BorderSizePixel = 0
+	resizeHandle.Position = UDim2.new(1, -10, 0.5, 0)
+	resizeHandle.Size = UDim2.fromOffset(16, 16)
+	resizeHandle.ZIndex = 4
+	resizeHandle.Parent = resizeBar
+
+	local resizing = false
+	local startInputPos, startSize, startPos
+	local minSize = Settings.MinSize or Vector2.new(520, 360) 
+
+	local function setHandleTransparency(t)
+		Tween(resizeHandle, TweenInfo.new(0.2, Enum.EasingStyle.Sine), { ImageTransparency = t }):Play()
+	end
+
+	resizeHandle.MouseEnter:Connect(function()
+		if not resizing then setHandleTransparency(0.2) end
+	end)
+	resizeHandle.MouseLeave:Connect(function()
+		if not resizing then setHandleTransparency(0.5) end
+	end)
+
+	resizeHandle.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1
+			or input.UserInputType == Enum.UserInputType.Touch then
+			resizing = true
+			startInputPos = Vector2.new(input.Position.X, input.Position.Y)
+			startSize = base.AbsoluteSize / baseUIScale.Scale
+			startPos = base.Position
+			setHandleTransparency(0.1)
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if not resizing then return end
+		if input.UserInputType ~= Enum.UserInputType.MouseMovement
+			and input.UserInputType ~= Enum.UserInputType.Touch then return end
+
+		local scale = baseUIScale.Scale
+		local delta = (Vector2.new(input.Position.X, input.Position.Y) - startInputPos) / scale
+		local maxSize = Settings.MaxSize or (macLib.AbsoluteSize / scale)
+
+		local newW = math.clamp(startSize.X + delta.X, minSize.X, math.max(minSize.X, maxSize.X))
+		local newH = math.clamp(startSize.Y + delta.Y, minSize.Y, math.max(minSize.Y, maxSize.Y))
+
+		base.Size = UDim2.fromOffset(newW, newH)
+
+		local dW, dH = newW - startSize.X, newH - startSize.Y
+		base.Position = UDim2.new(
+			startPos.X.Scale, startPos.X.Offset + dW * scale / 2,
+			startPos.Y.Scale, startPos.Y.Offset + dH * scale / 2
+		)
+
+		local sidebarW = sidebar.Size.X.Scale * newW + sidebar.Size.X.Offset
+		content.Size = UDim2.new(0, newW - sidebarW, 1, 0)
+		maxSidebarWidth = newW - minSidebarWidth
+	end)
+
+	UserInputService.InputEnded:Connect(function(input)
+		if resizing and (input.UserInputType == Enum.UserInputType.MouseButton1
+			or input.UserInputType == Enum.UserInputType.Touch) then
+			resizing = false
+			setHandleTransparency(0.5)
+		end
+	end)
+
 	local globalSettings = Instance.new("Frame")
 	globalSettings.Name = "GlobalSettings"
 	globalSettings.AutomaticSize = Enum.AutomaticSize.XY
@@ -1605,7 +1699,7 @@ local dragging_ = false
 			elements1.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			elements1.BorderSizePixel = 0
 			elements1.Position = UDim2.fromOffset(0, 63)
-			elements1.Size = UDim2.new(1, 0, 1, -63)
+			elements1.Size = UDim2.new(1, 0, 1, -(63 + RESIZE_BAR_HEIGHT))
 			elements1.ClipsDescendants = true
 
 			local elementsUIPadding = Instance.new("UIPadding")

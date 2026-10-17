@@ -1,4 +1,4 @@
---better MacLib BloodyV3 v.2.75
+print("better MacLib BloodyV3 v.2.75")
 local MacLib = { 
 	Options = {}, 
 	Folder = "Maclib", 

@@ -1,5 +1,10 @@
 {
   "French": {
+    "Midi Text": "Texte Midi",
+    "Text": "Texte",
+    "Enable Midi Text": "Activer le texte Midi",
+    "No Sounds": "Aucun son",
+    "auto break plot": "casser la parcelle automatiquement",
     "Unlock Mouse": "Déverrouiller la souris",
     "Enable Form": "Activer la forme",
     "Custom Form": "Forme personnalisée",
@@ -374,6 +379,11 @@
     "Highlight": "Surbrillance"
   },
   "Spanish": {
+    "Midi Text": "Texto Midi",
+    "Text": "Texto",
+    "Enable Midi Text": "Activar texto Midi",
+    "No Sounds": "Sin sonidos",
+    "auto break plot": "romper parcela automáticamente",
     "Unlock Mouse": "Desbloquear ratón",
     "Enable Form": "Activar forma",
     "Custom Form": "Forma personalizada",
@@ -748,6 +758,11 @@
     "Highlight": "Resaltado"
   },
   "German": {
+    "Midi Text": "Midi-Text",
+    "Text": "Text",
+    "Enable Midi Text": "Midi-Text aktivieren",
+    "No Sounds": "Keine Sounds",
+    "auto break plot": "Grundstück automatisch zerstören",
     "Unlock Mouse": "Maus entsperren",
     "Enable Form": "Form aktivieren",
     "Custom Form": "Benutzerdefinierte Form",
@@ -1122,6 +1137,11 @@
     "Highlight": "Hervorhebung"
   },
   "Portuguese": {
+    "Midi Text": "Texto Midi",
+    "Text": "Texto",
+    "Enable Midi Text": "Ativar texto Midi",
+    "No Sounds": "Sem sons",
+    "auto break plot": "quebrar parcela automaticamente",
     "Unlock Mouse": "Desbloquear mouse",
     "Enable Form": "Ativar forma",
     "Custom Form": "Forma personalizada",
@@ -1496,6 +1516,11 @@
     "Highlight": "Destaque"
   },
   "Italian": {
+    "Midi Text": "Testo Midi",
+    "Text": "Testo",
+    "Enable Midi Text": "Abilita testo Midi",
+    "No Sounds": "Nessun suono",
+    "auto break plot": "rompere la parcella automaticamente",
     "Unlock Mouse": "Sblocca mouse",
     "Enable Form": "Abilita forma",
     "Custom Form": "Forma personalizzata",
@@ -1870,6 +1895,11 @@
     "Highlight": "Evidenziazione"
   },
   "Russian": {
+    "Midi Text": "Текст Midi",
+    "Text": "Текст",
+    "Enable Midi Text": "Включить текст Midi",
+    "No Sounds": "Без звуков",
+    "auto break plot": "автоматически сломать участок",
     "Unlock Mouse": "Разблокировать мышь",
     "Enable Form": "Включить форму",
     "Custom Form": "Своя форма",
@@ -2244,6 +2274,11 @@
     "Highlight": "Подсветка"
   },
   "Chinese": {
+    "Midi Text": "Midi 文本",
+    "Text": "文本",
+    "Enable Midi Text": "启用 Midi 文本",
+    "No Sounds": "无声音",
+    "auto break plot": "自动破坏地块",
     "Unlock Mouse": "解锁鼠标",
     "Enable Form": "启用形态",
     "Custom Form": "自定义形态",
@@ -2618,6 +2653,11 @@
     "Highlight": "高亮"
   },
   "Korean": {
+    "Midi Text": "Midi 텍스트",
+    "Text": "텍스트",
+    "Enable Midi Text": "Midi 텍스트 활성화",
+    "No Sounds": "소리 없음",
+    "auto break plot": "부지 자동 파괴",
     "Unlock Mouse": "마우스 잠금 해제",
     "Enable Form": "폼 활성화",
     "Custom Form": "사용자 지정 폼",
